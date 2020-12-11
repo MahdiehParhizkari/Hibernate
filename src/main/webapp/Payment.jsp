@@ -3,9 +3,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Payment</title>
 </head>
 <body>
+<body>
+<form action="PaymentAct" method="post">
+    <input type="" >
+</form>
 <table>
     <th>
         <td>customerNumber</td>

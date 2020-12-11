@@ -1,15 +1,23 @@
 <html>
+<style>
+    a.btn{
+        background-color: #90eae0;
+        color: white;
+        padding: 9px 18px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+</style>
 <body>
 <h2>Hello World!</h2>
-<form action="Act" method="post">
-    <input type="submit" value="ShowEmployees"><br><br>
-    <input type="submit" value="ShowCustomer"><br><br>
-    <input type="submit" value="ShowOffices"><br><br>
-    <input type="submit" value="ShowOrderdetail"><br><br>
-    <input type="submit" value="ShowOrder"><br><br>
-    <input type="submit" value="ShowPayment"><br><br>
-    <input type="submit" value="ShowProductline"><br><br>
-    <input type="submit" value="ShowProduct">
-</form>
+<a class="btn" href="Customer.jsp">ShowCustomers</a><br><br>
+<a class="btn" href="Employee.jsp">ShowEmployees</a><br><br>
+<a class="btn" href="Office.jsp">ShowOffices</a><br><br>
+<a class="btn" href="Order.jsp">ShowOrders</a><br><br>
+<a class="btn" href="Orderdetail.jsp">ShowOrderdetails</a><br><br>
+<a class="btn" href="Payment.jsp">ShowPayments</a><br><br>
+<a class="btn" href="Product.jsp">ShowProducts</a><br><br>
+<a class="btn" href="Productline.jsp">ShowProductlines</a>
 </body>
 </html>

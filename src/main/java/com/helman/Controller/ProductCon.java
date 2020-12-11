@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "Act", urlPatterns = {"/Act"})
+@WebServlet(name = "ProductAct", urlPatterns = {"/ProductAct"})
 public class ProductCon extends HttpServlet {
     Productdao productdao = new Productdao();
     @Override

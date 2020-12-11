@@ -4,9 +4,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Customer</title>
 </head>
 <body>
+<form action="CustomerAct" method="post">
+    <input type="" >
+</form>
 <table>
     <th>
         <td>customerNumber</td>

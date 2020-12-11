@@ -1,17 +1,15 @@
 <%@ page import="com.helman.Entity.Order" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: afshin
-  Date: 12/10/20
-  Time: 11:41 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Order</title>
 </head>
 <body>
+<body>
+<form action="orderAct" method="post">
+    <input type="" >
+</form>
 <table>
     <th>
     <td>orderNumber</td>

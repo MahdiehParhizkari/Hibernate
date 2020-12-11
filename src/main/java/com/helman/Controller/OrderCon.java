@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "Act", urlPatterns = {"/Act"})
+@WebServlet(name = "orderAct", urlPatterns = {"/orderAct"})
 public class OrderCon extends HttpServlet {
     Orderdao orderdao = new Orderdao();
     @Override
