@@ -28,10 +28,10 @@ public class Employeedao {
         return neshast.createQuery("from Employee").list();
     }
 
-    public Employee findbyid(Long empnum){
-        return neshast.find(Employee.class, empnum);
-        //return neshast.get(Employee.class, empnum);
-        //return neshast.load(Employee.class, empnum);
+    public Employee findbyid(Long empid){
+        return neshast.find(Employee.class, empid);
+        //return neshast.get(Employee.class, empid);
+        //return neshast.load(Employee.class, empid);
     }
 
     public List<Employee> namedQuery(){
@@ -42,7 +42,6 @@ public class Employeedao {
         return neshast.createNamedQuery("Selectedquery").
                 setParameter("empnum",inputnumber).setMaxResults(10).list();
     }
-
 
     public void insert(Employee employee){
         neshast.beginTransaction();
@@ -58,8 +57,13 @@ public class Employeedao {
     }
 
     public void update(Employee employee){
-        Transaction tx = neshast.beginTransaction();
-        neshast.update(employee);
-        tx.commit();
+        try {
+            Transaction tx = neshast.beginTransaction();
+            //neshast.evict(employee);
+            neshast.merge(employee);
+            tx.commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
 }

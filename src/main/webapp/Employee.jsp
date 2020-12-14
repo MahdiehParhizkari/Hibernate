@@ -6,11 +6,20 @@
     <title>Employee</title>
 </head>
 <body>
+<input type="button" value="Home" onclick="location.href='index.jsp';">
+<input type="button" value="Add" onclick="location.href='Employeeadd.jsp';">
+
 <form action="EmployeeAct" method="post">
-    <input type="submit" value="ShowEmployee"><br><br>
+    Employee Number: <input type="number" name="empnum">
+    <input type="hidden" name="crud" value="read">
+    <input type="submit" value="Show Employee" >
 </form>
-<table>
-    <th>
+<%  String payam = (String) request.getAttribute("message");
+    if(payam != null){%>
+        <h2 align="center" style="color: darkred">Employee is deleted.</h2>
+    <%}%>
+<table border="1px">
+    <tr>
         <td>employeeNumber</td>
         <td>lastName</td>
         <td>firstName</td>
@@ -19,10 +28,18 @@
         <td>officeCode</td>
         <td>reportsTo</td>
         <td>jobTitle</td>
-    </th>
+        <td>Delete</td>
+        <td>Edit</td>
+    </tr>
     <%
-    List<Employee> emps = (List<Employee>) request.getAttribute("employees");
-    for (Employee employee : emps){
+    List<Employee> employeeList = (List<Employee>) request.getAttribute("employees");
+    if (employeeList == null){
+        %>
+    <h2 align="center" style="color: darkred">There is no data.</h2>
+        <%
+    }else{
+        for (Employee employee : employeeList){
+            if(employee !=null){
     %>
     <tr>
         <td><%=employee.getEmployeeNumber()%></td>
@@ -33,8 +50,10 @@
         <td><%=employee.getOfficeCode()%></td>
         <td><%=employee.getReportsTo()%></td>
         <td><%=employee.getJobTitle()%></td>
+        <td><a href="/EmployeeAct?empnumber=<%=employee.getEmployeeNumber()%>&crud=delete">Delete</a></td>
+        <td><a href="/EmployeeAct?empnumber=<%=employee.getEmployeeNumber()%>&crud=edit">Edit</a></td>
     </tr>
-    <%}%>
+    <%}}}%>
 </table>
 
 </body>

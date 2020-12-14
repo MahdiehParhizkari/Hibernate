@@ -6,23 +6,30 @@
     <title>Order</title>
 </head>
 <body>
-<body>
 <form action="orderAct" method="post">
-    <input type="" >
+    <input type="button" value="Home" onclick="location.href='index.jsp';">
+    <input type="submit" value="Show Order" >
+    Order Number: <input type="number" name="ordnum">
 </form>
-<table>
-    <th>
-    <td>orderNumber</td>
-    <td>orderDate</td>
-    <td>requiredDate</td>
-    <tdshippedDate></tdshippedDate>
-    <td>status</td>
-    <td>comments</td>
-    <td>customerNumber</td>
-    </th>
+<table border="1px">
+    <tr>
+        <td>orderNumber</td>
+        <td>orderDate</td>
+        <td>requiredDate</td>
+        <td>shippedDate></td>
+        <td>status</td>
+        <td>comments</td>
+        <td>customerNumber</td>
+    </tr>
     <%
         List<Order> orderList = (List<Order>) request.getAttribute("Order");
+        if (orderList == null || orderList.isEmpty()){
+            %>
+    <h2 align="center" style="color: darkred">There is no data.</h2>
+            <%
+        }else {
         for (Order order : orderList){
+            if (order != null){
     %>
     <tr>
         <td><%=order.getOrderNumber()%></td>
@@ -33,7 +40,7 @@
         <td><%=order.getComments()%></td>
         <td><%=order.getCustomerNumber()%></td>
     </tr>
-    <%}%>
+    <%}}}%>
 </table>
 </body>
 </html>

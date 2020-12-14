@@ -6,12 +6,13 @@
     <title>Product</title>
 </head>
 <body>
-<body>
 <form action="ProductAct" method="post">
-    <input type="" >
+    <input type="button" value="Home">
+    <input type="submit" value="Show Product">
+    Product Code: <input type="text" name="procode">
 </form>
-<table>
-    <th>
+<table border="1px">
+    <tr>
         <td>productCode</td>
         <td>productName</td>
         <td>productLine</td>
@@ -21,10 +22,16 @@
         <td>quantityInStock</td>
         <td>buyPrice</td>
         <td>MSRP</td>
-    </th>
+    </tr>
     <%
         List<Product> productList = (List<Product>) request.getAttribute("product");
+        if (productList == null){
+            %>
+        <h2 align="center" style="color: darkred">There is no data.</h2>
+            <%
+        }else{
         for (Product product : productList){
+            if (product != null){
     %>
     <tr>
         <td><%=product.getProductCode()%></td>
@@ -37,7 +44,7 @@
         <td><%=product.getBuyPrice()%></td>
         <td><%=product.getMSRP()%></td>
     </tr>
-    <%}%>
+    <%}}}%>
 </table>
 </body>
 </html>
