@@ -14,7 +14,6 @@ public class Customerdao {
     public List<Customer> findall(){
         return neshast.createQuery("from Customer").list();
     }
-
     public Customer findById(Integer custnum){
         return neshast.find(Customer.class, custnum);
     }
@@ -24,13 +23,11 @@ public class Customerdao {
         neshast.save(cust);
         tx.commit();
     }
-
     public void update(Customer cust){
         Transaction tx = neshast.beginTransaction();
-        neshast.update(cust);
+        neshast.merge(cust);
         tx.commit();
     }
-
     public void delete(Integer custnum){
         Customer c = findById(custnum);
         Transaction tx = neshast.beginTransaction();

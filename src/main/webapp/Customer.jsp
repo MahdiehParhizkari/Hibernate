@@ -7,11 +7,19 @@
     <title>Customer</title>
 </head>
 <body>
+<input type="button" value="Home" onclick="location.href='index.jsp';">
+<input type="button" value="Add" onclick="location.href='CustomerAdd.jsp';">
+
 <form action="CustomerAct" method="post">
-    <input type="button" value="Home" onclick="location.href='index.jsp';">
-    <input type="submit" value="Show Customer">
     Customer Number: <input type="number" name="custnum">
+    <input type="submit" value="Show Customer">
+    <input type="hidden" name="crud" value="read">
 </form>
+
+<% String payam = (String) request.getAttribute("message");
+    if (payam != null){%>
+<h2 align="center" style="color: darkred"><%=payam%></h2>
+<%}%>
 <table border="1px" style="color: darkgreen">
     <tr>
         <td>customerNumber</td>
@@ -27,16 +35,16 @@
         <td>country</td>
         <td>salesRepEmployeeNumber</td>
         <td>creditLimit</td>
+        <td>Delete</td>
+        <td>Edit</td>
     </tr>
     <%
         List<Customer> customerList = (List<Customer>) request.getAttribute("customers");
-            if (customerList == null){
-                %>
+            if (customerList == null){%>
                 <h2 align="center" style="color: darkred">There is no data.</h2>
         <%} else{
             for (Customer customer : customerList){
-                if (customer != null){
-        %>
+                if (customer != null){%>
     <tr>
         <td><%=customer.getCustomerNumber()%></td>
         <td><%=customer.getCustomerName()%></td>
@@ -51,6 +59,8 @@
         <td><%=customer.getCountry()%></td>
         <td><%=customer.getSalesRepEmployeeNumber()%></td>
         <td><%=customer.getCreditLimit()%></td>
+        <td><a href="/CustomerAct?custnum=<%=customer.getCustomerNumber()%>&crud=delete">Delete</a></td>
+        <td><a href="/CustomerAct?custnum=<%=customer.getCustomerNumber()%>&crud=edit" >Edit</a></td>
     </tr>
     <%}}}%>
 </table>

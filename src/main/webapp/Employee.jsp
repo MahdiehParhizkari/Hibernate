@@ -18,7 +18,7 @@
     if(payam != null){%>
         <h2 align="center" style="color: darkred">Employee is deleted.</h2>
     <%}%>
-<table border="1px">
+<table border="1px" style="color: darkgreen">
     <tr>
         <td>employeeNumber</td>
         <td>lastName</td>

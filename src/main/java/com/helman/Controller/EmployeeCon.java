@@ -65,7 +65,6 @@ public class EmployeeCon extends HttpServlet {
             req.setAttribute("message", "Employee is deleted.");
             req.getRequestDispatcher("/Employee.jsp").forward(req, resp);
         }
-
         if (crud.equals("edit")){
             Employee employee = employeedao.findbyid(Long.parseLong(req.getParameter("empnumber")));
             req.setAttribute("empobjt",employee);
