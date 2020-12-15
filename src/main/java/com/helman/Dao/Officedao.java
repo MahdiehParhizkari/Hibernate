@@ -25,11 +25,9 @@ public class Officedao {
         Query q = entityManager.createQuery(criteriaQuery);
         return q.getResultList();
     }
-
     public Office findById(String officeCode){
         return entityManager.find(Office.class, officeCode);
     }
-
     public List<?> someColumn(){
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
         Root<?> root = criteriaQuery.from(Office.class);
@@ -37,7 +35,6 @@ public class Officedao {
         Query q = entityManager.createQuery(criteriaQuery);
         return q.getResultList();
     }
-
     public List<?> whereClause(String input){
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
         Root<?> root = criteriaQuery.from(Office.class);
@@ -46,7 +43,6 @@ public class Officedao {
         Query q = entityManager.createQuery(criteriaQuery);
         return q.getResultList();
     }
-
     public List<?> aggregation(){
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
         Root<?> root = criteriaQuery.from(Office.class);
@@ -54,7 +50,6 @@ public class Officedao {
         Query q = entityManager.createQuery((criteriaQuery));
         return q.getResultList();
     }
-
     public List<?> joinedQuery(){
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
         Root<Office> officeRoot = criteriaQuery.from(Office.class);
@@ -66,20 +61,30 @@ public class Officedao {
 
     //ExecuteUpdate : JPA
     public void insert (Office office){
-        entityManager.getTransaction().begin();
-        entityManager.persist(office);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.persist(office);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
-
     public void update(Office office){
-        entityManager.getTransaction().begin();
-        office.setState(office.getState());
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            office.setState(office.getState());
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
-
     public void delete(Office office){
-        entityManager.getTransaction().begin();
-        entityManager.remove(office);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.remove(office);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
 }

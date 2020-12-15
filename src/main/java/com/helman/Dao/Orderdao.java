@@ -23,19 +23,31 @@ public class Orderdao {
 
     //ExecuteUpdate
     public void insert(Order order){
-        Transaction tx = neshast.beginTransaction();
-        neshast.save(order);
-        tx.commit();
+        try{
+            Transaction tx = neshast.beginTransaction();
+            neshast.save(order);
+            tx.commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
     public void update(Order order){
-        Transaction tx = neshast.beginTransaction();
-        neshast.update(order);
-        tx.commit();
+        try{
+            Transaction tx = neshast.beginTransaction();
+            neshast.update(order);
+            tx.commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
     public void delete(Integer orderNum){
-        Order o = findById(orderNum);
-        Transaction tx = neshast.beginTransaction();
-        neshast.delete(o);
-        tx.commit();
+        try{
+            Order o = findById(orderNum);
+            Transaction tx = neshast.beginTransaction();
+            neshast.delete(o);
+            tx.commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
 }

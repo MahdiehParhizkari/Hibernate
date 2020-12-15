@@ -71,20 +71,32 @@ public class Orderdetaildao {
     }
 
     public void insert(Orderdetail od){
-        entityManager.getTransaction().begin();
-        entityManager.persist(od);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.persist(od);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
     public void update(Orderdetail od){
-        entityManager.getTransaction().begin();
-        od.setQuantityOrdered(od.getQuantityOrdered());
-        od.setPriceEach(od.getPriceEach());
-        od.setOrderLineNumber(od.getOrderLineNumber());
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            od.setQuantityOrdered(od.getQuantityOrdered());
+            od.setPriceEach(od.getPriceEach());
+            od.setOrderLineNumber(od.getOrderLineNumber());
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
     public void delete(Orderdetail od){
-        entityManager.getTransaction().begin();
-        entityManager.remove(od);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.remove(od);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
 }

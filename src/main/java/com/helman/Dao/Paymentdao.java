@@ -23,10 +23,8 @@ public class Paymentdao {
         Query q = entityManager.createQuery(criteriaQuery);
         return q.getResultList();
     }
-
     public Payment findById(PaymentPK pPK){
         return entityManager.find(Payment.class,pPK);}
-
     public List<?> someColumn(PaymentPK pPk){
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
         Root<?> p = criteriaQuery.from(Payment.class);
@@ -37,7 +35,6 @@ public class Paymentdao {
         Query q = entityManager.createQuery(criteriaQuery);
         return q.getResultList();
     }
-
     public List<?> whereClause(Integer custNum){
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
         Root<?> p = criteriaQuery.from(Payment.class);
@@ -46,7 +43,6 @@ public class Paymentdao {
         Query q = entityManager.createQuery(criteriaQuery);
         return q.getResultList();
     }
-
     public List<?> aggregation(){
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
         Root<?> p = criteriaQuery.from(Payment.class);
@@ -55,7 +51,6 @@ public class Paymentdao {
         Query q = entityManager.createQuery(criteriaQuery);
         return q.getResultList();
     }
-
     public List<?> joinedQuery(Integer custNum){
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
         Root<Payment> p = criteriaQuery.from(Payment.class);
@@ -67,23 +62,32 @@ public class Paymentdao {
         return q.getResultList();
     }
 
-
     public void insert(Payment p){
-        entityManager.getTransaction().begin();
-        entityManager.persist(p);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.persist(p);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
-
     public void update(Payment p){
-        entityManager.getTransaction().begin();
-        p.setPaymentDate(p.getPaymentDate());
-        p.setAmount(p.getAmount());
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            p.setPaymentDate(p.getPaymentDate());
+            p.setAmount(p.getAmount());
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
-
     public void delete(Payment p){
-        entityManager.getTransaction().begin();
-        entityManager.remove(p);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.remove(p);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
 }

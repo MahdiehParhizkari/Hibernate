@@ -65,19 +65,31 @@ public class Productlinedao {
 
     //ExecuteUpdate : JPA
     public void insert(Productline pl){
-        entityManager.getTransaction().begin();
-        entityManager.persist(pl);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.persist(pl);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
     public void update (Productline pl){
-        entityManager.getTransaction().begin();
-        pl.setTextDescription(pl.getTextDescription());
-        pl.setHtmlDescription(pl.getHtmlDescription());
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            pl.setTextDescription(pl.getTextDescription());
+            pl.setHtmlDescription(pl.getHtmlDescription());
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
     public void delete(Productline pl){
-        entityManager.getTransaction().begin();
-        entityManager.remove(pl);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.remove(pl);
+            entityManager.getTransaction().commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
 }

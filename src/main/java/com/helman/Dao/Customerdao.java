@@ -19,19 +19,31 @@ public class Customerdao {
     }
 
     public void insert (Customer cust){
-        Transaction tx = neshast.beginTransaction();
-        neshast.save(cust);
-        tx.commit();
+        try{
+            Transaction tx = neshast.beginTransaction();
+            neshast.save(cust);
+            tx.commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
     public void update(Customer cust){
-        Transaction tx = neshast.beginTransaction();
-        neshast.merge(cust);
-        tx.commit();
+        try{
+            Transaction tx = neshast.beginTransaction();
+            neshast.merge(cust);
+            tx.commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
     public void delete(Integer custnum){
-        Customer c = findById(custnum);
-        Transaction tx = neshast.beginTransaction();
-        neshast.delete(c);
-        tx.commit();
+        try{
+            Customer c = findById(custnum);
+            Transaction tx = neshast.beginTransaction();
+            neshast.delete(c);
+            tx.commit();
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
     }
 }
