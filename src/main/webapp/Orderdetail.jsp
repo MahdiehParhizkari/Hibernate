@@ -6,8 +6,8 @@
     <title>Orderdetail</title>
 </head>
 <body>
+<input type="button" value="Home" onclick="location.href='index.jsp';">
 <form action="OrderdetailAct" method="post">
-    <input type="button" value="Home" onclick="location.href='index.jsp';">
     <input type="submit" value="Show Orderdetail">
     Order Number: <input type="number" name="ordnum">
     Product Code: <input type="text" name="procode">

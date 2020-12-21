@@ -21,7 +21,7 @@ public class Officedao {
         CriteriaQuery<Office> criteriaQuery = criteriaBuilder.createQuery(Office.class);
         Root<Office> officeRoot = criteriaQuery.from(Office.class);
         criteriaQuery.select(officeRoot);
-        criteriaQuery.orderBy(criteriaBuilder.desc(officeRoot.get("officeCode")));
+        criteriaQuery.orderBy(criteriaBuilder.asc(officeRoot.get("officeCode")));
         Query q = entityManager.createQuery(criteriaQuery);
         return q.getResultList();
     }
@@ -72,7 +72,14 @@ public class Officedao {
     public void update(Office office){
         try{
             entityManager.getTransaction().begin();
+            office.setCity(office.getCity());
+            office.setPhone(office.getPhone());
+            office.setAddressLine1(office.getAddressLine1());
+            office.setAddressLine2(office.getAddressLine2());
             office.setState(office.getState());
+            office.setCountry(office.getCountry());
+            office.setPostalCode(office.getPostalCode());
+            office.setTerritory(office.getTerritory());
             entityManager.getTransaction().commit();
         }catch (Exception e){
             System.out.println(e.toString());

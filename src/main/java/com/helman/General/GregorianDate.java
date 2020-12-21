@@ -18,6 +18,7 @@ public class GregorianDate {
         gregorianCalendar.clear();
         gregorianCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
         gregorianCalendar.set(miladiDate.getYear()+1900,miladiDate.getMonth(),miladiDate.getDate());
+        Date s=gregorianCalendar.getTime();
         return gregorianCalendar.getTime();
     }
     public static String shamsiStr(Date shamsidate){
@@ -33,6 +34,13 @@ public class GregorianDate {
         gregorianCalendar.set(year,month,date);
         return gregorianCalendar.getTime();
     }
+    public static Date picker2miladi(String shamsidate){
+        int year = Integer.parseInt(shamsidate.substring(0,4));
+        int month = Integer.parseInt(shamsidate.substring(5,7))-1;
+        int day = Integer.parseInt(shamsidate.substring(8,10));
+        return shamsi2miladi(year, month, day);
+    }
+
     public static String miladiStr(Date miladidate){
         if(miladidate==null) return null;
         SimpleDateFormat df1 = new SimpleDateFormat ("yyyy-MM-dd", GREGORIAN_LOCALE );

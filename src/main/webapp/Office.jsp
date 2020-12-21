@@ -6,25 +6,31 @@
     <title>Office</title>
 </head>
 <body>
+<input type="button" value="Home" onclick="location.href='index.jsp';">
+<input type="button" value="Add" onclick="location.href='OfficeAdd.jsp';">
 <form action="OfficeAct" method="Post">
-    <input type="button" value="Home" onclick="location.href='index.jsp';">
-    <input type="submit" value="Show Office">
     Office Code: <input type="number" name="offcode">
+    <input type="submit" value="Show Office">
 </form>
+    <%String payam = (String) request.getAttribute("message");
+    if(payam !=null){%>
+    <h2 align="center" style="color: #8b0000"><%=payam%></h2>
+    <%}%>
 <table border="1px">
     <tr>
-        <td>officeCode</td>
-        <td>city</td>
-        <td>phone</td>
-        <td>addressLine1</td>
-        <td>addressLine2</td>
-        <td>state</td>
-        <td>country</td>
-        <td>postalCode</td>
-        <td>territory</td>
+        <td>OfficeCode</td>
+        <td>City</td>
+        <td>Phone</td>
+        <td>AddressLine1</td>
+        <td>AddressLine2</td>
+        <td>State</td>
+        <td>Country</td>
+        <td>PostalCode</td>
+        <td>Territory</td>
+        <td>Delete</td>
+        <td>Edit</td>
     </tr>
-    <%
-        List<Office> officeList = (List<Office>) request.getAttribute("Offices");
+        <%List<Office> officeList = (List<Office>) request.getAttribute("Offices");
         if (officeList == null){
             %>
             <h2 align="center" style="color: #8b0000">There is no data.</h2>
@@ -42,6 +48,8 @@
         <td><%=office.getCountry()%></td>
         <td><%=office.getPostalCode()%></td>
         <td><%=office.getTerritory()%></td>
+        <td><a href="/OfficeAct?offcode=<%=office.getOfficeCode()%>&crud=delete">Delete</a></td>
+        <td><a href="/OfficeAct?offcode=<%=office.getOfficeCode()%>&crud=edit">Edit</a></td>
     </tr>
     <%}}}%>
 </table>

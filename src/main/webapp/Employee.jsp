@@ -42,13 +42,13 @@
             if(employee !=null){
     %>
     <tr>
-        <td><%=employee.getEmployeeNumber()%></td>
+        <td><a href="/EmployeeAct?managerof=<%=employee.getEmployeeNumber()%>&crud=mngrof"><%=employee.getEmployeeNumber()%></a></td>
         <td><%=employee.getLastName()%></td>
         <td><%=employee.getFirstName()%></td>
         <td><%=employee.getExtension()%></td>
         <td><%=employee.getEmail()%></td>
         <td><%=employee.getOfficeCode()%></td>
-        <td><%=employee.getReportsTo()%></td>
+        <td><a href="/EmployeeAct?reportto=<%=employee.getReportsTo()%>&crud=rpto"><%=employee.getReportsTo()%></a></td>
         <td><%=employee.getJobTitle()%></td>
         <td><a href="/EmployeeAct?empnumber=<%=employee.getEmployeeNumber()%>&crud=delete">Delete</a></td>
         <td><a href="/EmployeeAct?empnumber=<%=employee.getEmployeeNumber()%>&crud=edit">Edit</a></td>

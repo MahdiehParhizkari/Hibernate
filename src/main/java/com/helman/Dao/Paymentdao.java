@@ -4,6 +4,7 @@ import com.helman.Entity.Customer;
 import com.helman.Entity.Orderdetail;
 import com.helman.Entity.Payment;
 import com.helman.Entity.PaymentPK;
+import com.helman.General.Myentitymanager;
 import com.helman.General.Mysession;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -13,7 +14,7 @@ import java.util.List;
 public class Paymentdao {
     public Paymentdao(){}
 
-    EntityManager entityManager = Mysession.getSession();
+    EntityManager entityManager = Myentitymanager.getEntityManager();
     CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
     public List<Payment> findAll(){
@@ -90,4 +91,6 @@ public class Paymentdao {
             System.out.println(e.toString());
         }
     }
+
+
 }

@@ -18,8 +18,7 @@ import java.util.List;
 
         @NamedQuery(name = "first", query = "select e.employeeNumber,e.firstName, e.lastName " +
         " from Employee e " + "where e.employeeNumber=1143"),
-        @NamedQuery(name = "Selectedquery" , query = "select o.employeeNumber,o.firstName,o.lastName " +
-                "from Employee o"+" where o.employeeNumber=:empnum"),
+        @NamedQuery(name = "Selectedquery" , query = "select e from Employee e where e.reportsTo=:empnum"),
         @NamedQuery(name = "all", query = "select e from Employee e where e.employeeNumber=1143")
 })
 public class Employee {

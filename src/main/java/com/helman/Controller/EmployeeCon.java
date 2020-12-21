@@ -14,13 +14,14 @@ import java.util.List;
 @WebServlet(name = "EmployeeAct", urlPatterns = {"/EmployeeAct"})
 public class EmployeeCon extends HttpServlet {
     Employeedao employeedao = new Employeedao();
+    List<Employee> employeeList = new ArrayList<>();
     Employee employee = new Employee();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        employeeList.clear();
         String crud = req.getParameter("crud");
         if(crud.equals("read")) {
-            List<Employee> employeeList = new ArrayList<>();
             String empid = req.getParameter("empnum");
             if (empid == null || empid.isEmpty())
                 employeeList = employeedao.findall();
@@ -59,6 +60,7 @@ public class EmployeeCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        employeeList.clear();
         String crud = req.getParameter("crud");
         if (crud.equals("delete")) {
             employeedao.delete(Long.parseLong(req.getParameter("empnumber")));
@@ -69,6 +71,17 @@ public class EmployeeCon extends HttpServlet {
             Employee employee = employeedao.findbyid(Long.parseLong(req.getParameter("empnumber")));
             req.setAttribute("empobjt",employee);
             req.getRequestDispatcher("/EmployeeEdit.jsp").forward(req,resp);
+        }
+        if (crud.equals("mngrof")){
+            employeeList = employeedao.besonderSelect(Long.parseLong(req.getParameter("managerof")));
+            req.setAttribute("employees", employeeList);
+            req.getRequestDispatcher("/Employee.jsp").forward(req, resp);
+        }
+        if (crud.equals("rpto")){
+            Employee employee = employeedao.findbyid(Long.parseLong(req.getParameter("reportto")));
+            employeeList.add(employee);
+            req.setAttribute("employees",employeeList);
+            req.getRequestDispatcher("/Employee.jsp").forward(req, resp);
         }
     }
 }

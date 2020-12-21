@@ -19,7 +19,6 @@ public class EmployeedaoTest {
             System.out.println(customEmp[0]+ " "+customEmp[1]);
         }
     }
-
     @Test
     public void findman(){
         List<?> list = employeedao.findman("lastname");
@@ -28,7 +27,6 @@ public class EmployeedaoTest {
             System.out.println(emp[0] +" "+emp[1]);
         }
     }
-
     @Test
     public void findall() {
         List<Employee> employeeList = employeedao.findall();
@@ -36,13 +34,11 @@ public class EmployeedaoTest {
             System.out.println(temp);
         }
     }
-
     @Test
     public void findById(){
         Employee employee = employeedao.findbyid(1143L);
         System.out.println(employee);
     }
-
     @Test
     public void find2(){
         List<Employee> employeeList = employeedao.namedQuery();
@@ -50,13 +46,11 @@ public class EmployeedaoTest {
             System.out.println(e);
         }
     }
-
     @Test
     public void namedSelect() {
-        List<?> list = employeedao.besonderSelect(1143L);
-        for (int i = 0; i < list.size(); i++) {
-            Object[] row = (Object[]) list.get(i);
-            System.out.println(row[0] + "-> " + row[1]+" " + row[2]);
+        List<Employee> list = employeedao.besonderSelect(1143L);
+        for (Employee temp : list){
+            System.out.println(temp);
         }
     }
 
@@ -75,12 +69,10 @@ public class EmployeedaoTest {
 
         employeedao.insert(employee);
     }
-
     @Test
     public void deletetest(){
         employeedao.delete(1703L);
     }
-
     @Test
     public void updatetest(){
         Employee e = employeedao.findbyid(1703L);

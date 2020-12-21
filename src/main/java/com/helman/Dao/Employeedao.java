@@ -33,9 +33,9 @@ public class Employeedao {
     public List<Employee> namedQuery(){
         return neshast.createNamedQuery("all").list();
     }
-    public List<?> besonderSelect(Long inputnumber){
+    public List<Employee> besonderSelect(Long inputnumber){
         return neshast.createNamedQuery("Selectedquery").
-                setParameter("empnum",inputnumber).setMaxResults(10).list();
+                setParameter("empnum",inputnumber).list();
     }
 
     public void insert(Employee employee){
