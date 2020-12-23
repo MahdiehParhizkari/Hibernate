@@ -70,7 +70,6 @@ public class OfficedaoTest {
         office.setCountry("Irag");
         office.setPostalCode("2584569631");
         office.setTerritory("Teh");
-
         officedao.update(office);
     }
     @Test

@@ -3,7 +3,6 @@ package com.helman.Controller;
 import com.helman.Dao.Orderdao;
 import com.helman.Entity.Order;
 import com.helman.General.GregorianDate;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,13 +36,19 @@ public class OrderCon extends HttpServlet {
         if (crud.equals("add")){
             Order o = new Order();
             o.setOrderNumber(Integer.parseInt(req.getParameter("onum")));
-            String shamsidate1 = req.getParameter("odate");
-
+/*            String shamsidate1 = req.getParameter("odate");
             o.setOrderDate(GregorianDate.picker2miladi(shamsidate1));
             String shamsidate2 = req.getParameter("rdate");
             o.setRequiredDate(GregorianDate.picker2miladi(shamsidate2));
             String shamsidate3 = req.getParameter("sdate");
-            o.setShippedDate(GregorianDate.picker2miladi(shamsidate3));
+            o.setShippedDate(GregorianDate.picker2miladi(shamsidate3));*/
+            try {
+                o.setOrderDate(new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("odate")));
+                o.setRequiredDate(new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("rdate")));
+                o.setShippedDate(new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("sdate")));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             o.setStatus(req.getParameter("status"));
             o.setComments(req.getParameter("com"));
             o.setCustomerNumber(Integer.parseInt(req.getParameter("custnum")));

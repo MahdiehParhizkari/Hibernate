@@ -11,6 +11,7 @@
 <form action="OfficeAct" method="Post">
     Office Code: <input type="number" name="offcode">
     <input type="submit" value="Show Office">
+    <input type="hidden" value="read" name="crud">
 </form>
     <%String payam = (String) request.getAttribute("message");
     if(payam !=null){%>

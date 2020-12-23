@@ -21,8 +21,7 @@ public class OfficeCon extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
        officeList.clear();
         String crud = req.getParameter("crud");
-        //if (crud.equals("read"))
-        {
+        if (crud.equals("read")) {
             String officecode = req.getParameter("offcode");
             if (officecode == null || officecode.isEmpty())
                 officeList = officedao.findAll();
@@ -48,7 +47,6 @@ public class OfficeCon extends HttpServlet {
             req.setAttribute("message", "Office is added.");
             req.getRequestDispatcher("/Office.jsp").forward(req, resp);
         }
-
         if (crud.equals("update")){
             Office office = new Office();
             office.setOfficeCode(req.getParameter("offcode"));

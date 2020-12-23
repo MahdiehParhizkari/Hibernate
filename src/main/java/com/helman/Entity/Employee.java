@@ -49,6 +49,7 @@ public class Employee {
     private List<Customer> customers;
     private Employee manager;
     private List<Employee> employees;
+    private List<User> users;
 
     @Id
     @Column(name = "employeeNumber")
@@ -135,7 +136,6 @@ public class Employee {
     }
 
 
-
     @OneToMany(mappedBy = "employee")
     public List<Customer> getCustomers() {
         return customers;
@@ -144,8 +144,6 @@ public class Employee {
     public void setCustomers(List<Customer> customers) {
         this.customers = customers;
     }
-
-
 
     @ManyToOne
     @JoinColumn(name = "reportsTo", referencedColumnName = "employeeNumber", updatable = false, insertable = false)
@@ -164,6 +162,15 @@ public class Employee {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    @OneToMany(mappedBy = "employee")
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     @Override

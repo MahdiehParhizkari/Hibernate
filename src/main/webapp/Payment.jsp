@@ -7,7 +7,7 @@
     <title>Payment</title>
 </head>
 <body>
-<input type="button" value="HOme" onclick="location.href='index.jsp';">
+<input type="button" value="Home" onclick="location.href='index.jsp';">
 <input type="button" value="Add" onclick="location.href='PaymentAdd.jsp';">
 <form action="PaymentAct" method="post">
     Customer Number: <input type="number" name="custnum">

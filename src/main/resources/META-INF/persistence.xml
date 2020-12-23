@@ -9,6 +9,7 @@
         <class>com.helman.Entity.Payment</class>
         <class>com.helman.Entity.Productline</class>
         <class>com.helman.Entity.Product</class>
+        <class>com.helman.Entity.User</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/order"/>
