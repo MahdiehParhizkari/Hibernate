@@ -43,7 +43,7 @@ public class Userdao {
             CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
             Root<User> u = criteriaQuery.from(User.class);
             criteriaQuery.select(u).where(criteriaBuilder.equal(u.get("username"), username));
-            user =  entityManager.createQuery(criteriaQuery).getResultList().get(1);
+            user =  entityManager.createQuery(criteriaQuery).getResultList().get(0);
         }catch (Exception e) {
             System.out.println(e.toString());
         }return user;

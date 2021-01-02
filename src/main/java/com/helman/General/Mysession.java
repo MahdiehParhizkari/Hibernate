@@ -22,6 +22,7 @@ public class Mysession {
                     addAnnotatedClass(Orderdetail.class).
                     addAnnotatedClass(OrderdetailPK.class).
                     addAnnotatedClass(Order.class).
+                    //addAnnotatedClass(User.class).
                     buildSessionFactory();
         }catch(Throwable e){
             throw new ExceptionInInitializerError(e);

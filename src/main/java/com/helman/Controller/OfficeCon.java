@@ -2,7 +2,6 @@ package com.helman.Controller;
 
 import com.helman.Dao.Officedao;
 import com.helman.Entity.Office;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +20,7 @@ public class OfficeCon extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
        officeList.clear();
         String crud = req.getParameter("crud");
+
         if (crud.equals("read")) {
             String officecode = req.getParameter("offcode");
             if (officecode == null || officecode.isEmpty())
@@ -31,7 +31,6 @@ public class OfficeCon extends HttpServlet {
             req.setAttribute("Offices", officeList);
             req.getRequestDispatcher("/Office.jsp").forward(req, resp);
         }
-
         if (crud.equals("create")){
             Office office = new Office();
             office.setOfficeCode(req.getParameter("offcode"));
@@ -68,6 +67,7 @@ public class OfficeCon extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         officeList.clear();
         String crud = req.getParameter("crud");
+
         if (crud.equals("delete")){
             Office office = officedao.findById(req.getParameter("offcode"));
             officedao.delete(office);

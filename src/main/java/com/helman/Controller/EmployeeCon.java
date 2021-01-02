@@ -21,6 +21,7 @@ public class EmployeeCon extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         employeeList.clear();
         String crud = req.getParameter("crud");
+
         if(crud.equals("read")) {
             String empid = req.getParameter("empnum");
             if (empid == null || empid.isEmpty())
@@ -62,6 +63,7 @@ public class EmployeeCon extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         employeeList.clear();
         String crud = req.getParameter("crud");
+
         if (crud.equals("delete")) {
             employeedao.delete(Long.parseLong(req.getParameter("empnumber")));
             req.setAttribute("message", "Employee is deleted.");

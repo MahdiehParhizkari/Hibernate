@@ -1,4 +1,3 @@
-<%@ page import="com.helman.Dao.Customerdao" %>
 <%@ page import="com.helman.Entity.Customer" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -9,7 +8,6 @@
 <body>
 <input type="button" value="Home" onclick="location.href='index.jsp';">
 <input type="button" value="Add" onclick="location.href='CustomerAdd.jsp';">
-
 <form action="CustomerAct" method="post">
     Customer Number: <input type="number" name="custnum">
     <input type="submit" value="Show Customer">

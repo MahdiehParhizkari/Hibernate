@@ -12,7 +12,7 @@ public class User {
     private String password;
     private Integer employeefk;
 
-    private Employee employee;
+    private Employee useremployee;
 
 
     @Id
@@ -55,10 +55,10 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "employeefk", referencedColumnName ="employeeNumber", insertable = false, updatable = false )
     public Employee getEmployee() {
-        return employee;
+        return useremployee;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployee(Employee useremployee) {
+        this.useremployee = useremployee;
     }
 }

@@ -49,7 +49,7 @@ public class Employee {
     private List<Customer> customers;
     private Employee manager;
     private List<Employee> employees;
-    private List<User> users;
+    //private List<User> users;
 
     @Id
     @Column(name = "employeeNumber")
@@ -164,14 +164,14 @@ public class Employee {
         this.employees = employees;
     }
 
-    @OneToMany(mappedBy = "employee")
+/*    @OneToMany(mappedBy = "useremployee")
     public List<User> getUsers() {
         return users;
     }
 
     public void setUsers(List<User> users) {
         this.users = users;
-    }
+    }*/
 
     @Override
     public String toString() {

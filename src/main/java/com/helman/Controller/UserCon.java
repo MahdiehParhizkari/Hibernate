@@ -2,7 +2,6 @@ package com.helman.Controller;
 
 import com.helman.Dao.Userdao;
 import com.helman.Entity.User;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,6 +47,13 @@ public class UserCon extends HttpServlet {
             userdao.update(user);
             req.setAttribute("message", "Updated.");
             req.getRequestDispatcher("/User.jsp").forward(req, resp);
+        }
+       if (crud.equals("into")){
+            //String un = req.getParameter("username");
+            User user = userdao.login(req.getParameter("username"));
+            if (req.getParameter("password").equals(user.getPassword())) {
+                req.getRequestDispatcher("/index.jsp").forward(req, resp);
+            }else {req.getRequestDispatcher("/Error.jsp").forward(req, resp);}
         }
     }
 

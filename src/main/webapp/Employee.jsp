@@ -8,7 +8,6 @@
 <body>
 <input type="button" value="Home" onclick="location.href='index.jsp';">
 <input type="button" value="Add" onclick="location.href='Employeeadd.jsp';">
-
 <form action="EmployeeAct" method="post">
     Employee Number: <input type="number" name="empnum">
     <input type="hidden" name="crud" value="read">
