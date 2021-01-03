@@ -45,7 +45,7 @@ public class EmployeeCon extends HttpServlet {
             req.getRequestDispatcher("/Employee.jsp").forward(req, resp);
         }
         if (crud.equals("update")){
-            employee.setEmployeeNumber(Long.parseLong(req.getParameter("empnum")));
+            employee = employeedao.findbyid(Long.parseLong(req.getParameter("empnum")));
             employee.setLastName(req.getParameter("lname"));
             employee.setFirstName(req.getParameter("fname"));
             employee.setExtension(req.getParameter("exten"));
@@ -54,7 +54,7 @@ public class EmployeeCon extends HttpServlet {
             employee.setReportsTo(Long.parseLong(req.getParameter("repto")));
             employee.setJobTitle(req.getParameter("jobtit"));
             employeedao.update(employee);
-            req.setAttribute("emp", employee);
+            req.setAttribute("message", "Updated.");
             req.getRequestDispatcher("/Employee.jsp").forward(req, resp);
         }
     }

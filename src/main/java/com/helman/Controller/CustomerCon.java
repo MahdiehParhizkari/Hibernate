@@ -2,7 +2,6 @@ package com.helman.Controller;
 
 import com.helman.Dao.Customerdao;
 import com.helman.Entity.Customer;
-import com.helman.Entity.Employee;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -52,8 +51,7 @@ public class CustomerCon extends HttpServlet {
             req.getRequestDispatcher("/Customer.jsp").forward(req, resp);
         }
         if (crud.equals("update")){
-            Customer customer = new Customer();
-            customer.setCustomerNumber(Integer.parseInt(req.getParameter("custnum")));
+            Customer customer = customerdao.findById(Integer.parseInt(req.getParameter("custnum")));
             customer.setCustomerName(req.getParameter("custname"));
             customer.setContactLastName(req.getParameter("conlname"));
             customer.setContactFirstName(req.getParameter("confname"));
@@ -75,6 +73,7 @@ public class CustomerCon extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String crud = req.getParameter("crud");
+
         if(crud.equals("delete")){
             customerdao.delete(Integer.parseInt(req.getParameter("custnum")));
             req.setAttribute("message" , "Customer is deleted.");

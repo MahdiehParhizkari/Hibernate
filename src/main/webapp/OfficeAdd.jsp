@@ -22,8 +22,10 @@
     Country: <input type="text" name="coun"><br>
     PostalCode: <input type="text" name="pcode"><br>
     Territory: <input type="text" name="ter"><br><br>
-    <input type="submit" value="Add">
     <input type="hidden" value="create" name="crud">
+    <input type="submit" value="Add">
+    <input type="button" value="Back" onclick="location.href='Office.jsp';">
+
 </form>
 
 </body>

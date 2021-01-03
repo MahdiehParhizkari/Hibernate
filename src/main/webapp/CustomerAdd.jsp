@@ -26,8 +26,9 @@
     Country: <input type="text" name="count"><br>
     SalesRepEmployeeNumber: <input type="number" name="srempnum"><br>
     CreditLimit: <input type="number" name="credlim"><br><br>
-    <input type="submit" value="Add">
     <input type="hidden" name="crud" value="create">
+    <input type="submit" value="Add">
+    <input type="button" value="Back" onclick="location.href='Customer.jsp';">
 </form>
 
 </body>

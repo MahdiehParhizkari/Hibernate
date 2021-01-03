@@ -10,7 +10,6 @@ public class Customer {
     public Customer(){
     }
 
-
     private Integer customerNumber;
     private String customerName;
     private String contactLastName;

@@ -22,6 +22,8 @@
     Change Image: <input type="file" name="img" size="50"><br><br>
     <input type="submit" value="Update">
     <input type="hidden" name="crud" value="update">
+    <input type="button" value="Back" onclick="location.href='Productline.jsp';">
+
 </form>
 </body>
 </html>

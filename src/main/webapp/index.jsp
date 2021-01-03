@@ -21,6 +21,7 @@ Select a form:
     <option value="Payment.jsp">ShowPayments</option>
     <option value="Product.jsp" selected="Product.jsp">ShowProducts</option>
     <option value="Productline.jsp">ShowProductlines</option>
+    <option value="ProductlineJSTL.jsp">Show ProductlinesJSTL</option>
     <option value="User.jsp">ShowUsers</option>
 </select>
 <input type="button" value="ok" onclick="location.href=document.getElementById('selectentity').value">

@@ -47,8 +47,7 @@ public class OfficeCon extends HttpServlet {
             req.getRequestDispatcher("/Office.jsp").forward(req, resp);
         }
         if (crud.equals("update")){
-            Office office = new Office();
-            office.setOfficeCode(req.getParameter("offcode"));
+            Office office = officedao.findById(req.getParameter("offcode"));
             office.setCity(req.getParameter("city"));
             office.setPhone(req.getParameter("phone"));
             office.setAddressLine1(req.getParameter("addl1"));

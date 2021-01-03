@@ -1,6 +1,6 @@
-<%@ page import="com.helman.Entity.Employee" %>
-<%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Employee</title>
@@ -13,10 +13,9 @@
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="Show Employee" >
 </form>
-<%  String payam = (String) request.getAttribute("message");
-    if(payam != null){%>
-        <h2 align="center" style="color: darkred">Employee is deleted.</h2>
-    <%}%>
+<c:if test="${requestScope.message ne null}">
+    <h2 align="center" style="color: darkred"><c:out value="${requestScope.message}"/></h2>
+</c:if>
 <table border="1px" style="color: darkgreen">
     <tr>
         <td>employeeNumber</td>
@@ -30,30 +29,25 @@
         <td>Delete</td>
         <td>Edit</td>
     </tr>
-    <%
-    List<Employee> employeeList = (List<Employee>) request.getAttribute("employees");
-    if (employeeList == null){
-        %>
-    <h2 align="center" style="color: darkred">There is no data.</h2>
-        <%
-    }else{
-        for (Employee employee : employeeList){
-            if(employee !=null){
-    %>
-    <tr>
-        <td><a href="/EmployeeAct?managerof=<%=employee.getEmployeeNumber()%>&crud=mngrof"><%=employee.getEmployeeNumber()%></a></td>
-        <td><%=employee.getLastName()%></td>
-        <td><%=employee.getFirstName()%></td>
-        <td><%=employee.getExtension()%></td>
-        <td><%=employee.getEmail()%></td>
-        <td><%=employee.getOfficeCode()%></td>
-        <td><a href="/EmployeeAct?reportto=<%=employee.getReportsTo()%>&crud=rpto"><%=employee.getReportsTo()%></a></td>
-        <td><%=employee.getJobTitle()%></td>
-        <td><a href="/EmployeeAct?empnumber=<%=employee.getEmployeeNumber()%>&crud=delete">Delete</a></td>
-        <td><a href="/EmployeeAct?empnumber=<%=employee.getEmployeeNumber()%>&crud=edit">Edit</a></td>
-    </tr>
-    <%}}}%>
+    <c:if test="${requestScope.employees eq null}">
+        <h2 align="center" style="color: darkred">There is no data.</h2>
+    </c:if>
+    <c:if test="${requestScope.employees ne null}">
+        <c:forEach var="employee" items="${requestScope.employees}">
+            <tr>
+                <td><a href="/EmployeeAct?managerof=<c:out value="${employee.employeeNumber}"/>&crud=mngrof"><c:out value="${employee.employeeNumber}"/></a></td>
+                <td><c:out value="${employee.lastName}"/></td>
+                <td><c:out value="${employee.firstName}"/></td>
+                <td><c:out value="${employee.extension}"/></td>
+                <td><c:out value="${employee.email}"/></td>
+                <td><c:out value="${employee.officeCode}"/></td>
+                <td><a href="/EmployeeAct?reportto=<c:out value="${employee.reportsTo}"/>&crud=rpto"><c:out value="${employee.reportsTo}"/></a></td>
+                <td><c:out value="${employee.jobTitle}"/></td>
+                <td><a href="/EmployeeAct?empnumber=<c:out value="${employee.employeeNumber}"/>&crud=delete">Delete</a></td>
+                <td><a href="/EmployeeAct?empnumber=<c:out value="${employee.employeeNumber}"/>&crud=edit">Edit</a></td>
+            </tr>
+        </c:forEach>
+    </c:if>
 </table>
-
 </body>
 </html>

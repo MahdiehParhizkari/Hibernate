@@ -1,7 +1,7 @@
 <%@ page import="com.helman.Entity.Productline" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Base64" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
 <head>
     <title>Productline</title>
@@ -15,8 +15,8 @@
     <input type="hidden" name="crud" value="read">
 </form>
 <%String payam = (String) request.getAttribute("message");
-if (payam != null){%>
-<h2 style="color: darkred" align="center"><%=payam%></h2>
+    if (payam != null) {%>
+<h2 align="center" style="color: darkred"><%=payam%></h2>
 <%}%>
 <table border="1px">
     <tr>

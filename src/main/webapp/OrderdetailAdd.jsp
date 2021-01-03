@@ -11,15 +11,16 @@
     <title>Add</title>
 </head>
 <body>
-<h2>Add new orderdetail: </h2>
+<h2 style="color: darkred">Add new orderdetail: </h2>
 <form action="/OrderdetailAct" method="post">
     OrderNumber: <input type="number" name="ordnum"><br>
     ProductCode: <input type="text" name="procode"><br>
     QuantityOrdered: <input type="number" name="qord"><br>
     PriceEach: <input type="number" name="pe"><br>
     OrderLineNumber: <input type="number" name="oln"><br><br>
-    <input type="submit" value="Add">
     <input type="hidden" name="crud" value="add">
+    <input type="submit" value="Add">
+    <input type="button" value="Back" onclick="location.href='Orderdetail.jsp';">
 </form>
 </body>
 </html>

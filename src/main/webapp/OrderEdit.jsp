@@ -1,11 +1,12 @@
-<%@ page import="com.helman.Entity.Order" %><%--
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.helman.Entity.Order" %>
+<%--
   Created by IntelliJ IDEA.
   User: afshin
   Date: 12/20/20
   Time: 7:32 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" media="all" href="/statics/JalaliJSCalendar-master/skins/calendar-blue.css" title="winter" />

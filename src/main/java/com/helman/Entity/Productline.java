@@ -1,6 +1,7 @@
 package com.helman.Entity;
 
 import javax.persistence.*;
+import javax.xml.bind.DatatypeConverter;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,7 @@ public class Productline {
     private String textDescription;
     private String htmlDescription;
     private byte[] image;
+    private String photo;
 
     private List<Product> products=null;
 
@@ -51,6 +53,11 @@ public class Productline {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    @Transient
+    public String getPhoto() {
+        return DatatypeConverter.printBase64Binary(image);
     }
 
     @OneToMany(mappedBy = "productLine")

@@ -21,8 +21,10 @@
     OfficeCode: <input type="text" name="offcode"><br>
     Reportto: <input type="number" name="repto"><br>
     JobTitle: <input type="text" name="jobtit"><br><br>
-    <input type="submit" value="Add">
     <input type="hidden" value="create" name="crud">
+    <input type="submit" value="Add">
+    <input type="button" value="Back" onclick="location.href='Employee.jsp';">
+
 </form>
 </body>
 </html>

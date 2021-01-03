@@ -1,6 +1,6 @@
-<%@ page import="com.helman.Entity.Office" %>
-<%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <html>
 <head>
     <title>Office</title>
@@ -13,10 +13,9 @@
     <input type="submit" value="Show Office">
     <input type="hidden" value="read" name="crud">
 </form>
-    <%String payam = (String) request.getAttribute("message");
-    if(payam !=null){%>
-    <h2 align="center" style="color: #8b0000"><%=payam%></h2>
-    <%}%>
+<c:if test="${requestScope.message ne null}">
+    <h2 align="center" style="color: #8b0000"><c:out value="${requestScope.message}"/></h2>
+</c:if>
 <table border="1px">
     <tr>
         <td>OfficeCode</td>
@@ -31,28 +30,26 @@
         <td>Delete</td>
         <td>Edit</td>
     </tr>
-        <%List<Office> officeList = (List<Office>) request.getAttribute("Offices");
-        if (officeList == null){
-            %>
-            <h2 align="center" style="color: #8b0000">There is no data.</h2>
-    <%} else{
-        for (Office office : officeList){
-            if (office != null){
-    %>
-    <tr>
-        <td><%=office.getOfficeCode()%></td>
-        <td><%=office.getCity()%></td>
-        <td><%=office.getPhone()%></td>
-        <td><%=office.getAddressLine1()%></td>
-        <td><%=office.getAddressLine2()%></td>
-        <td><%=office.getState()%></td>
-        <td><%=office.getCountry()%></td>
-        <td><%=office.getPostalCode()%></td>
-        <td><%=office.getTerritory()%></td>
-        <td><a href="/OfficeAct?offcode=<%=office.getOfficeCode()%>&crud=delete">Delete</a></td>
-        <td><a href="/OfficeAct?offcode=<%=office.getOfficeCode()%>&crud=edit">Edit</a></td>
-    </tr>
-    <%}}}%>
+    <c:if test="${empty requestScope.Offices}">
+        <h2 align="center" style="color: #8b0000">There is no data.</h2>
+    </c:if>
+    <c:if test="${not empty requestScope.Offices}">
+        <c:forEach var="office" items="${requestScope.Offices}">
+            <tr>
+                <td><c:out value="${office.officeCode}"/></td>
+                <td><c:out value="${office.city}"/></td>
+                <td><c:out value="${office.phone}"/></td>
+                <td><c:out value="${office.addressLine1}"/></td>
+                <td><c:out value="${office.addressLine2}"/></td>
+                <td><c:out value="${office.state}"/></td>
+                <td><c:out value="${office.country}"/></td>
+                <td><c:out value="${office.postalCode}"/></td>
+                <td><c:out value="${office.territory}"/></td>
+                <td><a href="/OfficeAct?offcode=<c:out value="${office.officeCode}"/>&crud=delete">Delete</a></td>
+                <td><a href="/OfficeAct?offcode=<c:out value="${office.officeCode}"/>&crud=edit">Edit</a></td>
+            </tr>
+        </c:forEach>
+    </c:if>
 </table>
 </body>
 </html>

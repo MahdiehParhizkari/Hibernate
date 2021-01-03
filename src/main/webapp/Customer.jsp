@@ -1,6 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.helman.Entity.Customer" %>
 <%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page isELIgnored="false" %>
 <html>
 <head>
     <title>Customer</title>
@@ -13,11 +15,9 @@
     <input type="submit" value="Show Customer">
     <input type="hidden" name="crud" value="read">
 </form>
-
-<% String payam = (String) request.getAttribute("message");
-    if (payam != null){%>
-<h2 align="center" style="color: darkred"><%=payam%></h2>
-<%}%>
+<c:if test="${requestScope.message ne null}">
+    <h2 align="center" style="color: darkred"><c:out value="${requestScope.message}"/></h2>
+</c:if>
 <table border="1px" style="color: darkgreen">
     <tr>
         <td>customerNumber</td>
@@ -36,31 +36,31 @@
         <td>Delete</td>
         <td>Edit</td>
     </tr>
-    <%
-        List<Customer> customerList = (List<Customer>) request.getAttribute("customers");
-            if (customerList == null){%>
-                <h2 align="center" style="color: darkred">There is no data.</h2>
-        <%} else{
-            for (Customer customer : customerList){
-                if (customer != null){%>
-    <tr>
-        <td><%=customer.getCustomerNumber()%></td>
-        <td><%=customer.getCustomerName()%></td>
-        <td><%=customer.getContactLastName()%></td>
-        <td><%=customer.getContactFirstName()%></td>
-        <td><%=customer.getPhone()%></td>
-        <td><%=customer.getAddressLine1()%></td>
-        <td><%=customer.getAddressLine2()%></td>
-        <td><%=customer.getCity()%></td>
-        <td><%=customer.getState()%></td>
-        <td><%=customer.getPostalCode()%></td>
-        <td><%=customer.getCountry()%></td>
-        <td><%=customer.getSalesRepEmployeeNumber()%></td>
-        <td><%=customer.getCreditLimit()%></td>
-        <td><a href="/CustomerAct?custnum=<%=customer.getCustomerNumber()%>&crud=delete">Delete</a></td>
-        <td><a href="/CustomerAct?custnum=<%=customer.getCustomerNumber()%>&crud=edit" >Edit</a></td>
-    </tr>
-    <%}}}%>
+    <c:if test="${requestScope.customers eq null}">
+        <h2 align="center" style="color: darkred">There is no data.</h2>
+    </c:if>
+    <c:if test="${requestScope.customers ne null}">
+        <c:forEach var="customer" items="${requestScope.customers}">
+            <!--for(Customer customer :customers)-->
+            <tr>
+                <td><c:out value="${customer.customerNumber}"/></td>
+                <td><c:out value="${customer.customerName}"/></td>
+                <td><c:out value="${customer.contactLastName}"/></td>
+                <td><c:out value="${customer.contactFirstName}"/></td>
+                <td><c:out value="${customer.phone}"/></td>
+                <td><c:out value="${customer.addressLine1}"/></td>
+                <td><c:out value="${customer.addressLine2}"/></td>
+                <td><c:out value="${customer.city}"/></td>
+                <td><c:out value="${customer.state}"/></td>
+                <td><c:out value="${customer.postalCode}"/></td>
+                <td><c:out value="${customer.country}"/></td>
+                <td><c:out value="${customer.salesRepEmployeeNumber}"/></td>
+                <td><c:out value="${customer.creditLimit}"/></td>
+                <td><a href="/CustomerAct?custnum=<c:out value="${customer.customerNumber}"/>&crud=delete">Delete</a></td>
+                <td><a href="/CustomerAct?custnum=<c:out value="${customer.customerNumber}"/>&crud=edit" >Edit</a></td>
+            </tr>
+        </c:forEach>
+    </c:if>
 </table>
 </body>
 </html>
