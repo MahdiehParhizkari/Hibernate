@@ -93,8 +93,9 @@
     Status: <input type="text" name="status"><br>
     Comments: <input type="text" name="com"><br>
     CustomerNumber: <input type="number" name="custnum"><br><br>
-    <input type="submit" value="Add">
     <input type="hidden" name="crud" value="add">
+    <input type="submit" value="Add">
+    <input type="button" value="Back" onclick="location.href='Order.jsp';">
 </form>
 </body>
 </html>

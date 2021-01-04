@@ -16,7 +16,7 @@
     <input type="hidden" name="crud" value="read">
 </form>
 <c:if test="${requestScope.message ne null}">
-    <h2 align="center" style="color: darkred"><c:out value="${requestScope.message}"/></h2>
+    <h2 align="center" style="color: darkred">${requestScope.message}</h2>
 </c:if>
 <table border="1px" style="color: darkgreen">
     <tr>
@@ -43,21 +43,21 @@
         <c:forEach var="customer" items="${requestScope.customers}">
             <!--for(Customer customer :customers)-->
             <tr>
-                <td><c:out value="${customer.customerNumber}"/></td>
-                <td><c:out value="${customer.customerName}"/></td>
-                <td><c:out value="${customer.contactLastName}"/></td>
-                <td><c:out value="${customer.contactFirstName}"/></td>
-                <td><c:out value="${customer.phone}"/></td>
-                <td><c:out value="${customer.addressLine1}"/></td>
-                <td><c:out value="${customer.addressLine2}"/></td>
-                <td><c:out value="${customer.city}"/></td>
-                <td><c:out value="${customer.state}"/></td>
-                <td><c:out value="${customer.postalCode}"/></td>
-                <td><c:out value="${customer.country}"/></td>
-                <td><c:out value="${customer.salesRepEmployeeNumber}"/></td>
-                <td><c:out value="${customer.creditLimit}"/></td>
-                <td><a href="/CustomerAct?custnum=<c:out value="${customer.customerNumber}"/>&crud=delete">Delete</a></td>
-                <td><a href="/CustomerAct?custnum=<c:out value="${customer.customerNumber}"/>&crud=edit" >Edit</a></td>
+                <td>${customer.customerNumber}</td>
+                <td>${customer.customerName}</td>
+                <td>${customer.contactLastName}</td>
+                <td>${customer.contactFirstName}</td>
+                <td>${customer.phone}</td>
+                <td>${customer.addressLine1}</td>
+                <td>${customer.addressLine2}</td>
+                <td>${customer.city}</td>
+                <td>${customer.state}</td>
+                <td>${customer.postalCode}</td>
+                <td>${customer.country}</td>
+                <td>${customer.salesRepEmployeeNumber}</td>
+                <td>${customer.creditLimit}</td>
+                <td><a href="/CustomerAct?custnum=${customer.customerNumber}&crud=delete">Delete</a></td>
+                <td><a href="/CustomerAct?custnum=${customer.customerNumber}&crud=edit" >Edit</a></td>
             </tr>
         </c:forEach>
     </c:if>

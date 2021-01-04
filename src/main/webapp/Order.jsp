@@ -2,6 +2,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.helman.General.GregorianDate" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="hely" uri="http://helman.com" %>
 <html>
 <head>
     <title>Order</title>
@@ -14,10 +17,9 @@
     <input type="submit" value="Show Order" >
     <input type="hidden" value="read" name="crud">
 </form>
-    <%String payam = (String) request.getAttribute("message");
-    if (payam != null){%>
-        <h2 align="center" style="color: #8b0000"><%=payam%></h2>
-    <%}%>
+<c:if test="${requestScope.message ne null}">
+    <h2 align="center" style="color: #8b0000">${requestScope.message}</h2>
+</c:if>
 <table border="1px">
     <tr>
         <td>OrderNumber</td>
@@ -30,28 +32,24 @@
         <td>Delete</td>
         <td>Edit</td>
     </tr>
-    <%
-        List<Order> orderList = (List<Order>) request.getAttribute("Order");
-        if (orderList == null || orderList.isEmpty()){
-            %>
-    <h2 align="center" style="color: darkred">There is no data.</h2>
-            <%
-        }else {
-        for (Order order : orderList){
-            if (order != null){
-    %>
-    <tr>
-        <td><%=order.getOrderNumber()%></td>
-        <td><%=GregorianDate.shamsiStr(order.getOrderDate())%></td>
-        <td><%=GregorianDate.shamsiStr(order.getRequiredDate())%></td>
-        <td><%=GregorianDate.shamsiStr(order.getShippedDate())%></td>
-        <td><%=order.getStatus()%></td>
-        <td><%=order.getComments()%></td>
-        <td><%=order.getCustomerNumber()%></td>
-        <td><a href="/orderAct?onum=<%=order.getOrderNumber()%>&crud=delete">Delete</a></td>
-        <td><a href="/orderAct?onum=<%=order.getOrderNumber()%>&crud=edit">Edit</a></td>
-    </tr>
-    <%}}}%>
+    <c:if test="${requestScope.Order eq null}">
+        <h2 align="center" style="color: darkred">There is no data.</h2>
+    </c:if>
+    <c:if test="${requestScope.Order ne null}">
+        <c:forEach var="order" items="${requestScope.Order}">
+            <tr>
+                <td>${order.orderNumber}</td>
+                <td>${hely:shamsiStr(order.orderDate)}</td>
+                <td>${hely:shamsiStr(order.requiredDate)}</td>
+                <td>${hely:shamsiStr(order.shippedDate)}</td>
+                <td>${order.status}</td>
+                <td>${order.comments}</td>
+                <td>${order.customerNumber}</td>
+                <td><a href="/orderAct?onum=${order.orderNumber}&crud=delete">Delete</a></td>
+                <td><a href="/orderAct?onum=${order.orderNumber}&crud=edit">Edit</a></td>
+            </tr>
+        </c:forEach>
+    </c:if>
 </table>
 </body>
 </html>

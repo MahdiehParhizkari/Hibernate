@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="com.helman.Entity.Order" %>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="hely" uri="http://helman.com" %>
 <%--
   Created by IntelliJ IDEA.
   User: afshin
@@ -56,8 +59,8 @@
 <h2 style="color: #045ea1">Edit order!</h2>
 <form action="orderAct" method="post">
     <%Order ord = (Order) request.getAttribute("orderobj");%>
-    <input type="hidden" value="<%=ord.getOrderNumber()%>" name="ordernum"><br>
-    OrderDate: <span id="display_area_2" style="cursor: pointer;" class="display_area">Click Here</span>
+    <input type="hidden" value="${requestScope.orderobj.orderNumber}" name="ordernum"><br>
+    OrderDate: <span id="display_area_2" style="cursor: pointer;" class="display_area">${hely:shamsiStr(requestScope.orderobj.orderDate)}</span>
     <input id="date_input_8" type="hidden" name="odate" />
     <script type="text/javascript">
         Calendar.setup({
@@ -69,7 +72,7 @@
             weekNumbers    : false
         });
     </script><br>
-    RequiredDate: <span id="display_area_1" style="cursor: pointer;" class="display_area">Click Here</span>
+    RequiredDate: <span id="display_area_1" style="cursor: pointer;" class="display_area">${hely:shamsiStr(requestScope.orderobj.requiredDate)}</span>
     <input id="date_input_7" type="hidden" name="rdate" />
     <script type="text/javascript">
         Calendar.setup({
@@ -81,7 +84,7 @@
             weekNumbers    : false
         });
     </script><br>
-    ShippedDate: <span id="display_area_3" style="cursor: pointer;" class="display_area">Click Here</span>
+    ShippedDate: <span id="display_area_3" style="cursor: pointer;" class="display_area">${hely:shamsiStr(requestScope.orderobj.shippedDate)}</span>
     <input id="date_input_9" type="hidden" name="sdate" />
     <script type="text/javascript">
         Calendar.setup({
@@ -93,12 +96,12 @@
             weekNumbers    : false
         });
     </script><br>
-    Status: <input value="<%=ord.getStatus()%>" type="text" name="status"><br>
-    Comments: <input value="<%=ord.getComments()%>" type="text" name="com"><br>
-    CustomerNumber: <input value="<%=ord.getCustomerNumber()%>" type="number" name="cusnum"><br><br>
-    <input type="submit" value="Udate">
+    Status: <input value="${requestScope.orderobj.status}" type="text" name="status"><br>
+    Comments: <input value="${requestScope.orderobj.comments}" type="text" name="com"><br>
+    CustomerNumber: <input value="${requestScope.orderobj.customerNumber}" type="number" name="cusnum"><br><br>
     <input type="hidden" value="update" name="crud">
+    <input type="submit" value="Udate">
+    <input type="button" value="Back" onclick="location.href='Order.jsp';">
 </form>
-
 </body>
 </html>

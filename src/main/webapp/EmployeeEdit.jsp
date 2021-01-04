@@ -15,14 +15,14 @@
 <body>
 <h2 style="color: darkred" >Edit employee!</h2>
 <form action="EmployeeAct" method="post">
-    <input type="hidden" value="<c:out value="${requestScope.empobjt.employeeNumber}"/>" name="empnum">
-    LastName: <input value="<c:out value="${requestScope.empobjt.lastName}"/>" type="text" name="lname"><br>
-    FirstName: <input value="<c:out value="${requestScope.empobjt.firstName}"/>" type="text" name="fname"><br>
-    Extension: <input value="<c:out value="${requestScope.empobjt.extension}"/>" type="text" name="exten"><br>
-    Email: <input value="<c:out value="${requestScope.empobjt.email}"/>" type="text" name="email"><br>
-    OfficeCode: <input value="<c:out value="${requestScope.empobjt.officeCode}"/>" type="text" name="offcode"><br>
-    Reportto: <input value="<c:out value="${requestScope.empobjt.reportsTo}"/>" type="number" name="repto"><br>
-    JobTitle: <input value="<c:out value="${requestScope.empobjt.jobTitle}"/>" type="text" name="jobtit"><br><br>
+    <input type="hidden" value="${requestScope.empobjt.employeeNumber}" name="empnum">
+    LastName: <input value="${requestScope.empobjt.lastName}" type="text" name="lname"><br>
+    FirstName: <input value="${requestScope.empobjt.firstName}" type="text" name="fname"><br>
+    Extension: <input value="${requestScope.empobjt.extension}" type="text" name="exten"><br>
+    Email: <input value="${requestScope.empobjt.email}" type="text" name="email"><br>
+    OfficeCode: <input value="${requestScope.empobjt.officeCode}" type="text" name="offcode"><br>
+    Reportto: <input value="${requestScope.empobjt.reportsTo}" type="number" name="repto"><br>
+    JobTitle: <input value="${requestScope.empobjt.jobTitle}" type="text" name="jobtit"><br><br>
     <input type="hidden" name="crud" value="update">
     <input type="submit" value="Update">
     <input type="button" value="Back" onclick="location.href='Employee.jsp';">
