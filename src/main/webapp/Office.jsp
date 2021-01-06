@@ -4,17 +4,56 @@
 <html>
 <head>
     <title>Office</title>
+    <style>
+        body {
+            background: #35dc9b;
+        }
+        input[type=button]{
+            font: 18px Helvetica, Arial, sans-serif;
+            box-sizing: content-box;
+            border: none;
+            padding: 8px;
+            width: 70px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        input[type=number] {
+            font: 15px Helvetica, Arial, sans-serif;
+            background-color: #f0f4f6;
+            border-style: none;
+            width: 130px;
+            height: 33px;
+        }
+        #submit{
+            font: 15px Helvetica, Arial, sans-serif;
+            box-sizing: content-box;
+            border: none;
+            padding: 8px;
+            width: 130px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        #span{
+            font-size: 15px;
+        }
+        h2 {
+            margin: 0 auto 40px;
+            color: #fff;
+            font: 40px Helvetica;
+        }
+    </style>
 </head>
 <body>
 <input type="button" value="Home" onclick="location.href='index.jsp';">
 <input type="button" value="Add" onclick="location.href='OfficeAdd.jsp';">
 <form action="OfficeAct" method="Post">
-    Office Code: <input type="number" name="offcode">
-    <input type="submit" value="Show Office">
+    <span id="span">Office Code: <input type="number" name="offcode"></span>
+    <input type="submit" value="Show Office" id="submit">
     <input type="hidden" value="read" name="crud">
 </form>
 <c:if test="${requestScope.message ne null}">
-    <h2 align="center" style="color: #8b0000"><c:out value="${requestScope.message}"/></h2>
+    <h2 ><c:out value="${requestScope.message}"/></h2>
 </c:if>
 <table border="1px">
     <tr>
@@ -31,7 +70,7 @@
         <td>Edit</td>
     </tr>
     <c:if test="${empty requestScope.Offices}">
-        <h2 align="center" style="color: #8b0000">There is no data.</h2>
+        <h2>There is no data.</h2>
     </c:if>
     <c:if test="${not empty requestScope.Offices}">
         <c:forEach var="office" items="${requestScope.Offices}">

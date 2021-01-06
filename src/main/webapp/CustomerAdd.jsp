@@ -9,23 +9,100 @@
 <html>
 <head>
     <title>Add</title>
+    <style>
+        body {
+            background: #35dc9b;
+        }
+        h2 {
+            margin: 0 auto 40px;
+            color: #fff;
+            font: 40px Helvetica;
+        }
+        td{
+            font: 15px Helvetica, Arial, sans-serif;
+            padding: 5px 10px;
+        }
+        .inp{
+            height: 30px;
+            weight: 80px;
+        }
+        input[type=submit] {
+            font: 18px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        input[type=button] {
+            font: 18px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<h2>Add new Customer.</h2>
+<h2>Add new Customer:</h2>
 <form action="CustomerAct" method="post">
-    CustomerNumber: <input type="number" name="custnum"><br>
-    CustomerName: <input type="text" name="custname"><br>
-    ContactLastName: <input type="text" name="conlname"><br>
-    ContactFirstName: <input type="text" name="confname" ><br>
-    Phone: <input type="text" name="phone"><br>
-    AddressLine1: <input type="text" name="addl1"><br>
-    AddressLine2: <input type="text" name="addl2"><br>
-    City: <input type="text" name="city"><br>
-    State: <input type="text" name="state"><br>
-    PostalCode: <input type="text" name="c"><br>
-    Country: <input type="text" name="count"><br>
-    SalesRepEmployeeNumber: <input type="number" name="srempnum"><br>
-    CreditLimit: <input type="number" name="credlim"><br><br>
+    <table>
+        <tr>
+            <td>CustomerNumber:</td>
+            <td><input type="number" name="custnum" class="inp"></td>
+        </tr>
+        <tr>
+            <td>CustomerName:</td>
+            <td><input type="text" name="custname" class="inp"></td>
+        </tr>
+        <tr>
+            <td>ContactLastName:</td>
+            <td><input type="text" name="conlname" class="inp"></td>
+        </tr>
+        <tr>
+            <td>ContactFirstName:</td>
+            <td><input type="text" name="confname" class="inp" ></td>
+        </tr>
+        <tr>
+            <td>Phone:</td>
+            <td><input type="text" name="phone" class="inp"></td>
+        </tr>
+        <tr>
+            <td>AddressLine1:</td>
+            <td><input type="text" name="addl1" class="inp"></td>
+        </tr>
+        <tr>
+            <td>AddressLine2:</td>
+            <td><input type="text" name="addl2" class="inp"></td>
+        </tr>
+        <tr>
+            <td>City:</td>
+            <td><input type="text" name="city" class="inp"></td>
+        </tr>
+        <tr>
+            <td>State:</td>
+            <td><input type="text" name="state" class="inp"></td>
+        </tr>
+        <tr>
+            <td>PostalCode:</td>
+            <td><input type="text" name="c" class="inp"></td>
+        </tr>
+        <tr>
+            <td>Country:</td>
+            <td><input type="text" name="count" class="inp"></td>
+        </tr>
+        <tr>
+            <td>SalesRepEmployeeNumber:</td>
+            <td><input type="number" name="srempnum" class="inp"></td>
+        </tr>
+        <tr>
+            <td>CreditLimit:</td>
+            <td><input type="number" name="credlim" class="inp"></td>
+        </tr>
+    </table>
     <input type="hidden" name="crud" value="create">
     <input type="submit" value="Add">
     <input type="button" value="Back" onclick="location.href='Customer.jsp';">

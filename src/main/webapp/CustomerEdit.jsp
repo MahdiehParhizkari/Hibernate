@@ -11,24 +11,100 @@
 --%>
 <html>
 <head>
-    <title>Title</title>
+    <title>Edit</title>
+    <style>
+        body {
+            background: #35dc9b;
+        }
+        h2 {
+            margin: 0 auto 40px;
+            color: #fff;
+            font: 40px Helvetica;
+        }
+        td{
+            font: 15px Helvetica, Arial, sans-serif;
+            padding: 5px 10px;
+        }
+        .inp{
+            height: 30px;
+            weight: 80px;
+        }
+        input[type=submit]{
+            font: 15px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        input[type=button]{
+            font: 15px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <h2>Edit customer:</h2>
 <form action="CustomerAct" method="post">
-    <input type="hidden" value="${requestScope.cust.customerNumber}" name="custnum">
-    CustomerName: <input value="${requestScope.cust.customerName}" type="text" name="custname"><br>
-    ContactLastName: <input value="${requestScope.cust.contactLastName}" type="text" name="conlname"><br>
-    ContactFirstName: <input value="${requestScope.cust.contactFirstName}" type="text" name="confname" ><br>
-    Phone: <input value="${requestScope.cust.phone}" type="text" name="phone"><br>
-    AddressLine1: <input value="${requestScope.cust.addressLine1}" type="text" name="addl1"><br>
-    AddressLine2: <input value="${requestScope.cust.addressLine2}" type="text" name="addl2"><br>
-    City: <input value="${requestScope.cust.city}" type="text" name="city"><br>
-    State: <input value="${requestScope.cust.state}" type="text" name="state"><br>
-    PostalCode: <input value="${requestScope.cust.postalCode}" type="text" name="poscode"><br>
-    Country: <input value="${requestScope.cust.country}" type="text" name="count"><br>
-    SalesRepEmployeeNumber: <input value="${requestScope.cust.salesRepEmployeeNumber}" type="number" name="srempnum"><br>
-    CreditLimit: <input value="${requestScope.cust.creditLimit}" type="number" name="credlim"><br><br>
+    <table>
+        <tr>
+            <td><input type="hidden" value="${requestScope.cust.customerNumber}" name="custnum" class="inp"></td>
+        </tr>
+        <tr>
+            <td>CustomerName:</td>
+            <td><input value="${requestScope.cust.customerName}" type="text" name="custname" class="inp"></td>
+        </tr>
+        <tr>
+            <td>ContactLastName:</td>
+            <td><input value="${requestScope.cust.contactLastName}" type="text" name="conlname" class="inp"></td>
+        </tr>
+        <tr>
+            <td>ContactFirstName:</td>
+            <td><input value="${requestScope.cust.contactFirstName}" type="text" name="confname" class="inp" ></td>
+        </tr>
+        <tr>
+            <td>Phone:</td>
+            <td><input value="${requestScope.cust.phone}" type="text" name="phone" class="inp"></td>
+        </tr>
+        <tr>
+            <td>AddressLine1:</td>
+            <td><input value="${requestScope.cust.addressLine1}" type="text" name="addl1" class="inp"></td>
+        </tr>
+        <tr>
+            <td>AddressLine2:</td>
+            <td><input value="${requestScope.cust.addressLine2}" type="text" name="addl2" class="inp"></td>
+        </tr>
+        <tr>
+            <td>City:</td>
+            <td><input value="${requestScope.cust.city}" type="text" name="city" class="inp"></td>
+        </tr>
+        <tr>
+            <td>State:</td>
+            <td><input value="${requestScope.cust.state}" type="text" name="state" class="inp"></td>
+        </tr>
+        <tr>
+            <td>PostalCode:</td>
+            <td><input value="${requestScope.cust.postalCode}" type="text" name="poscode" class="inp"></td>
+        </tr>
+        <tr>
+            <td>Country:</td>
+            <td><input value="${requestScope.cust.country}" type="text" name="count" class="inp"></td>
+        </tr>
+        <tr>
+            <td>SalesRepEmployeeNumber:</td>
+            <td><input value="${requestScope.cust.salesRepEmployeeNumber}" type="number" name="srempnum" class="inp"></td>
+        </tr>
+        <tr>
+            <td>CreditLimit:</td>
+            <td><input value="${requestScope.cust.creditLimit}" type="number" name="credlim" class="inp"></td>
+        </tr>
+    </table>
     <input type="hidden" name="crud" value="update">
     <input type="submit" value="Update">
     <input type="button" value="Back" onclick="location.href='Customer.jsp';">

@@ -9,21 +9,87 @@
 <html>
 <head>
     <title>Add</title>
+    <style>
+        body {
+            background: #35dc9b;
+        }
+        h2 {
+            margin: 0 auto 40px;
+            color: #fff;
+            font: 40px Helvetica;
+        }
+        td{
+            font: 15px Helvetica, Arial, sans-serif;
+            padding: 5px 10px;
+        }
+        .inp{
+            height: 30px;
+            weight: 80px;
+        }
+        input[type=submit] {
+            font: 18px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        input[type=button] {
+            font: 18px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<h2 style="color: darkred">Add new product!</h2>
+<h2>Add new product:</h2>
 <form action="ProductAct" method="post">
-    ProductCode: <input type="text" name="procode"><br>
-    ProductName: <input type="text" name="proname"><br>
-    ProductLine: <input type="text" name="proline"><br>
-    ProductScale: <input type="text" name="proscale"><br>
-    ProductVendor: <input type="text" name="provendor"><br>
-    ProductDescription: <input type="text" name="prodesc"><br>
-    QuantityInStock: <input type="number" name="quanstock"><br>
-    BuyPrice: <input type="number" step="0.01" name="buyp"><br>
-    MSRP: <input type="number" step="0.01" name="msrp"><br><br>
+    <table>
+        <tr>
+            <td>ProductCode:</td>
+            <td><input type="text" name="procode" class="inp"></td>
+        </tr>
+        <tr>
+            <td>ProductName:</td>
+            <td><input type="text" name="proname" class="inp"></td>
+        </tr>
+        <tr>
+            <td>ProductLine:</td>
+            <td><input type="text" name="proline" class="inp"></td>
+        </tr>
+        <tr>
+            <td>ProductScale:</td>
+            <td><input type="text" name="proscale" class="inp"></td>
+        </tr>
+        <tr>
+            <td>ProductVendor:</td>
+            <td><input type="text" name="provendor" class="inp"></td>
+        </tr>
+        <tr>
+            <td>ProductDescription:</td>
+            <td><input type="text" name="prodesc" class="inp"></td>
+        </tr>
+        <tr>
+            <td>QuantityInStock:</td>
+            <td><input type="number" name="quanstock" class="inp"></td>
+        </tr>
+        <tr>
+            <td>BuyPrice:</td>
+            <td><input type="number" step="0.01" name="buyp" class="inp"></td>
+        </tr>
+        <tr>
+            <td>MSRP:</td>
+            <td><input type="number" step="0.01" name="msrp" class="inp"></td>
+        </tr>
+    </table>
     <input type="submit" value="Add">
     <input type="hidden" value="add" name="crud">
+    <input type="button" value="Back" onclick="location.href='Product.jsp';">
 </form>
 </body>
 </html>

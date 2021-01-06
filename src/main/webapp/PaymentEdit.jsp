@@ -32,46 +32,78 @@
     }
 </script>
 <style type="text/css">
-    .calendar {
-        direction: rtl;
+    body {
+        background: #35dc9b;
     }
-    #flat_calendar_1, #flat_calendar_2{
-        width: 200px;
+    h2 {
+        margin: 0 auto 40px;
+        color: #fff;
+        font: 40px Helvetica;
     }
-    #flat_calendar_3{
-        width: 230px;
+    td{
+        font: 15px Helvetica, Arial, sans-serif;
+        padding: 5px 10px;
     }
-    .example {
-        padding: 10px;
+    .inp{
+        height: 30px;
+        weight: 80px;
     }
-    .display_area {
-        background-color: #FFFF88
+    input[type=submit]{
+        font: 15px Helvetica, Arial, sans-serif;
+        box-sizing: border-box;
+        border: none;
+        height: 40px;
+        width: 100px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+    input[type=button]{
+        font: 15px Helvetica, Arial, sans-serif;
+        box-sizing: border-box;
+        border: none;
+        height: 40px;
+        width: 100px;
+        font-size: 15px;
+        cursor: pointer;
     }
 </style>
 <head>
     <title>Edit</title>
 </head>
 <body>
-<h2 style="color: #045ea1">Edit payment!</h2>
+<h2>Edit payment:</h2>
 <form action="PaymentAct" method="Post">
     <%Payment payment = (Payment) request.getAttribute("pay");%>
-    <input type="hidden" value="<%=payment.getCustomerNumber()%>" name="custnum"><br>
-    <input type="hidden" value="<%=payment.getCheckNumber()%>" name="checknum"><br>
-    PaymentDate:<span id="display_area_2" style="cursor: pointer;" class="display_area">Click Here</span>
-        <input id="date_input_8" type="hidden" name="pdate" />
-    <script type="text/javascript">
-        Calendar.setup({
-            inputField     : "date_input_8",   // id of the input field
-            displayArea    : "display_area_2",
-            ifFormat       : "%Y-%m-%d",       // format of the input field
-            dateType	   : 'jalali',
-            ifDateType	   : 'gregorian',
-            weekNumbers    : false
-        });
-    </script><br>
-    Amount: <input value="<%=payment.getAmount()%>" type="number" name="amount"><br><br>
+    <table>
+        <tr>
+            <td><input type="hidden" value="<%=payment.getCustomerNumber()%>" name="custnum"></td>
+            <td><input type="hidden" value="<%=payment.getCheckNumber()%>" name="checknum"></td>
+        </tr>
+        <tr>
+            <td>PaymentDate:</td>
+            <td>
+                <span id="display_area_2" style="cursor: pointer;" class="display_area">Click Here</span>
+                <input id="date_input_8" type="hidden" name="pdate"  class="inp"/>
+                <script type="text/javascript">
+                    Calendar.setup({
+                        inputField     : "date_input_8",   // id of the input field
+                        displayArea    : "display_area_2",
+                        ifFormat       : "%Y-%m-%d",       // format of the input field
+                        dateType	   : 'jalali',
+                        ifDateType	   : 'gregorian',
+                        weekNumbers    : false
+                    });
+                </script>
+            </td>
+        </tr>
+        <tr>
+            <td>Amount:</td>
+            <td><input value="<%=payment.getAmount()%>" type="number" name="amount" class="inp"></td>
+        </tr>
+    </table>
     <input type="submit" value="Update">
     <input type="hidden"  name="crud" value="update">
+    <input type="button" value="Back" onclick="location.href='Payment.jsp';">
 </form>
 </body>
 </html>

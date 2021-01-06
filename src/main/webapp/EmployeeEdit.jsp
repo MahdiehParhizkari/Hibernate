@@ -11,18 +11,79 @@
 <html>
 <head>
     <title>Edit</title>
+    <style>
+        body {
+            background: #35dc9b;
+        }
+        h2 {
+            margin: 0 auto 40px;
+            color: #fff;
+            font: 40px Helvetica;
+        }
+        td{
+            font: 15px Helvetica, Arial, sans-serif;
+            padding: 5px 10px;
+        }
+        .inp{
+            height: 30px;
+            weight: 80px;
+        }
+        input[type=submit]{
+            font: 15px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        input[type=button]{
+            font: 15px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<h2 style="color: darkred" >Edit employee!</h2>
+<h2>Edit employee:</h2>
 <form action="EmployeeAct" method="post">
-    <input type="hidden" value="${requestScope.empobjt.employeeNumber}" name="empnum">
-    LastName: <input value="${requestScope.empobjt.lastName}" type="text" name="lname"><br>
-    FirstName: <input value="${requestScope.empobjt.firstName}" type="text" name="fname"><br>
-    Extension: <input value="${requestScope.empobjt.extension}" type="text" name="exten"><br>
-    Email: <input value="${requestScope.empobjt.email}" type="text" name="email"><br>
-    OfficeCode: <input value="${requestScope.empobjt.officeCode}" type="text" name="offcode"><br>
-    Reportto: <input value="${requestScope.empobjt.reportsTo}" type="number" name="repto"><br>
-    JobTitle: <input value="${requestScope.empobjt.jobTitle}" type="text" name="jobtit"><br><br>
+    <table>
+        <tr>
+            <td><input type="hidden" value="${requestScope.empobjt.employeeNumber}" name="empnum" class="inp"></td>
+        </tr>
+        <tr>
+            <td>LastName:</td>
+            <td><input value="${requestScope.empobjt.lastName}" type="text" name="lname" class="inp"></td>
+        </tr>
+        <tr>
+            <td>FirstName:</td>
+            <td><input value="${requestScope.empobjt.firstName}" type="text" name="fname" class="inp"></td>
+        </tr>
+        <tr>
+            <td>Extension:</td>
+            <td><input value="${requestScope.empobjt.extension}" type="text" name="exten" class="inp"></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input value="${requestScope.empobjt.email}" type="text" name="email" class="inp"></td>
+        </tr>
+        <tr>
+            <td>OfficeCode:</td>
+            <td><input value="${requestScope.empobjt.officeCode}" type="text" name="offcode" class="inp"></td>
+        </tr>
+        <tr>
+            <td>Reportto:</td>
+            <td><input value="${requestScope.empobjt.reportsTo}" type="number" name="repto" class="inp"></td>
+        </tr>
+        <tr>
+            <td>JobTitle:</td>
+            <td><input value="${requestScope.empobjt.jobTitle}" type="text" name="jobtit" class="inp"></td>
+        </tr>
+    </table>
     <input type="hidden" name="crud" value="update">
     <input type="submit" value="Update">
     <input type="button" value="Back" onclick="location.href='Employee.jsp';">

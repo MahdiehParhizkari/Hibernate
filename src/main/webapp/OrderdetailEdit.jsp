@@ -12,16 +12,65 @@
 <html>
 <head>
     <title>Edit</title>
+    <style>
+        body {
+            background: #35dc9b;
+        }
+        h2 {
+            margin: 0 auto 40px;
+            color: #fff;
+            font: 40px Helvetica;
+        }
+        td{
+            font: 15px Helvetica, Arial, sans-serif;
+            padding: 5px 10px;
+        }
+        .inp{
+            height: 30px;
+            weight: 80px;
+        }
+        input[type=submit]{
+            font: 15px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        input[type=button]{
+            font: 15px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<h2 style="color: #045ea1">Edit orderdetail:</h2>
+<h2>Edit orderdetail:</h2>
 <form action="OrderdetailAct" method="post">
     <%Orderdetail orderd = (Orderdetail) request.getAttribute("orderdetail");%>
-    <input type="hidden" value="<c:out value="${requestScope.orderdetail.orderNumber}"/>" name="ordnum"><br>
-    <input type="hidden" value="<c:out value="${requestScope.orderdetail.productCode}"/>" name="procode"><br>
-    QuantityOrdered: <input type="number" value="<c:out value="${requestScope.orderdetail.quantityOrdered}"/>" name="quanord"><br>
-    PriceEach: <input type="number" value="<c:out value="${requestScope.orderdetail.priceEach}"/>" name="peach"><br>
-    OrderLineNumber: <input type="number" value="<c:out value="${requestScope.orderdetail.orderLineNumber}"/>" name="ordlnum"><br><br>
+    <table>
+        <tr>
+            <td><input type="hidden" value="<c:out value="${requestScope.orderdetail.orderNumber}"/>" name="ordnum"></td>
+            <td><input type="hidden" value="<c:out value="${requestScope.orderdetail.productCode}"/>" name="procode"></td>
+        </tr>
+        <tr>
+            <td>QuantityOrdered:</td>
+            <td><input type="number" value="<c:out value="${requestScope.orderdetail.quantityOrdered}"/>" name="quanord" class="inp"></td>
+        </tr>
+        <tr>
+            <td>PriceEach:</td>
+            <td><input type="number" value="<c:out value="${requestScope.orderdetail.priceEach}"/>" name="peach" class="inp"></td>
+        </tr>
+        <tr>
+            <td>OrderLineNumber:</td>
+            <td><input type="number" value="<c:out value="${requestScope.orderdetail.orderLineNumber}"/>" name="ordlnum" class="inp"></td>
+        </tr>
+    </table>
     <input type="hidden" value="update" name="crud">
     <input type="submit" value="Update">
     <input type="button" value="Back" onclick="location.href='Orderdetail.jsp';">

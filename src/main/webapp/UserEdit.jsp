@@ -9,17 +9,68 @@
 <html>
 <head>
     <title>Edit</title>
+    <style>
+        body {
+            background: #35dc9b;
+        }
+        h2 {
+            margin: 0 auto 40px;
+            color: #fff;
+            font: 40px Helvetica;
+        }
+        td{
+            font: 15px Helvetica, Arial, sans-serif;
+            padding: 5px 10px;
+        }
+        .inp{
+            height: 30px;
+            weight: 80px;
+        }
+        input[type=submit]{
+            font: 15px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        input[type=button]{
+            font: 15px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<h2 style="color: #00aa00">Edit User!</h2>
+<h2>Edit User:</h2>
 <form action="UserAct" method="post">
     <%User user = (User) request.getAttribute("us");%>
-    <input type="hidden" value="<%=user.getId()%>" name="id">
-    Username: <input type="text" value="<%=user.getUsername()%>" name="un"><br>
-    Password: <input type="text" value="<%=user.getPassword()%>" name="pw"><br>
-    Employeefk: <input type="number" value="<%=user.getEmployeefk()%>" name="empfk"><br><br>
+    <table>
+        <tr>
+            <td><input type="hidden" value="<%=user.getId()%>" name="id"></td>
+        </tr>
+        <tr>
+            <td>Username:</td>
+            <td><input type="text" value="<%=user.getUsername()%>" name="un" class="inp"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="text" value="<%=user.getPassword()%>" name="pw" class="inp"></td>
+        </tr>
+        <tr>
+            <td>Employeefk:</td>
+            <td><input type="number" value="<%=user.getEmployeefk()%>" name="empfk" class="inp"></td>
+        </tr>
+    </table>
     <input type="submit" value="Update">
     <input type="hidden" value="update" name="crud">
+    <input type="button" value="Back" onclick="location.href='User.jsp';">
+
 </form>
 </body>
 </html>

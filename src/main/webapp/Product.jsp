@@ -6,18 +6,57 @@
 <html>
 <head>
     <title>Product</title>
+    <style>
+        body {
+            background: #35dc9b;
+        }
+        input[type=button]{
+            font: 18px Helvetica, Arial, sans-serif;
+            box-sizing: content-box;
+            border: none;
+            padding: 8px;
+            width: 70px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        input[type=text] {
+            font: 15px Helvetica, Arial, sans-serif;
+            background-color: #f0f4f6;
+            border-style: none;
+            width: 130px;
+            height: 33px;
+        }
+        #submit{
+            font: 15px Helvetica, Arial, sans-serif;
+            box-sizing: content-box;
+            border: none;
+            padding: 8px;
+            width: 130px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .span{
+            font-size: 15px;
+        }
+        h2 {
+            margin: 0 auto 40px;
+            color: #fff;
+            font: 40px Helvetica;
+        }
+    </style>
 </head>
 <body>
 <input type="button" value="Home" onclick="location.href='index.jsp';">
 <input type="button" value="Add" onclick="location.href='ProductAdd.jsp';">
 <form action="ProductAct" method="post">
-    Product Code: <input type="text" name="procode">
-    <input type="submit" value="Show Product">
+    <span class="span">Product Code: <input type="text" name="procode"></span>
+    <span class="span"><input type="submit" value="Show Product" id="submit"></span>
     <input type="hidden" value="read" name="crud">
 </form>
 
 <c:if test="${requestScope.message ne null}">
-    <h2 align="center" style="color: darkred"><c:out value="${requestScope.message}"/></h2>
+    <h2><c:out value="${requestScope.message}"/></h2>
 </c:if>
 
 <table border="1px">
@@ -36,7 +75,7 @@
     </tr>
 
     <c:if test="${requestScope.product == null}">
-        <h2 align="center" style="color: darkred">There is no data.</h2>
+        <h2>There is no data.</h2>
     </c:if>
     <c:if test="${requestScope.product != null}">
         <c:forEach var="product" items="${requestScope.product}">

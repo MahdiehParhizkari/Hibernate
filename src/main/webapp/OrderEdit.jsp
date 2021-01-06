@@ -36,69 +36,116 @@
     }
 </script>
 <style type="text/css">
-    .calendar {
-        direction: rtl;
+    body {
+        background: #35dc9b;
     }
-    #flat_calendar_1, #flat_calendar_2{
-        width: 200px;
+    h2 {
+        margin: 0 auto 40px;
+        color: #fff;
+        font: 40px Helvetica;
     }
-    #flat_calendar_3{
-        width: 230px;
+    td{
+        font: 15px Helvetica, Arial, sans-serif;
+        padding: 5px 10px;
     }
-    .example {
-        padding: 10px;
+    .inp{
+        height: 30px;
+        weight: 80px;
     }
-    .display_area {
-        background-color: #FFFF88
+    input[type=submit]{
+        font: 15px Helvetica, Arial, sans-serif;
+        box-sizing: border-box;
+        border: none;
+        height: 40px;
+        width: 100px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+    input[type=button]{
+        font: 15px Helvetica, Arial, sans-serif;
+        box-sizing: border-box;
+        border: none;
+        height: 40px;
+        width: 100px;
+        font-size: 15px;
+        cursor: pointer;
     }
 </style>
 <head>
     <title>Edit</title>
 </head>
 <body>
-<h2 style="color: #045ea1">Edit order!</h2>
+<h2>Edit order:</h2>
 <form action="orderAct" method="post">
     <%Order ord = (Order) request.getAttribute("orderobj");%>
-    <input type="hidden" value="${requestScope.orderobj.orderNumber}" name="ordernum"><br>
-    OrderDate: <span id="display_area_2" style="cursor: pointer;" class="display_area">${hely:shamsiStr(requestScope.orderobj.orderDate)}</span>
-    <input id="date_input_8" type="hidden" name="odate" />
-    <script type="text/javascript">
-        Calendar.setup({
-            inputField     : "date_input_8",   // id of the input field
-            displayArea    : "display_area_2",
-            ifFormat       : "%Y-%m-%d",       // format of the input field
-            dateType	   : 'jalali',
-            ifDateType	   : 'gregorian',
-            weekNumbers    : false
-        });
-    </script><br>
-    RequiredDate: <span id="display_area_1" style="cursor: pointer;" class="display_area">${hely:shamsiStr(requestScope.orderobj.requiredDate)}</span>
-    <input id="date_input_7" type="hidden" name="rdate" />
-    <script type="text/javascript">
-        Calendar.setup({
-            inputField     : "date_input_7",   // id of the input field
-            displayArea    : "display_area_1",
-            ifFormat       : "%Y-%m-%d",       // format of the input field
-            dateType	   : 'jalali',
-            ifDateType	   : 'gregorian',
-            weekNumbers    : false
-        });
-    </script><br>
-    ShippedDate: <span id="display_area_3" style="cursor: pointer;" class="display_area">${hely:shamsiStr(requestScope.orderobj.shippedDate)}</span>
-    <input id="date_input_9" type="hidden" name="sdate" />
-    <script type="text/javascript">
-        Calendar.setup({
-            inputField     : "date_input_9",   // id of the input field
-            displayArea    : "display_area_3",
-            ifFormat       : "%Y-%m-%d",       // format of the input field
-            dateType	   : 'jalali',
-            ifDateType	   : 'gregorian',
-            weekNumbers    : false
-        });
-    </script><br>
-    Status: <input value="${requestScope.orderobj.status}" type="text" name="status"><br>
-    Comments: <input value="${requestScope.orderobj.comments}" type="text" name="com"><br>
-    CustomerNumber: <input value="${requestScope.orderobj.customerNumber}" type="number" name="cusnum"><br><br>
+    <table>
+        <tr>
+            <td><input type="hidden" value="${requestScope.orderobj.orderNumber}" name="ordernum"></td>
+        </tr>
+        <tr>
+            <td>OrderDate:</td>
+            <td>
+                <span id="display_area_2" style="cursor: pointer;" class="display_area">${hely:shamsiStr(requestScope.orderobj.orderDate)}</span>
+                <input id="date_input_8" type="hidden" name="odate"  class="inp"/>
+                <script type="text/javascript">
+                    Calendar.setup({
+                        inputField     : "date_input_8",   // id of the input field
+                        displayArea    : "display_area_2",
+                        ifFormat       : "%Y-%m-%d",       // format of the input field
+                        dateType	   : 'jalali',
+                        ifDateType	   : 'gregorian',
+                        weekNumbers    : false
+                    });
+                </script>
+            </td>
+        </tr>
+        <tr>
+            <td>RequiredDate:</td>
+            <td>
+                <span id="display_area_1" style="cursor: pointer;" class="display_area">${hely:shamsiStr(requestScope.orderobj.requiredDate)}</span>
+                <input id="date_input_7" type="hidden" name="rdate"  class="inp"/>
+                <script type="text/javascript">
+                    Calendar.setup({
+                        inputField     : "date_input_7",   // id of the input field
+                        displayArea    : "display_area_1",
+                        ifFormat       : "%Y-%m-%d",       // format of the input field
+                        dateType	   : 'jalali',
+                        ifDateType	   : 'gregorian',
+                        weekNumbers    : false
+                    });
+                </script>
+            </td>
+        </tr>
+        <tr>
+            <td>ShippedDate:</td>
+            <td>
+                <span id="display_area_3" style="cursor: pointer;" class="display_area">${hely:shamsiStr(requestScope.orderobj.shippedDate)}</span>
+                <input id="date_input_9" type="hidden" name="sdate"  class="inp"/>
+                <script type="text/javascript">
+                    Calendar.setup({
+                        inputField     : "date_input_9",   // id of the input field
+                        displayArea    : "display_area_3",
+                        ifFormat       : "%Y-%m-%d",       // format of the input field
+                        dateType	   : 'jalali',
+                        ifDateType	   : 'gregorian',
+                        weekNumbers    : false
+                    });
+                </script>
+            </td>
+        </tr>
+        <tr>
+            <td>Status:</td>
+            <td><input value="${requestScope.orderobj.status}" type="text" name="status" class="inp"></td>
+        </tr>
+        <tr>
+            <td>Comments:</td>
+            <td><input value="${requestScope.orderobj.comments}" type="text" name="com" class="inp"></td>
+        </tr>
+        <tr>
+            <td>CustomerNumber:</td>
+            <td><input value="${requestScope.orderobj.customerNumber}" type="number" name="cusnum" class="inp"></td>
+        </tr>
+    </table>
     <input type="hidden" value="update" name="crud">
     <input type="submit" value="Udate">
     <input type="button" value="Back" onclick="location.href='Order.jsp';">

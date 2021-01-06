@@ -9,14 +9,64 @@
 <html>
 <head>
     <title>Add</title>
+    <style>
+        body {
+            background: #35dc9b;
+        }
+        h2 {
+            margin: 0 auto 40px;
+            color: #fff;
+            font: 40px Helvetica;
+        }
+        td{
+            font: 15px Helvetica, Arial, sans-serif;
+            padding: 5px 10px;
+        }
+        .inp{
+            height: 30px;
+            weight: 80px;
+        }
+        input[type=submit] {
+            font: 18px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        input[type=button] {
+            font: 18px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<h2 style="color: #045ea1">Add new Productline:</h2>
+<h2>Add new Productline:</h2>
 <form action="ProductlineAct" method="post" enctype="multipart/form-data">
-    ProductLine: <input type="text" name="prol"><br>
-    TextDescription: <input type="text" name="tdesc"><br>
-    HtmlDescription: <input type="text" name="hdesc"><br>
-    Image: <input type="file" name="img" size="50"><br><br>
+    <table>
+        <tr>
+            <td>ProductLine:</td>
+            <td><input type="text" name="prol"class="inp"></td>
+        </tr>
+        <tr>
+            <td>TextDescription:</td>
+            <td><input type="text" name="tdesc"class="inp"></td>
+        </tr>
+        <tr>
+            <td>HtmlDescription:</td>
+            <td><input type="text" name="hdesc"class="inp"></td>
+        </tr>
+        <tr>
+            <td>Image:</td>
+            <td><input type="file" name="img" size="50"class="inp"></td>
+        </tr>
+    </table>
     <input type="hidden" name="crud" value="create">
     <input type="submit" value="Add">
     <input type="button" value="Back" onclick="location.href='Productline.jsp';">
