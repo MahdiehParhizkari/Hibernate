@@ -48,13 +48,6 @@ public class UserCon extends HttpServlet {
             req.setAttribute("message", "Updated.");
             req.getRequestDispatcher("/User.jsp").forward(req, resp);
         }
-       if (crud.equals("into")){
-            //String un = req.getParameter("username");
-            User user = userdao.login(req.getParameter("username"));
-            if (req.getParameter("password").equals(user.getPassword())) {
-                req.getRequestDispatcher("/index.jsp").forward(req, resp);
-            }else {req.getRequestDispatcher("/Error.jsp").forward(req, resp);}
-        }
     }
 
     @Override

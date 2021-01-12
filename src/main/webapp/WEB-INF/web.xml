@@ -4,7 +4,10 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <session-config>
+    <session-timeout>60</session-timeout>
+  </session-config>
   <welcome-file-list>
-    <welcome-file>Test.jsp</welcome-file>
+    <welcome-file>Login.jsp</welcome-file>
   </welcome-file-list>
 </web-app>

@@ -14,7 +14,7 @@
     <title>Edit</title>
     <style>
         body {
-            background: #35dc9b;
+            background: #ddf8ff;
         }
         h2 {
             margin: 0 auto 40px;
@@ -28,6 +28,8 @@
         .inp{
             height: 30px;
             weight: 80px;
+            border: 3px solid #ccc;
+            box-sizing: border-box;
         }
         input[type=submit]{
             font: 15px Helvetica, Arial, sans-serif;
@@ -106,8 +108,8 @@
         </tr>
     </table>
     <input type="hidden" name="crud" value="update">
-    <input type="submit" value="Update">
-    <input type="button" value="Back" onclick="location.href='Customer.jsp';">
+    <input type="submit" value="Update" class="btn btn-info">
+    <input type="button" value="Back" class="btn btn-info" onclick="location.href='Customer.jsp';">
 </form>
 </body>
 </html>

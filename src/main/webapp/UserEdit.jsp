@@ -11,7 +11,7 @@
     <title>Edit</title>
     <style>
         body {
-            background: #35dc9b;
+            background: #c2c2c2;
         }
         h2 {
             margin: 0 auto 40px;

@@ -1,7 +1,4 @@
-<%@ page import="com.helman.Entity.Order" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.helman.General.GregorianDate" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="hely" uri="http://helman.com" %>
@@ -10,7 +7,7 @@
     <title>Order</title>
     <style>
         body {
-            background: #35dc9b;
+            background: #c2c2c2;
         }
         input[type=button]{
             font: 18px Helvetica, Arial, sans-serif;

@@ -20,7 +20,7 @@
         }
         input[type=number] {
             font: 15px Helvetica, Arial, sans-serif;
-            background-color: #f0f4f6;
+            background-color: #c2c2c2;
             border-style: none;
             width: 130px;
             height: 33px;

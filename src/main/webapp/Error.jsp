@@ -11,7 +11,7 @@
     <title>Error</title>
     <style>
         body {
-            background: #35dc9b;
+            background: #c2c2c2;
             display: flex;
             flex-direction: column;
             flex-grow: 0;
@@ -42,6 +42,6 @@
 </head>
 <body>
 <h1>Username or password is wrong.</h1>
-<input type="button" value="Back" onclick="location.href='Test.jsp';">
+<input type="button" value="Back" onclick="location.href='Login.jsp';">
 </body>
 </html>

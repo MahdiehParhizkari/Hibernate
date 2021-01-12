@@ -7,7 +7,7 @@
     <title>Payment</title>
     <style>
         body {
-            background: #35dc9b;
+            background: #c2c2c2;
         }
         input[type=button]{
             font: 18px Helvetica, Arial, sans-serif;
