@@ -7,6 +7,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" media="all" href="/statics/JalaliJSCalendar-master/skins/calendar-blue.css" title="winter" />
 <script type="text/javascript" src="/statics/JalaliJSCalendar-master/jalali.js"></script>
@@ -31,14 +36,13 @@
         return false;
     }
 </script>
-<style type="text/css">
+<style>
     body {
-        background: #c2c2c2;
+        background: #ddf8ff;
     }
     h2 {
-        margin: 0 auto 40px;
-        color: #fff;
         font: 40px Helvetica;
+        margin-left: 10px;
     }
     td{
         font: 15px Helvetica, Arial, sans-serif;
@@ -47,6 +51,8 @@
     .inp{
         height: 30px;
         weight: 80px;
+        border: 3px solid #ccc;
+        box-sizing: border-box;
     }
     input[type=submit]{
         font: 15px Helvetica, Arial, sans-serif;
@@ -101,9 +107,9 @@
             <td><input value="<%=payment.getAmount()%>" type="number" name="amount" class="inp"></td>
         </tr>
     </table>
-    <input type="submit" value="Update">
-    <input type="hidden"  name="crud" value="update">
-    <input type="button" value="Back" onclick="location.href='Payment.jsp';">
+    <input type="submit" value="Update" class="btn btn-info">
+    <input type="hidden" name="crud" value="update">
+    <input type="button" value="Back" class="btn btn-info" onclick="location.href='Payment.jsp';">
 </form>
 </body>
 </html>
