@@ -73,7 +73,7 @@
         </tr>
         <tr>
             <td>ContactFirstName:</td>
-            <td><input value="${requestScope.cust.contactFirstName}" type="text" name="confname" class="inp" ></td>
+            <td><input value="${requestScope.cust.contactFirstName}" type="text" name="confname" class="inp"></td>
         </tr>
         <tr>
             <td>Phone:</td>

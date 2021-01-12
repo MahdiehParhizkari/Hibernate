@@ -14,7 +14,7 @@
         body {
             background: #ddf8ff;
         }
-        .table{
+        table{
             border: 3px solid #ccc;
             box-sizing: border-box;
         }
@@ -59,50 +59,50 @@
     <h2>${requestScope.message}</h2>
 </c:if>
 <div class="container">
-<table class="table">
-    <tr>
-        <td>customerNumber</td>
-        <td>customerName</td>
-        <td>contactLastName</td>
-        <td>contactFirstName</td>
-        <td>phone</td>
-        <td>addressLine1</td>
-        <td>addressLine2</td>
-        <td>city</td>
-        <td>state</td>
-        <td>postalCode</td>
-        <td>country</td>
-        <td>salesRepEmployeeNumber</td>
-        <td>creditLimit</td>
-        <td>Delete</td>
-        <td>Edit</td>
-    </tr>
-    <c:if test="${requestScope.customers eq null}">
-        <h2>There is no data.</h2>
-    </c:if>
-    <c:if test="${requestScope.customers ne null}">
-        <c:forEach var="customer" items="${requestScope.customers}">
-            <!--for(Customer customer :customers)-->
-            <tr>
-                <td>${customer.customerNumber}</td>
-                <td>${customer.customerName}</td>
-                <td>${customer.contactLastName}</td>
-                <td>${customer.contactFirstName}</td>
-                <td>${customer.phone}</td>
-                <td>${customer.addressLine1}</td>
-                <td>${customer.addressLine2}</td>
-                <td>${customer.city}</td>
-                <td>${customer.state}</td>
-                <td>${customer.postalCode}</td>
-                <td>${customer.country}</td>
-                <td>${customer.salesRepEmployeeNumber}</td>
-                <td>${customer.creditLimit}</td>
-                <td><a href="/CustomerAct?custnum=${customer.customerNumber}&crud=delete">Delete</a></td>
-                <td><a href="/CustomerAct?custnum=${customer.customerNumber}&crud=edit" >Edit</a></td>
-            </tr>
-        </c:forEach>
-    </c:if>
-</table>
+    <table>
+        <tr>
+            <td>customerNumber</td>
+            <td>customerName</td>
+            <td>contactLastName</td>
+            <td>contactFirstName</td>
+            <td>phone</td>
+            <td>addressLine1</td>
+            <td>addressLine2</td>
+            <td>city</td>
+            <td>state</td>
+            <td>postalCode</td>
+            <td>country</td>
+            <td>salesRepEmployeeNumber</td>
+            <td>creditLimit</td>
+            <td>Delete</td>
+            <td>Edit</td>
+        </tr>
+        <c:if test="${requestScope.customers eq null}">
+            <h2>There is no data.</h2>
+        </c:if>
+        <c:if test="${requestScope.customers ne null}">
+            <c:forEach var="customer" items="${requestScope.customers}">
+                <!--for(Customer customer :customers)-->
+                <tr>
+                    <td>${customer.customerNumber}</td>
+                    <td>${customer.customerName}</td>
+                    <td>${customer.contactLastName}</td>
+                    <td>${customer.contactFirstName}</td>
+                    <td>${customer.phone}</td>
+                    <td>${customer.addressLine1}</td>
+                    <td>${customer.addressLine2}</td>
+                    <td>${customer.city}</td>
+                    <td>${customer.state}</td>
+                    <td>${customer.postalCode}</td>
+                    <td>${customer.country}</td>
+                    <td>${customer.salesRepEmployeeNumber}</td>
+                    <td>${customer.creditLimit}</td>
+                    <td><a href="/CustomerAct?custnum=${customer.customerNumber}&crud=delete">Delete</a></td>
+                    <td><a href="/CustomerAct?custnum=${customer.customerNumber}&crud=edit" >Edit</a></td>
+                </tr>
+            </c:forEach>
+        </c:if>
+    </table>
 </div>
 </body>
 </html>
