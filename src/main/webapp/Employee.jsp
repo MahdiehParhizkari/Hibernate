@@ -4,58 +4,56 @@
 <html>
 <head>
     <title>Employee</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         body {
-            background: #c2c2c2;
+            background: #ddf8ff;
         }
-        input[type=button]{
-            font: 18px Helvetica, Arial, sans-serif;
-            box-sizing: content-box;
-            border: none;
-            padding: 8px;
-            width: 70px;
-            margin-bottom: 10px;
-            font-size: 15px;
-            cursor: pointer;
+        .table{
+            border: 3px solid #ccc;
+            box-sizing: border-box;
         }
         input[type=number] {
-            font: 15px Helvetica, Arial, sans-serif;
-            background-color: #f0f4f6;
-            border-style: none;
-            width: 130px;
-            height: 33px;
+            margin: 10px;
+            border: 3px solid #ccc;
+            box-sizing: border-box;
         }
-        #submit{
-            font: 15px Helvetica, Arial, sans-serif;
-            box-sizing: content-box;
-            border: none;
-            padding: 8px;
-            width: 130px;
-            font-size: 15px;
+        #home{
+            position: absolute;
+            right: 0;
+            margin: 5px;
             cursor: pointer;
         }
-        #span{
-            font-size: 15px;
+        #add{
+            position: absolute;
+            right: 90px;
+            margin: 5px;
+            cursor: pointer;
         }
-        .h2 {
+        h2 {
             margin: 0 auto 40px;
-            color: #fff;
             font: 40px Helvetica;
+            alignment: center;
         }
     </style>
 </head>
 <body>
-<input type="button" value="Home" onclick="location.href='index.jsp';">
-<input type="button" value="Add" onclick="location.href='Employeeadd.jsp';">
 <form action="EmployeeAct" method="post">
     <span id="span">Employee Number: <input type="number" name="empnum"></span>
     <input type="hidden" name="crud" value="read">
-    <input type="submit" value="Show Employee" id="submit">
+    <input type="submit" value="Show Employee" class="btn btn-info" id="submit">
+    <input type="button" value="Home" class="btn btn-info" id="home" onclick="location.href='index.jsp';">
+    <input type="button" value="Add" class="btn btn-info" id="add" onclick="location.href='Employeeadd.jsp';">
 </form>
 <c:if test="${requestScope.message ne null}">
     <h2 class="h2">${requestScope.message}</h2>
 </c:if>
-<table border="1px">
+<table class="table">
     <tr>
         <td>employeeNumber</td>
         <td>lastName</td>

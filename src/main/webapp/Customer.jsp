@@ -37,7 +37,6 @@
         }
         h2 {
             margin: 0 auto 40px;
-            color: #fff;
             font: 40px Helvetica;
             alignment: center;
         }

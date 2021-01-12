@@ -9,9 +9,15 @@
 <html>
 <head>
     <title>Error</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         body {
-            background: #c2c2c2;
+            background: #ddf8ff;
             display: flex;
             flex-direction: column;
             flex-grow: 0;
@@ -21,18 +27,11 @@
         }
         h1 {
             margin: 0 auto 40px;
-            color: #fff;
             font: 40px Helvetica;
             text-transform: uppercase;
             letter-spacing: 3px;
         }
         input {
-            transition: all 0.2s ease-in-out;
-            font: 20px Helvetica, Arial, sans-serif;
-            border: none;
-            background: #1aaf75;
-            color: #fff;
-            padding: 16px 30px;
         }
         input:hover{
             font-size: 150%;
@@ -42,6 +41,6 @@
 </head>
 <body>
 <h1>Username or password is wrong.</h1>
-<input type="button" value="Back" onclick="location.href='Login.jsp';">
+<input type="button" value="Back" class="btn btn-info" onclick="location.href='Login.jsp';">
 </body>
 </html>
