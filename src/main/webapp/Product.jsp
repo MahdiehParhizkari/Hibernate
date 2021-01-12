@@ -6,94 +6,97 @@
 <html>
 <head>
     <title>Product</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         body {
-            background: #c2c2c2;
+            background: #ddf8ff;
         }
-        input[type=button]{
-            font: 18px Helvetica, Arial, sans-serif;
-            box-sizing: content-box;
-            border: none;
-            padding: 8px;
-            width: 70px;
-            margin-bottom: 10px;
-            font-size: 15px;
+        table{
+            border: 3px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[type=number] {
+            margin: 10px;
+            border: 3px solid #ccc;
+            box-sizing: border-box;
+        }
+        #home{
+            position: absolute;
+            right: 0;
+            margin: 5px;
             cursor: pointer;
         }
-        input[type=text] {
-            font: 15px Helvetica, Arial, sans-serif;
-            background-color: #f0f4f6;
-            border-style: none;
-            width: 130px;
-            height: 33px;
-        }
-        #submit{
-            font: 15px Helvetica, Arial, sans-serif;
-            box-sizing: content-box;
-            border: none;
-            padding: 8px;
-            width: 130px;
-            font-size: 15px;
+        #add{
+            position: absolute;
+            right: 90px;
+            margin: 5px;
             cursor: pointer;
-        }
-        .span{
-            font-size: 15px;
         }
         h2 {
             margin: 0 auto 40px;
-            color: #fff;
             font: 40px Helvetica;
+            alignment: center;
         }
     </style>
 </head>
 <body>
-<input type="button" value="Home" onclick="location.href='index.jsp';">
-<input type="button" value="Add" onclick="location.href='ProductAdd.jsp';">
-<form action="ProductAct" method="post">
-    <span class="span">Product Code: <input type="text" name="procode"></span>
-    <span class="span"><input type="submit" value="Show Product" id="submit"></span>
-    <input type="hidden" value="read" name="crud">
-</form>
+<br><div class="container">
+    <form action="ProductAct" method="post">
+        <div>
+            Product Code: <input type="text" name="procode">
+            <input type="submit" value="Show Product" id="submit" class="btn btn-info">
+            <input type="hidden" value="read" name="crud">
+            <input type="button" value="Home" id="home" class="btn btn-info" onclick="location.href='index.jsp';">
+            <input type="button" value="Add" id="add" class="btn btn-info" onclick="location.href='ProductAdd.jsp';">
+        </div>
+    </form>
+</div>
 
 <c:if test="${requestScope.message ne null}">
     <h2><c:out value="${requestScope.message}"/></h2>
 </c:if>
+<div class="container">
+    <table >
+        <tr>
+            <td>productCode</td>
+            <td>productName</td>
+            <td>productLine</td>
+            <td>productScale</td>
+            <td>productVendor</td>
+            <td>productDescription</td>
+            <td>quantityInStock</td>
+            <td>buyPrice</td>
+            <td>MSRP</td>
+            <td>Delete</td>
+            <td>Edit</td>
+        </tr>
 
-<table border="1px">
-    <tr>
-        <td>productCode</td>
-        <td>productName</td>
-        <td>productLine</td>
-        <td>productScale</td>
-        <td>productVendor</td>
-        <td>productDescription</td>
-        <td>quantityInStock</td>
-        <td>buyPrice</td>
-        <td>MSRP</td>
-        <td>Delete</td>
-        <td>Edit</td>
-    </tr>
-
-    <c:if test="${requestScope.product == null}">
-        <h2>There is no data.</h2>
-    </c:if>
-    <c:if test="${requestScope.product != null}">
-        <c:forEach var="product" items="${requestScope.product}">
-    <tr>
-        <td><c:out value="${product.productCode}"/></td>
-        <td><c:out value="${product.productName}"/></td>
-        <td><c:out value="${product.productLine}"/></td>
-        <td><c:out value="${product.productScale}"/></td>
-        <td><c:out value="${product.productVendor}"/></td>
-        <td><c:out value="${product.productDescription}"/></td>
-        <td><c:out value="${product.quantityInStock}"/></td>
-        <td><c:out value="${product.buyPrice}"/></td>
-        <td><c:out value="${product.MSRP}"/></td>
-        <td><a href="/ProductAct?procode=${product.productCode}&crud=delete">Delete</a></td>
-        <td><a href="/ProductAct?productcode=${product.productCode}&crud=edit">Edit</a></td>
-    </tr>
-        </c:forEach>
-    </c:if>
-</table>
+        <c:if test="${requestScope.product == null}">
+            <h2>There is no data.</h2>
+        </c:if>
+        <c:if test="${requestScope.product != null}">
+            <c:forEach var="product" items="${requestScope.product}">
+        <tr>
+            <td><c:out value="${product.productCode}"/></td>
+            <td><c:out value="${product.productName}"/></td>
+            <td><c:out value="${product.productLine}"/></td>
+            <td><c:out value="${product.productScale}"/></td>
+            <td><c:out value="${product.productVendor}"/></td>
+            <td><c:out value="${product.productDescription}"/></td>
+            <td><c:out value="${product.quantityInStock}"/></td>
+            <td><c:out value="${product.buyPrice}"/></td>
+            <td><c:out value="${product.MSRP}"/></td>
+            <td><a href="/ProductAct?procode=${product.productCode}&crud=delete">Delete</a></td>
+            <td><a href="/ProductAct?productcode=${product.productCode}&crud=edit">Edit</a></td>
+        </tr>
+            </c:forEach>
+        </c:if>
+    </table>
+</div>
 </body>
 </html>
