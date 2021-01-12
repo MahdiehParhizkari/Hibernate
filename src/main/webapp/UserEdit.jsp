@@ -9,14 +9,19 @@
 <html>
 <head>
     <title>Edit</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         body {
-            background: #c2c2c2;
+            background: #ddf8ff;
         }
         h2 {
-            margin: 0 auto 40px;
-            color: #fff;
             font: 40px Helvetica;
+            margin-left: 10px;
         }
         td{
             font: 15px Helvetica, Arial, sans-serif;
@@ -25,6 +30,8 @@
         .inp{
             height: 30px;
             weight: 80px;
+            border: 3px solid #ccc;
+            box-sizing: border-box;
         }
         input[type=submit]{
             font: 15px Helvetica, Arial, sans-serif;
@@ -67,9 +74,9 @@
             <td><input type="number" value="<%=user.getEmployeefk()%>" name="empfk" class="inp"></td>
         </tr>
     </table>
-    <input type="submit" value="Update">
+    <input type="submit" value="Update" class="btn btn-info">
     <input type="hidden" value="update" name="crud">
-    <input type="button" value="Back" onclick="location.href='User.jsp';">
+    <input type="button" value="Back" class="btn btn-info" onclick="location.href='User.jsp';">
 
 </form>
 </body>
