@@ -114,7 +114,49 @@
     </table>
     <input type="hidden" name="crud" value="update">
     <input type="submit" value="Update" class="btn btn-info">
-    <input type="button" value="Back" class="btn btn-info" onclick="location.href='Customer.jsp';">
+    <input type="button" value="Back" <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background: #ddf8ff;
+        }
+        h2 {
+            font: 40px Helvetica;
+            margin-left: 10px;
+        }
+        td{
+            font: 15px Helvetica, Arial, sans-serif;
+            padding: 5px 10px;
+        }
+        .inp{
+            height: 30px;
+            weight: 80px;
+            border: 3px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[type=submit]{
+            font: 15px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        input[type=button]{
+            font: 15px Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style> onclick="location.href='Customer.jsp';">
 </form>
 </body>
 </html>
