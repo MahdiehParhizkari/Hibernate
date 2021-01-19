@@ -53,6 +53,12 @@
             <input type="button" value="Add" class="btn btn-info" id="add" onclick="location.href='CustomerAdd.jsp';">
         </div>
     </form>
+    <form action="CustomerAct" method="get" class="form-inline">
+        <div>
+            <input type="submit" class="btn btn-info" value="Report">
+            <input type="hidden" name="crud" value="report">
+        </div>
+    </form>
 </div>
 
 <c:if test="${requestScope.message ne null}">

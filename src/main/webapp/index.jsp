@@ -17,7 +17,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         body {
-            background: #c2c2c2;
+            background: #ddf8ff;
             display: flex;
             flex-direction: column;
             flex-grow: 0;
@@ -27,7 +27,6 @@
         }
         h1 {
             margin: 0 auto 40px;
-            color: #fff;
             font: 40px Helvetica;
             text-transform: uppercase;
         }
@@ -46,7 +45,6 @@
         }
         span{
             margin: 0 auto 40px;
-            color: #fff;
             font: 20px Helvetica;
             padding-bottom: 20px;
         }

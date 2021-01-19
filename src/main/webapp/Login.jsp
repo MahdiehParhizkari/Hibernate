@@ -18,11 +18,17 @@
     <style>
         body {
             background: #ddf8ff;
-            align: center;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 0;
+            align-items: center;
+            justify-content: center;
+            margin-top: 100px;
         }
         h2 {
-            font: 40px Helvetica;
+            font: 50px Helvetica;
             margin-left: 10px;
+            margin-bottom: 10px;
         }
         td{
             font: 15px Helvetica, Arial, sans-serif;

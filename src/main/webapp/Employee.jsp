@@ -50,6 +50,10 @@
     <input type="button" value="Home" class="btn btn-info" id="home" onclick="location.href='index.jsp';">
     <input type="button" value="Add" class="btn btn-info" id="add" onclick="location.href='Employeeadd.jsp';">
 </form>
+<form action="EmployeeAct" method="get">
+       <input type="hidden" name="crud" value="report">
+    <input type="submit" value="Show Employee" class="btn btn-info">
+</form>
 <c:if test="${requestScope.message ne null}">
     <h2 class="h2">${requestScope.message}</h2>
 </c:if>

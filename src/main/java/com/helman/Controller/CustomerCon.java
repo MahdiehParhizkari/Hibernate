@@ -2,6 +2,10 @@ package com.helman.Controller;
 
 import com.helman.Dao.Customerdao;
 import com.helman.Entity.Customer;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -83,6 +87,19 @@ public class CustomerCon extends HttpServlet {
             Customer customer = customerdao.findById(Integer.parseInt(req.getParameter("custnum")));
             req.setAttribute("cust", customer);
             req.getRequestDispatcher("/CustomerEdit.jsp").forward(req, resp);
+        }
+        if (crud.equals("report")){
+            try {
+                String path = "/home/afshin/projects/java/SadafPrj/Hiber/Git/src/main/resources/Jasper/Customer.jrxml";
+                JasperReport jreport = JasperCompileManager.compileReport(path);
+                JRBeanCollectionDataSource jcs = new JRBeanCollectionDataSource(customerdao.findall());
+                JasperPrint jprint = JasperFillManager.fillReport(jreport, null, jcs);
+                JasperViewer.viewReport(jprint, false);
+                req.getRequestDispatcher("/Customer.jsp").forward(req, resp);
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 }

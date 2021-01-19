@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+/*import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;*/
 
 @WebServlet(name = "EmployeeAct", urlPatterns = {"/EmployeeAct"})
 public class EmployeeCon extends HttpServlet {
@@ -28,6 +32,7 @@ public class EmployeeCon extends HttpServlet {
                 employeeList = employeedao.findall();
             else
                 employeeList.add(employeedao.findbyid(Long.parseLong(empid)));
+
             req.setAttribute("employees", employeeList);
             req.getRequestDispatcher("/Employee.jsp").forward(req, resp);
         }
@@ -57,6 +62,11 @@ public class EmployeeCon extends HttpServlet {
             req.setAttribute("message", "Updated.");
             req.getRequestDispatcher("/Employee.jsp").forward(req, resp);
         }
+/*        try {
+            TimeUnit.MINUTES.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
     }
 
     @Override
@@ -85,5 +95,10 @@ public class EmployeeCon extends HttpServlet {
             req.setAttribute("employees",employeeList);
             req.getRequestDispatcher("/Employee.jsp").forward(req, resp);
         }
-    }
+        if (crud.equals("report")){
+            //JasperReport jreport = JasperCompileManager.compileReport("");
+
+        }
+
+        }
 }
