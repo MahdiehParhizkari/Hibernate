@@ -24,11 +24,10 @@ public class SecurityFilter implements Filter {
 
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        chain.doFilter(request, response);
         HttpServletRequest req = (HttpServletRequest)request;
         if (req.getSession() != null && req.getSession().getAttribute("sessionUser") != null)
             chain.doFilter(request, response);
         else
-            ((HttpServletResponse)response).sendRedirect("index.jsp");
+            ((HttpServletResponse)response).sendRedirect("Login.jsp");
     }
 }

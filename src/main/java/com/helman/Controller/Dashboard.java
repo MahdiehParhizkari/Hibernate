@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "Dispatcher", urlPatterns = {"/Dispatcher"})
@@ -29,7 +30,9 @@ public class Dashboard extends HttpServlet {
         if (crud.equals("into")){
             //String un = req.getParameter("username");
             User user = userdao.login(req.getParameter("username"));
+            HttpSession session = req.getSession(true);
             if (req.getParameter("password").equals(user.getPassword())) {
+                session.setAttribute("sessionUser", user);
                 req.getRequestDispatcher("/index.jsp").forward(req, resp);
             }else {req.getRequestDispatcher("/Error.jsp").forward(req, resp);}
         }

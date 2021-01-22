@@ -2,6 +2,9 @@ package com.helman.Controller;
 
 import com.helman.Dao.Employeedao;
 import com.helman.Entity.Employee;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,9 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-/*import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;*/
 
 @WebServlet(name = "EmployeeAct", urlPatterns = {"/EmployeeAct"})
 public class EmployeeCon extends HttpServlet {
@@ -24,9 +24,9 @@ public class EmployeeCon extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         employeeList.clear();
-        String crud = req.getParameter("crud");
+        String action = req.getParameter("crud");
 
-        if(crud.equals("read")) {
+        if(action.equals("read")) {
             String empid = req.getParameter("empnum");
             if (empid == null || empid.isEmpty())
                 employeeList = employeedao.findall();
@@ -36,7 +36,7 @@ public class EmployeeCon extends HttpServlet {
             req.setAttribute("employees", employeeList);
             req.getRequestDispatcher("/Employee.jsp").forward(req, resp);
         }
-        if(crud.equals("create")){
+        if(action.equals("create")){
             employee.setEmployeeNumber(Long.parseLong(req.getParameter("empnum")));
             employee.setLastName(req.getParameter("lname"));
             employee.setFirstName(req.getParameter("fname"));
@@ -49,7 +49,7 @@ public class EmployeeCon extends HttpServlet {
             req.setAttribute("message", "Add was success.");
             req.getRequestDispatcher("/Employee.jsp").forward(req, resp);
         }
-        if (crud.equals("update")){
+        if (action.equals("update")){
             employee = employeedao.findbyid(Long.parseLong(req.getParameter("empnum")));
             employee.setLastName(req.getParameter("lname"));
             employee.setFirstName(req.getParameter("fname"));
@@ -72,33 +72,38 @@ public class EmployeeCon extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         employeeList.clear();
-        String crud = req.getParameter("crud");
+        String action = req.getParameter("crud");
 
-        if (crud.equals("delete")) {
+        if (action.equals("delete")) {
             employeedao.delete(Long.parseLong(req.getParameter("empnumber")));
             req.setAttribute("message", "Employee is deleted.");
             req.getRequestDispatcher("/Employee.jsp").forward(req, resp);
         }
-        if (crud.equals("edit")){
+        if (action.equals("edit")){
             Employee employee = employeedao.findbyid(Long.parseLong(req.getParameter("empnumber")));
             req.setAttribute("empobjt",employee);
             req.getRequestDispatcher("/EmployeeEdit.jsp").forward(req,resp);
         }
-        if (crud.equals("mngrof")){
+        if (action.equals("mngrof")){
             employeeList = employeedao.besonderSelect(Long.parseLong(req.getParameter("managerof")));
             req.setAttribute("employees", employeeList);
             req.getRequestDispatcher("/Employee.jsp").forward(req, resp);
         }
-        if (crud.equals("rpto")){
+        if (action.equals("rpto")){
             Employee employee = employeedao.findbyid(Long.parseLong(req.getParameter("reportto")));
             employeeList.add(employee);
             req.setAttribute("employees",employeeList);
             req.getRequestDispatcher("/Employee.jsp").forward(req, resp);
         }
-        if (crud.equals("report")){
-            //JasperReport jreport = JasperCompileManager.compileReport("");
-
+        if (action.equals("report")){
+            try {
+                String path ="/home/afshin/projects/java/SadafPrj/Hiber/Git/src/main/resources/Jasper/Employee.jrxml";
+                JasperReport jreport = JasperCompileManager.compileReport(path);
+                JRBeanCollectionDataSource jcs = new JRBeanCollectionDataSource(employeedao.findall());
+                JasperPrint jprint = JasperFillManager.fillReport(jreport, null, jcs);
+                JasperViewer.viewReport(jprint, false);
+            } catch (JRException e) {e.printStackTrace();}
+            req.getRequestDispatcher("/Employee.jsp").forward(req, resp);
         }
-
-        }
+    }
 }

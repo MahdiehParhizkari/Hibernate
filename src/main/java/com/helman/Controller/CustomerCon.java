@@ -5,7 +5,6 @@ import com.helman.Entity.Customer;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -99,7 +98,6 @@ public class CustomerCon extends HttpServlet {
             } catch (JRException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }

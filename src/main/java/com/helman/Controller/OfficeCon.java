@@ -2,6 +2,10 @@ package com.helman.Controller;
 
 import com.helman.Dao.Officedao;
 import com.helman.Entity.Office;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -77,6 +81,19 @@ public class OfficeCon extends HttpServlet {
             Office office = officedao.findById(req.getParameter("offcode"));
             req.setAttribute("offobjct", office);
             req.getRequestDispatcher("/OfficeEdit.jsp").forward(req, resp);
+        }
+        if (crud.equals("report")){
+            String path = "/home/afshin/projects/java/SadafPrj/Hiber/Git/src/main/resources/Jasper/Office.jrxml";
+            try {
+                JasperReport jreport = JasperCompileManager.compileReport(path);
+                JRBeanCollectionDataSource jcs = new JRBeanCollectionDataSource(officedao.findAll());
+                JasperPrint jprint = JasperFillManager.fillReport(jreport, null, jcs);
+                JasperViewer.viewReport(jprint, false);
+                req.getRequestDispatcher("/Office.jsp").forward(req, resp);
+            } catch (JRException e) {
+                e.printStackTrace();
+                req.getRequestDispatcher("/Office.jsp").forward(req, resp);
+            }
         }
     }
 }
