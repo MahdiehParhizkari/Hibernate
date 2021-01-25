@@ -16,11 +16,19 @@
         .all{
             position: absolute;
             left:0px;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-size: contain;
         }
         body {
             background: #ddf8ff;
         }
         input[type=number] {
+            margin: 10px;
+            border: 3px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[type=text] {
             margin: 10px;
             border: 3px solid #ccc;
             box-sizing: border-box;

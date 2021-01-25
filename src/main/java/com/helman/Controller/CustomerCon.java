@@ -89,7 +89,8 @@ public class CustomerCon extends HttpServlet {
         }
         if (crud.equals("report")){
             try {
-                String path = "/home/afshin/projects/java/SadafPrj/Hiber/Git/src/main/resources/Jasper/Customer.jrxml";
+                String path = req.getSession().getServletContext().getRealPath("/WEB-INF/Report/Customer.jrxml");
+                //String path = "/WEB-INF/Report/Customer.jrxml";
                 JasperReport jreport = JasperCompileManager.compileReport(path);
                 JRBeanCollectionDataSource jcs = new JRBeanCollectionDataSource(customerdao.findall());
                 JasperPrint jprint = JasperFillManager.fillReport(jreport, null, jcs);

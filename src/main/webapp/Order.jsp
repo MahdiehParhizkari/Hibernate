@@ -15,6 +15,9 @@
         .all{
             position: absolute;
             left:0px;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-size: contain;
         }
         body {
             background: #ddf8ff;

@@ -4,6 +4,10 @@ import com.helman.Entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.jdbc.Work;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Mysession {
 
@@ -32,8 +36,17 @@ public class Mysession {
     public static Session getSession(){
         return mysession.openSession();
     }
-
     public static void closeSession(){
         mysession.getCurrentSession().close();
+    }
+    public static Connection getConnection() {
+        final Connection[] con = new Connection[1];
+        getSession().doWork(new Work() {
+            @Override
+            public void execute(Connection connection) throws SQLException {
+                con[0] =connection;
+            }
+        });
+        return con[0];
     }
 }

@@ -5,7 +5,6 @@ import com.helman.Entity.Office;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -83,7 +82,7 @@ public class OfficeCon extends HttpServlet {
             req.getRequestDispatcher("/OfficeEdit.jsp").forward(req, resp);
         }
         if (crud.equals("report")){
-            String path = "/home/afshin/projects/java/SadafPrj/Hiber/Git/src/main/resources/Jasper/Office.jrxml";
+            String path =req.getSession().getServletContext().getRealPath("/WEB-INF/Report/Office.jrxml");
             try {
                 JasperReport jreport = JasperCompileManager.compileReport(path);
                 JRBeanCollectionDataSource jcs = new JRBeanCollectionDataSource(officedao.findAll());

@@ -15,6 +15,9 @@
         .all{
             position: absolute;
             left:0px;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-size: contain;
         }
         body {
             background: #ddf8ff;
@@ -44,7 +47,7 @@
 </head>
 <div class="all">
     <body>
-    <div class="container">
+    <br><div class="container">
         <form action="PaymentAct" method="post" class="form-inline">
             <div>
                 Customer Number: <input type="number" name="custnum" class="input">

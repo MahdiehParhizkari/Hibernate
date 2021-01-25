@@ -14,6 +14,9 @@
         .all{
             position: absolute;
             left:0px;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-size: contain;
         }
         body {
             background: #ddf8ff;
@@ -55,8 +58,7 @@
         </form>
         <form action="EmployeeAct" method="get" class="form-inline">
             <div>
-                <input type="hidden" name="crud" value="report">
-                <input type="submit" value="Report" class="btn btn-info">
+                <input type="button" value="Report Page" class="btn btn-info" onclick="location.href='EmployeeReport.jsp';">
             </div>
         </form>
     </div>
