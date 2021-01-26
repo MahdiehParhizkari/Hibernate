@@ -56,11 +56,9 @@
                 <input type="button" value="Add" class="btn btn-info" id="add" onclick="location.href='Employeeadd.jsp';">
             </div>
         </form>
-        <form action="EmployeeAct" method="get" class="form-inline">
-            <div>
-                <input type="button" value="Report Page" class="btn btn-info" onclick="location.href='EmployeeReport.jsp';">
-            </div>
-        </form>
+        <div>
+            <input type="button" value="Report Page" class="btn btn-info" onclick="location.href='EmployeeReport.jsp';">
+        </div>
     </div>
     <c:if test="${requestScope.message ne null}">
         <h2>${requestScope.message}</h2>

@@ -1,9 +1,13 @@
 package com.helman.Controller;
 
+import com.helman.Dao.JRsqlFunction;
 import com.helman.Dao.Paymentdao;
 import com.helman.Entity.Payment;
 import com.helman.Entity.PaymentPK;
 import com.helman.General.GregorianDate;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,11 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @WebServlet(name = "PaymentAct", urlPatterns = {"/PaymentAct"})
 public class PaymentCon extends HttpServlet {
@@ -102,6 +105,19 @@ public class PaymentCon extends HttpServlet {
             Payment payment = paymentdao.findById(pPk);
             req.setAttribute("pay", payment);
             req.getRequestDispatcher("/PaymentEdit.jsp").forward(req,resp);
+        }
+        if (crud.equals("report")){
+            String path = req.getSession().getServletContext().getRealPath("/WEB-INF/Report/Payment.jrxml");
+            Map<String, Object> parameters = new HashMap<String, Object>();
+            try {
+                parameters.put("fdate", new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("fromdate")));
+                parameters.put("tdate", new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("todate")));
+            } catch (ParseException e) { e.printStackTrace(); }
+            try {
+                JRsqlFunction.viewReport(path, parameters);
+            } catch (JRException | SQLException e) {
+                e.printStackTrace();
+            }req.getRequestDispatcher("/PaymentReport.jsp").forward(req, resp);
         }
     }
 }

@@ -58,6 +58,9 @@
                 <input type="button" value="Add" id="add" class="btn btn-info" onclick="location.href='PaymentAdd.jsp';">
             </div>
         </form>
+        <div>
+            <input type="button" class="btn btn-info" value="Report" onclick="location.href='PaymentReport.jsp';">
+        </div>
     </div>
         <%String payam = (String) request.getAttribute("message");
         if (payam != null) {%>
