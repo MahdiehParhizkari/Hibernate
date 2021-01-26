@@ -1,8 +1,11 @@
 package com.helman.Controller;
 
+import com.helman.Dao.JRsqlFunction;
 import com.helman.Dao.Orderdetaildao;
 import com.helman.Entity.Orderdetail;
 import com.helman.Entity.OrderdetailPK;
+import com.ibm.icu.impl.number.MacroProps;
+import net.sf.jasperreports.engine.JRException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "OrderdetailAct", urlPatterns = {"/OrderdetailAct"})
 public class OrderdetailCon extends HttpServlet {
@@ -83,6 +89,17 @@ public class OrderdetailCon extends HttpServlet {
             Orderdetail od = orderdetaildao.findById(odPK);
             req.setAttribute("orderdetail", od);
             req.getRequestDispatcher("/OrderdetailEdit.jsp").forward(req, resp);
+        }
+        if (crud.equals("report")){
+            String path = req.getSession().getServletContext().getRealPath("/WEB-INF/Report/Orderdetail.jrxml");
+            Map<String, Object> parameters = new HashMap<String, Object>();
+            parameters.put("orderNum", Integer.parseInt(req.getParameter("ordernumber")));
+            try {
+                JRsqlFunction.viewReport(path, parameters);
+            } catch (JRException | SQLException e) {
+                e.printStackTrace();
+            }
+            req.getRequestDispatcher("/Orderdetail.jsp").forward(req, resp);
         }
     }
 }

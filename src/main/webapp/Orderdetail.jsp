@@ -64,6 +64,7 @@
                 <input type="button" value="Add" id="add" class="btn btn-info" onclick="location.href='OrderdetailAdd.jsp';">
             </div>
         </form>
+        <input type="button" value="Report" class="btn btn-info" onclick="location.href='OrderdetailReport.jsp';">
     </div>
     <c:if test="${requestScope.message ne null}">
         <h2><c:out value="${requestScope.message}"/></h2>
