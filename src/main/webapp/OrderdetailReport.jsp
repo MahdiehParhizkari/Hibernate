@@ -38,7 +38,12 @@
         <input type="submit" value="Report Orderdetail" class="btn btn-info">
         <input type="hidden" name="crud" value="report">
         </form>
-        <input type="button" value="Back" class="btn btn-info" onclick="location.href='Orderdetail.jsp';">
+        <form action="/OrderdetailAct" method="get">
+            Enter OrderNumber: <input type="number" name="ordernumber">
+            <input type="submit" value="Factor" class="btn btn-info">
+            <input type="hidden" name="crud" value="factor">
+            <input type="button" value="Back" class="btn btn-info" onclick="location.href='Orderdetail.jsp';">
+        </form>
     </div>
     </body>
 </div>

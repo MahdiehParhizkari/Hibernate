@@ -1,7 +1,13 @@
 package com.helman.Controller;
 
+import com.helman.Dao.JRsqlFunction;
+import com.helman.Dao.Orderdao;
 import com.helman.Dao.Productlinedao;
+import com.helman.Entity.Order;
 import com.helman.Entity.Productline;
+import com.helman.General.GregorianDate;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperReport;
 import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ServletException;
@@ -12,8 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "ProductlineAct", urlPatterns = {"/ProductlineAct"})
 @MultipartConfig

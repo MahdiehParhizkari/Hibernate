@@ -15,8 +15,6 @@ import java.sql.SQLException;
 import java.util.Map;
 
 public class JRsqlFunction {
-    /*Remove all below tags in Reports
-        <fieldDescription><![CDATA[]]></fieldDescription>*/
     public static void viewReport(String path, Map parameters) throws JRException, SQLException {
         JasperReport jreport = JasperCompileManager.compileReport(path);
         Connection connection = Mysession.getConnection() ;

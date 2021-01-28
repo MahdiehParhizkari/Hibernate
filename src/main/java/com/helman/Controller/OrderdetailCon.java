@@ -1,9 +1,12 @@
 package com.helman.Controller;
 
 import com.helman.Dao.JRsqlFunction;
+import com.helman.Dao.Orderdao;
 import com.helman.Dao.Orderdetaildao;
+import com.helman.Entity.Order;
 import com.helman.Entity.Orderdetail;
 import com.helman.Entity.OrderdetailPK;
+import com.helman.General.GregorianDate;
 import com.ibm.icu.impl.number.MacroProps;
 import net.sf.jasperreports.engine.JRException;
 
@@ -100,6 +103,35 @@ public class OrderdetailCon extends HttpServlet {
                 e.printStackTrace();
             }
             req.getRequestDispatcher("/Orderdetail.jsp").forward(req, resp);
+        }
+        if (crud.equals("factor")){
+            /*Grandtotal variable properties:
+            Calculation: SUM
+            Experesion: $V{totalprice}
+            Initial value experesion: 0
+            Reset type: Group
+            Report Properties:
+            Float Column footer: True
+             */
+            String path = req.getSession().getServletContext().getRealPath("/WEB-INF/Report/SaleFactor.jrxml");
+            Orderdao orderdao = new Orderdao();
+            Order order = orderdao.findById(Integer.parseInt(req.getParameter("ordernumber")));
+            String param_date = GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(order.getOrderDate()));
+            String param_cName = order.getCustomer().getCustomerName();
+            String param_eName = order.getCustomer().getEmployee().getFirstName()+" "+ order.getCustomer().getEmployee().getLastName();
+
+            Map<String, Object> myvalues = new HashMap<String, Object>();
+            myvalues.put("Date", param_date);
+            myvalues.put("CustomerName", param_cName);
+            myvalues.put("EmployeeName", param_eName);
+            myvalues.put("orderNum", order.getOrderNumber());
+
+            try {
+                JRsqlFunction.viewReport(path, myvalues);
+            } catch (JRException | SQLException e) {
+                e.printStackTrace();
+            }
+            req.getRequestDispatcher("/OrderdetailReport.jsp").forward(req,resp);
         }
     }
 }
