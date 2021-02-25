@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+
+    <!-- Logging Properties -->
+    <Properties>
+        <Property name="LOG_PATTERN">J%d{yyyy-MM-dd' 'HH:mm:ss.SSSZ} [%thread] %p  %m%n</Property>
+        <Property name="APP_LOG_ROOT">/var/log/afshin</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+        <!-- File Appenders on need basis -->
+        <!--ALL(TRACE(DEBUG(INFO(WARN(ERROR(FATAL)))))),OFF  -->
+        <RollingFile name="InfoLog" fileName="${APP_LOG_ROOT}/order_log4j-info.log"
+                     filePattern="${APP_LOG_ROOT}/app-info-%d{yyyy-MM-dd}-%i.log" >
+            <LevelRangeFilter minLevel="INFO" maxLevel="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="2MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+        <RollingFile name="ErrorLog" fileName="${APP_LOG_ROOT}/order_log4j-error.log"
+                     filePattern="${APP_LOG_ROOT}/app-error-%d{yyyy-MM-dd}-%i.log" >
+            <LevelRangeFilter minLevel="FATAL" maxLevel="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="2MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="InfoLog" />
+            <AppenderRef ref="ErrorLog" />
+        </Root>
+
+    </Loggers>
+
+</Configuration>
