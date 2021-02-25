@@ -60,7 +60,7 @@ public class Productline {
         return DatatypeConverter.printBase64Binary(image);
     }
 
-    @OneToMany(mappedBy = "productLine")
+    @OneToMany(mappedBy = "productline")
     public List<Product> getProducts() {
         return products;
     }

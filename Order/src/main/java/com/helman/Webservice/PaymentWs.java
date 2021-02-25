@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
 
+@Path("/payment")
 public class PaymentWs {
     private Paymentdao paymentdao = new Paymentdao();
     private List<Payment> paymentList = new ArrayList<>();
@@ -25,11 +26,10 @@ public class PaymentWs {
     @GET
     @Path("/findall")
     @Produces(MediaType.APPLICATION_JSON)
-    public String findall(){
+    public List<Payment> findall(){
         paymentList.clear();
-        //paymentList = paymentdao.findAll();
-        //return paymentList;
-        return "hi";
+        paymentList = paymentdao.findAll();
+        return paymentList;
     }
 
 }
