@@ -94,8 +94,8 @@
                 <td><%=user.getUsername()%></td>
                 <td><%=user.getPassword()%></td>
                 <td><%=user.getEmployeefk()%></td>
-                <td><a href="/UserAct?id=<%=user.getId()%>&crud=delete">Delete</a></td>
-                <td><a href="/UserAct?id=<%=user.getId()%>&crud=edit">edit</a></td>
+                <td><a href="UserAct?id=<%=user.getId()%>&crud=delete">Delete</a></td>
+                <td><a href="UserAct?id=<%=user.getId()%>&crud=edit">edit</a></td>
             </tr>
             <%}}}%>
         </table>

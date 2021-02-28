@@ -107,8 +107,8 @@
                         <td>${customer.country}</td>
                         <td>${customer.salesRepEmployeeNumber}</td>
                         <td>${customer.creditLimit}</td>
-                        <td><a href="/CustomerAct?custnum=${customer.customerNumber}&crud=delete">Delete</a></td>
-                        <td><a href="/CustomerAct?custnum=${customer.customerNumber}&crud=edit" >Edit</a></td>
+                        <td><a href="CustomerAct?custnum=${customer.customerNumber}&crud=delete">Delete</a></td>
+                        <td><a href="CustomerAct?custnum=${customer.customerNumber}&crud=edit" >Edit</a></td>
                     </tr>
                 </c:forEach>
             </c:if>

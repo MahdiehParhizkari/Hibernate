@@ -1,9 +1,12 @@
 package com.helman.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
+@JsonFilter("Userfilter")
 public class User {
     public User() {}
 

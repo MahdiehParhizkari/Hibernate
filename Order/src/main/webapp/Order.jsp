@@ -89,8 +89,8 @@
                         <td>${order.status}</td>
                         <td>${order.comments}</td>
                         <td>${order.customerNumber}</td>
-                        <td><a href="/orderAct?onum=${order.orderNumber}&crud=delete">Delete</a></td>
-                        <td><a href="/orderAct?onum=${order.orderNumber}&crud=edit">Edit</a></td>
+                        <td><a href="orderAct?onum=${order.orderNumber}&crud=delete">Delete</a></td>
+                        <td><a href="orderAct?onum=${order.orderNumber}&crud=edit">Edit</a></td>
                     </tr>
                 </c:forEach>
             </c:if>

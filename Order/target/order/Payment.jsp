@@ -93,8 +93,8 @@
                 <td><%=payment.getCheckNumber()%></td>
                 <td><%=GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(payment.getPaymentDate()))%></td>
                 <td><%=payment.getAmount()%></td>
-                <td><a href="/PaymentAct?custnum=<%=payment.getCustomerNumber()%>&checknum=<%=payment.getCheckNumber()%>&crud=delete">Delete</a></td>
-                <td><a href="/PaymentAct?custnum=<%=payment.getCustomerNumber()%>&checknum=<%=payment.getCheckNumber()%>&crud=edit">Edit</a></td>
+                <td><a href="PaymentAct?custnum=<%=payment.getCustomerNumber()%>&checknum=<%=payment.getCheckNumber()%>&crud=delete">Delete</a></td>
+                <td><a href="PaymentAct?custnum=<%=payment.getCustomerNumber()%>&checknum=<%=payment.getCheckNumber()%>&crud=edit">Edit</a></td>
             </tr>
             <%}}}%>
         </table>

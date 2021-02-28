@@ -1,10 +1,13 @@
 package com.helman.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "employees")
+@JsonFilter("Employeefilter")
 @NamedQueries({
         @NamedQuery(name = "managerEmp", query = "select e.lastName, e.firstName from Employee e " +
                 "where e.jobTitle=:jtit"),

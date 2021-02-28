@@ -32,7 +32,7 @@
 <div>
     <body>
     <div class="div">
-        <br><form action="/EmployeeAct" method="get">
+        <br><form action="EmployeeAct" method="get">
             Enter Employee Number: <input type="number" name="empNumber">
             <input type="submit" value="Report Employee" class="btn btn-info">
             <input type="hidden" name="crud" value="report">

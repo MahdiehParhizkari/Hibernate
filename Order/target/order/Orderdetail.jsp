@@ -93,8 +93,8 @@
                         <td><c:out value="${orderdetail.quantityOrdered}"/></td>
                         <td><c:out value="${orderdetail.priceEach}"/></td>
                         <td><c:out value="${orderdetail.orderLineNumber}"/></td>
-                        <td><a href="/OrderdetailAct?onum=<c:out value="${orderdetail.orderNumber}"/>%>&pcode=<c:out value="${orderdetail.productCode}"/>&crud=delete">Delete</a></td>
-                        <td><a href="/OrderdetailAct?onum=<c:out value="${orderdetail.orderNumber}"/>&pcode=<c:out value="${orderdetail.productCode}"/>&crud=edit">Edit</a></td>
+                        <td><a href="OrderdetailAct?onum=<c:out value="${orderdetail.orderNumber}"/>%>&pcode=<c:out value="${orderdetail.productCode}"/>&crud=delete">Delete</a></td>
+                        <td><a href="OrderdetailAct?onum=<c:out value="${orderdetail.orderNumber}"/>&pcode=<c:out value="${orderdetail.productCode}"/>&crud=edit">Edit</a></td>
                     </tr>
                 </c:forEach>
             </c:if>

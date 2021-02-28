@@ -93,8 +93,8 @@
                 <td><c:out value="${product.quantityInStock}"/></td>
                 <td><c:out value="${product.buyPrice}"/></td>
                 <td><c:out value="${product.MSRP}"/></td>
-                <td><a href="/ProductAct?procode=${product.productCode}&crud=delete">Delete</a></td>
-                <td><a href="/ProductAct?productcode=${product.productCode}&crud=edit">Edit</a></td>
+                <td><a href="ProductAct?procode=${product.productCode}&crud=delete">Delete</a></td>
+                <td><a href="ProductAct?productcode=${product.productCode}&crud=edit">Edit</a></td>
             </tr>
                 </c:forEach>
             </c:if>

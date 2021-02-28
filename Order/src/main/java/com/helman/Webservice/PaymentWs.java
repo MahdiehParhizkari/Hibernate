@@ -7,10 +7,10 @@ package com.helman.Webservice;
 //        Created by Intellije IDEA
 //        Description:JPA-Criteria
 
-
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.helman.Dao.Paymentdao;
 import com.helman.Entity.Payment;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -23,6 +23,7 @@ public class PaymentWs {
     private Paymentdao paymentdao = new Paymentdao();
     private List<Payment> paymentList = new ArrayList<>();
 
+    //http://localhost:8080/order/rest/payment/findall
     @GET
     @Path("/findall")
     @Produces(MediaType.APPLICATION_JSON)
@@ -31,5 +32,4 @@ public class PaymentWs {
         paymentList = paymentdao.findAll();
         return paymentList;
     }
-
 }

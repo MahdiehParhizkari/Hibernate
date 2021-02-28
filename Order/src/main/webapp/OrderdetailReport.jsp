@@ -33,12 +33,12 @@
 <div>
     <body>
     <div class="div">
-        <br><form action="/OrderdetailAct" method="get">
+        <br><form action="OrderdetailAct" method="get">
         Enter OrderNumber: <input type="number" name="ordernumber">
         <input type="submit" value="Report Orderdetail" class="btn btn-info">
         <input type="hidden" name="crud" value="report">
         </form>
-        <form action="/OrderdetailAct" method="get">
+        <form action="OrderdetailAct" method="get">
             Enter OrderNumber: <input type="number" name="ordernumber">
             <input type="submit" value="Factor" class="btn btn-info">
             <input type="hidden" name="crud" value="factor">

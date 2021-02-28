@@ -64,7 +64,7 @@
 <div>
     <body>
     <div class="div">
-        <br><form action="/PaymentAct" method="get">
+        <br><form action="PaymentAct" method="get">
         Enter date start from: <span id="display_area_1" style="cursor: pointer;" class="display_area">Choose Date</span>
         <input id="date_input_1" type="hidden" name="fromdate"/>
         <script type="text/javascript">

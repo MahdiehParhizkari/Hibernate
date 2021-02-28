@@ -55,7 +55,7 @@
 </head>
 <body>
 <h2 >Add new orderdetail:</h2>
-<form action="/OrderdetailAct" method="post">
+<form action="OrderdetailAct" method="post">
     <table>
         <tr>
             <td>OrderNumber:</td>

@@ -92,8 +92,8 @@
                     <img src="data:image/jpg+jpeg+png+gif;base64,<%=Base64.getEncoder().encodeToString(productline.getImage())%>" width="200" height="200"><br>
                 <%}%>
                 </td>
-                <td><a href="/ProductlineAct?proline=<%=productline.getProductLine()%>&crud=delete">Delete</a></td>
-                <td><a href="/ProductlineAct?proline=<%=productline.getProductLine()%>&crud=edit">Edit</a></td>
+                <td><a href="ProductlineAct?proline=<%=productline.getProductLine()%>&crud=delete">Delete</a></td>
+                <td><a href="ProductlineAct?proline=<%=productline.getProductLine()%>&crud=edit">Edit</a></td>
             </tr>
             <%}}}%>
         </table>

@@ -98,8 +98,8 @@
                         <td><c:out value="${office.country}"/></td>
                         <td><c:out value="${office.postalCode}"/></td>
                         <td><c:out value="${office.territory}"/></td>
-                        <td><a href="/OfficeAct?offcode=<c:out value="${office.officeCode}"/>&crud=delete">Delete</a></td>
-                        <td><a href="/OfficeAct?offcode=<c:out value="${office.officeCode}"/>&crud=edit">Edit</a></td>
+                        <td><a href="OfficeAct?offcode=<c:out value="${office.officeCode}"/>&crud=delete">Delete</a></td>
+                        <td><a href="OfficeAct?offcode=<c:out value="${office.officeCode}"/>&crud=edit">Edit</a></td>
                     </tr>
                 </c:forEach>
             </c:if>
