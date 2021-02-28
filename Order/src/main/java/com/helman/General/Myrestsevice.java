@@ -7,10 +7,8 @@ package com.helman.General;
 //        Created by Intellije IDEA
 //        Description:JPA-Criteria
 
-import com.helman.Webservice.CustomerWs;
-import com.helman.Webservice.EmployeeWs;
-import com.helman.Webservice.PaymentWs;
-import com.helman.Webservice.UserWs;
+import com.helman.Webservice.*;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.Arrays;
@@ -21,6 +19,6 @@ import java.util.Set;
 public class Myrestsevice extends Application {
     public Set<Class<?>> Myrestservice(){
         return new HashSet<Class<?>>(Arrays.asList(
-                UserWs.class, CustomerWs.class, EmployeeWs.class, PaymentWs.class));
+                UserWs.class, CustomerWs.class, EmployeeWs.class, OfficeWs.class, PaymentWs.class));
     }
 }

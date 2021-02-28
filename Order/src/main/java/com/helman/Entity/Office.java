@@ -1,10 +1,13 @@
 package com.helman.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "offices")
+@JsonFilter("Officefilter")
 public class Office{
     public Office(){
     }
