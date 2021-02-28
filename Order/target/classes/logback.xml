@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+    <!-- Logging Properties -->
+    <Property name="APP_LOG_ROOT" value="/var/log/afshin" />
+    <Property name="LOG_PATTERN" value="B%d{yyyy-MM-dd' 'HH:mm:ss.SSSZ} [%thread] %-5level %logger{36}%msg%n" />
+    <!--___________________________ APPENDER__________________________________-->
+    <appender name="consoleStudio" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <appender name="fileRolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${APP_LOG_ROOT}/order_logback.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${APP_LOG_ROOT}/order_logback-Arc.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <!-- each archived file, size max 10MB -->
+            <maxFileSize>1MB</maxFileSize>
+            <!-- total size of all archive files, if total size > 100MB, it will delete old archived file -->
+            <totalSizeCap>10MB</totalSizeCap>
+            <!-- 8 days to keep -->
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <appender name="fileDisposable" class="ch.qos.logback.core.FileAppender">
+        <file>${APP_LOG_ROOT}/order_logback-tmp.log</file>
+        <append>false</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <!--___________________________Set APPENDER__________________________________-->
+    <root level="TRACE">  <!--ALL(TRACE(DEBUG(INFO(WARN(ERROR(FATAL(OFF)))))))  -->
+        <appender-ref ref="consoleStudio" />
+        <appender-ref ref="fileRolling" />
+        <appender-ref ref="fileDisposable" />
+    </root>
+</configuration>
+        <!-- Monitor online on file: tail -f /var/log/afshin/order-logback.log-->
