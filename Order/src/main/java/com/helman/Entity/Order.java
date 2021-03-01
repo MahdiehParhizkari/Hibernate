@@ -1,6 +1,7 @@
 package com.helman.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.helman.General.GregorianDate;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.List;
         @NamedQuery(name = "findallcity", query = "select o  " +
                 "from Order o where o.status = 'cancelled'")
 })
+@JsonFilter("Orderfilter")
 public class Order {
     public Order(){
     }

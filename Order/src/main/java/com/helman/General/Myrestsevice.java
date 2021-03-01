@@ -19,6 +19,6 @@ import java.util.Set;
 public class Myrestsevice extends Application {
     public Set<Class<?>> Myrestservice(){
         return new HashSet<Class<?>>(Arrays.asList(
-                UserWs.class, CustomerWs.class, EmployeeWs.class, OfficeWs.class, PaymentWs.class));
+                UserWs.class, CustomerWs.class, EmployeeWs.class, OfficeWs.class,OrderWs.class, PaymentWs.class));
     }
 }
