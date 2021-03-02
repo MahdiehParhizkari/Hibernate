@@ -1,12 +1,15 @@
 package com.helman.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "orderdetails")
 @IdClass(OrderdetailPK.class)
+@JsonFilter("Orderdetailfilter")
 public class Orderdetail {
     public Orderdetail(){
     }

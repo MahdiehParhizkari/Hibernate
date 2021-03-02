@@ -1,11 +1,14 @@
 package com.helman.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import javax.persistence.*;
 import javax.xml.bind.DatatypeConverter;
 import java.util.List;
 
 @Entity
 @Table(name = "productlines")
+@JsonFilter("Productlinefilter")
 public class Productline {
     public Productline(){
     }

@@ -44,7 +44,7 @@ public class CustomerWs {
         }catch (JsonProcessingException e){
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).entity("").build();
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
     }
     //http://localhost:8080/order/rest/customer/find/104
@@ -62,7 +62,7 @@ public class CustomerWs {
         }catch (JsonProcessingException e){
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).entity("").build();
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
     }
     /*http://localhost:8080/order/rest/customer/insert

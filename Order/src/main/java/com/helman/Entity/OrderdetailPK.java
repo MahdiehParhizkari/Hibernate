@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class OrderdetailPK implements Serializable {
-    public OrderdetailPK(){
-    }
+    public OrderdetailPK(){}
 
     private Integer orderNumber;
     private String productCode;
