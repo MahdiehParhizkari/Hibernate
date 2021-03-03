@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.helman.Dao.Customerdao;
 import com.helman.Entity.Customer;
 import com.helman.General.Logback;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
