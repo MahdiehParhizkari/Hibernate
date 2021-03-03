@@ -36,14 +36,14 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.22</version>
     </dependency>
-    <!-- ________Persian Calendar________ -->
+    <!-- _____Persian Calendar_____ -->
     <dependency>
       <groupId>com.ibm.icu</groupId>
       <artifactId>icu4j</artifactId>
       <version>67.1</version>
     </dependency>
     <dependency>
-      <!-- JSP Web -->
+      <!-- _____JSP Web_____ -->
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <version>4.0.1</version>
@@ -60,19 +60,32 @@
       <artifactId>jstl</artifactId>
       <version>1.2</version>
     </dependency>
-    <!-- JAX RS -->
+    <!-- _____JAX RS_____ -->
     <dependency>
       <groupId>javax.ws.rs</groupId>
       <artifactId>javax.ws.rs-api</artifactId>
       <version>2.1.1</version>
     </dependency>
-    <!-- change part to byte[] -->
+    <!-- _____JAX-RS Client_____ -->
+    <!--Test-->
+    <dependency>
+      <groupId>org.glassfish.jersey.core</groupId>
+      <artifactId>jersey-client</artifactId>
+      <version>3.0.1</version>
+    </dependency>
+    <!--Test : InjectionManagerFactory-->
+    <dependency>
+      <groupId>org.glassfish.jersey.inject</groupId>
+      <artifactId>jersey-hk2</artifactId>
+      <version>3.0.1</version>
+    </dependency>
+    <!-- _____change part to byte[]_____ -->
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.6</version>
     </dependency>
-    <!-- jasper report -->
+    <!-- _____jasper report_____ -->
     <dependency>
       <groupId>net.sf.jasperreports</groupId>
       <artifactId>jasperreports</artifactId>
