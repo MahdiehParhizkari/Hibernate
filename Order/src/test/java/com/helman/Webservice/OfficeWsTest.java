@@ -40,12 +40,14 @@ public class OfficeWsTest {
             WebTarget webTarget = client.target(restServicePath).path("all");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.get();
-            //MAP JSON ti List of User
-            ObjectMapper mapper = new ObjectMapper();
-            List<Office> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Office>>() {
-            });
-            System.out.println(response.getStatusInfo() + "->" + response.getStatus());
-            if (response.getStatus() == 200) for (Office temp : list) System.out.println(temp);
+            System.out.println(response.getStatusInfo() +"->"+ response.getStatus());
+            if (response.getStatus() == 200){
+                //MAP JSON ti List of User
+                ObjectMapper mapper = new ObjectMapper();
+                List<Office> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Office>>() {
+                });
+                System.out.println(list);
+            }
         }catch (JsonProcessingException e){
             e.printStackTrace();
         }
@@ -59,7 +61,7 @@ public class OfficeWsTest {
             HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
             client.register(feature);
 
-            WebTarget webTarget = client.target(restServicePath).path("find");
+            WebTarget webTarget = client.target(restServicePath).path("find").path(objID);
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.get();
             System.out.println(response.getStatusInfo() + "->" + response.getStatus());
