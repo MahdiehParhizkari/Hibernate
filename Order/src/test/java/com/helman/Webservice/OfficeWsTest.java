@@ -28,7 +28,6 @@ import static org.junit.Assert.*;
 
 public class OfficeWsTest {
     final String restServicePath = "http://localhost:8080/order/rest/office";
-    String objID = "3";
     @Test
     public void findall() {
         try {
@@ -61,7 +60,7 @@ public class OfficeWsTest {
             HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
             client.register(feature);
 
-            WebTarget webTarget = client.target(restServicePath).path("find").path(objID);
+            WebTarget webTarget = client.target(restServicePath).path("find").path("10");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.get();
             System.out.println(response.getStatusInfo() + "->" + response.getStatus());
@@ -87,7 +86,7 @@ public class OfficeWsTest {
             WebTarget webTarget = client.target(restServicePath).path("insert");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Office o = new Office();
-            o.setOfficeCode("8");
+            o.setOfficeCode("11");
             o.setCity("Tehran");
             o.setPhone("+9888089");
             o.setAddressLine1("Street 66");
@@ -119,7 +118,7 @@ public class OfficeWsTest {
             WebTarget webTarget = client.target(restServicePath).path("update");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Office o = new Office();
-            o.setOfficeCode("8");
+            o.setOfficeCode("11");
             o.setCity("qazvin");
             o.setPhone("+982188089");
             o.setAddressLine1("Street 1");
@@ -147,10 +146,10 @@ public class OfficeWsTest {
             HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
             client.register(feature);
 
-            WebTarget webTarget = client.target(restServicePath).path("delete").path(objID);
+            WebTarget webTarget = client.target(restServicePath).path("11");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.delete();
-            System.out.println(response.getStatus());
+            System.out.println(response.getStatus() +"->"+ response.getStatusInfo());
             System.out.println(response.readEntity(String.class));
         }catch (Exception e){
             e.printStackTrace();

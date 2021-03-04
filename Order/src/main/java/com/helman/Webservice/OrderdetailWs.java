@@ -105,8 +105,10 @@ public class OrderdetailWs {
     @DELETE
     @Path("/{orderNumber}/{productCode}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(Orderdetail od){
-    Integer status = orderdetaildao.delete(od);
-    return Response.status(Response.Status.OK).entity(status).build();
+    public Response delete(@PathParam ("orderNumber") Integer ordnum, @PathParam("productCode") String procode){
+        OrderdetailPK orderdetailPK = new OrderdetailPK(ordnum, procode);
+        Orderdetail od = orderdetaildao.findById(orderdetailPK);
+        Integer status = orderdetaildao.delete(od);
+        return Response.status(Response.Status.OK).entity(status).build();
     }
 }

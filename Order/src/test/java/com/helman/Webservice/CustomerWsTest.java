@@ -2,7 +2,6 @@ package com.helman.Webservice;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
@@ -27,8 +26,7 @@ import java.util.List;
  */
 
 public class CustomerWsTest {
-    final String restServicePath = "http://localhost:8080/order/rest";
-    String objID = "103";
+    final String restServicePath = "http://localhost:8080/order/rest/customer";
     @Test
     public void findall() {
         try {
@@ -58,7 +56,7 @@ public class CustomerWsTest {
             HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
             client.register(feature);
 
-            WebTarget webTarget = client.target(restServicePath).path("find");
+            WebTarget webTarget = client.target(restServicePath).path("find").path("103");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.get();
             System.out.println(response.getStatusInfo() +"->"+ response.getStatus());
@@ -97,7 +95,7 @@ public class CustomerWsTest {
             cus.setSalesRepEmployeeNumber(1166);
             cus.setCreditLimit(new BigDecimal("666666"));
             FilterProvider filters = new SimpleFilterProvider().addFilter("Customerfilter",
-                    SimpleBeanPropertyFilter.filterOutAllExcept("customerNumber", "customerName", "contactLastName", "contactFirstName", "phone"));
+                    SimpleBeanPropertyFilter.filterOutAllExcept("customerNumber", "customerName", "contactLastName", "contactFirstName", "phone", "addressLine1", "city", "country"));
             String customerJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(cus);
             Response response = invocationBuilder.post(Entity.json(customerJson));
             System.out.println(response.getStatus());
@@ -118,20 +116,20 @@ public class CustomerWsTest {
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Customer cus = new Customer();
             cus.setCustomerNumber(102);
-            cus.setCustomerName("Helman");
-            cus.setContactLastName("Parhizkari");
-            cus.setContactFirstName("Sadaf");
+            cus.setCustomerName("Heli");
+            cus.setContactLastName("Parhiz");
+            cus.setContactFirstName("Sadi");
             cus.setPhone("+982188089");
-            cus.setAddressLine1("Street 1");
-            cus.setAddressLine2("Street2");
-            cus.setCity("Shiraz");
-            cus.setState("Teh");
-            cus.setPostalCode("198666666");
-            cus.setCountry("Iraq");
+            cus.setAddressLine1("Street 1666");
+            cus.setAddressLine2("Street2666");
+            cus.setCity("Mashhad");
+            cus.setState("Mash");
+            cus.setPostalCode("6666666666");
+            cus.setCountry("Iran");
             cus.setSalesRepEmployeeNumber(1166);
-            cus.setCreditLimit(new BigDecimal("666666"));
+            cus.setCreditLimit(new BigDecimal("77777"));
             FilterProvider filters = new SimpleFilterProvider().addFilter("Customerfilter",
-                    SimpleBeanPropertyFilter.filterOutAllExcept("customerNumber", "customerName", "contactLastName", "contactFirstName", "phone"));
+                    SimpleBeanPropertyFilter.filterOutAllExcept("customerNumber", "customerName", "contactLastName", "contactFirstName", "phone", "addressLine1", "city", "country"));
             String customerJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(cus);
             Response response = invocationBuilder.put(Entity.json(customerJson));
             System.out.println(response.getStatus());
@@ -148,7 +146,7 @@ public class CustomerWsTest {
             HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
             client.register(feature);
 
-            WebTarget webTarget = client.target(restServicePath).path("delete").path(objID);
+            WebTarget webTarget = client.target(restServicePath).path("102");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.delete();
             System.out.println(response.getStatus());

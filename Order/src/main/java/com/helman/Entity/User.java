@@ -64,4 +64,15 @@ public class User {
     public void setEmployee(Employee useremployee) {
         this.useremployee = useremployee;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", employeefk=" + employeefk +
+                ", useremployee=" + useremployee +
+                '}';
+    }
 }

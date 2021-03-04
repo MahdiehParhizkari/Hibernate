@@ -38,7 +38,7 @@ public class EmployeeWsTest {
             WebTarget webTarget = client.target(restServicePath).path("all");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.get();
-            System.out.println(response.getStatus());
+            System.out.println(response.getStatus() + "->" + response.getStatusInfo());
             if (response.getStatus() == 200) {
                 ObjectMapper mapper = new ObjectMapper();
                 List<Employee> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Employee>>() {
@@ -108,7 +108,7 @@ public class EmployeeWsTest {
             HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
             client.register(feature);
 
-            WebTarget webTarget = client.target(restServicePath).path("insert");
+            WebTarget webTarget = client.target(restServicePath).path("update");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Employee emp = new Employee();
             emp.setEmployeeNumber(Long.valueOf(1000));
@@ -137,12 +137,12 @@ public class EmployeeWsTest {
             HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
             client.register(feature);
 
-            WebTarget webTarget = client.target(restServicePath).path("delete").path("1004");
+            WebTarget webTarget = client.target(restServicePath).path("1000");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.delete();
-            System.out.println(response.getStatus());
+            System.out.println(response.getStatus() +"->"+ response.getStatusInfo());
             System.out.println(response.readEntity(String.class));
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

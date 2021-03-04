@@ -25,7 +25,6 @@ import java.util.List;
 
 public class UserWsTest {
     final String restServicePath = "http://localhost:8080/order/rest/user";
-    String objID="5";
     @Test
     public void findAll() {
         try {
@@ -38,7 +37,7 @@ public class UserWsTest {
             List<User> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<User>>() {
             });
             System.out.println(response.getStatusInfo() + "->" + response.getStatus());
-            if (response.getStatus() == 200) for (User tempOrd : list) System.out.println(tempOrd);
+            if (response.getStatus() == 200) for (User temp : list) System.out.println(temp);
         }catch (JsonProcessingException e){
             e.printStackTrace();
         }
@@ -48,7 +47,7 @@ public class UserWsTest {
     public void findById() {
         try{
             Client client = ClientBuilder.newClient();
-            WebTarget webTarget = client.target(restServicePath).path("find").path("objID");
+            WebTarget webTarget = client.target(restServicePath).path("find").path("3");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.get();
             ObjectMapper mapper = new ObjectMapper();
@@ -98,7 +97,7 @@ public class UserWsTest {
             WebTarget webTarget = client.target(restServicePath).path("update");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Userdao userdao = new Userdao();
-            User user = userdao.findById(6);
+            User user = userdao.findById(5);
             user.setUsername("Homa");
             user.setPassword("456");
             user.setEmployeefk(1076);
@@ -126,7 +125,7 @@ public class UserWsTest {
     public void delete(){
         try {
             Client client = ClientBuilder.newClient();
-            WebTarget webTarget = client.target(restServicePath).path("/delete").path(objID);
+            WebTarget webTarget = client.target(restServicePath).path("5");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Response response = invocationBuilder.delete();
             System.out.println(response.getStatus());
