@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.helman.Dao.Userdao;
 import com.helman.Entity.User;
 import com.helman.General.Logback;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -67,6 +66,8 @@ public class UserWs {
             return Response.status(Response.Status.NOT_FOUND).entity("").build();
         }
     }
+
+
     /* http://localhost:8080/order/rest/user/insert
     Body:
     {

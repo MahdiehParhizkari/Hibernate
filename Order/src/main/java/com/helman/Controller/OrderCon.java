@@ -2,9 +2,7 @@ package com.helman.Controller;
 
 import com.helman.Dao.Orderdao;
 import com.helman.Entity.Order;
-import com.helman.General.GregorianDate;
 import com.helman.General.Logback;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +12,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "orderAct", urlPatterns = {"/orderAct"})
@@ -22,6 +19,7 @@ public class OrderCon extends HttpServlet {
     Orderdao orderdao = new Orderdao();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         List<Order> orderList = new ArrayList<>();
         String ordernumber = req.getParameter("ordnum");
         String crud = req.getParameter("crud");
@@ -85,6 +83,7 @@ public class OrderCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         String crud = req.getParameter("crud");
 
         try {

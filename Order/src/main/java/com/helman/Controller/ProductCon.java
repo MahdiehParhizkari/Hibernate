@@ -3,7 +3,6 @@ package com.helman.Controller;
 import com.helman.Dao.Productdao;
 import com.helman.Entity.Product;
 import com.helman.General.Logback;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +19,7 @@ public class ProductCon extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         List<Product> productList = new ArrayList<>();
         String productcode = req.getParameter("procode");
         String crud = req.getParameter("crud");
@@ -70,6 +70,7 @@ public class ProductCon extends HttpServlet {
         String crud = req.getParameter("crud");
 
         try {
+            if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
             if (crud.equals("delete")) {
                 Product pro = productdao.findById(req.getParameter("procode"));
                 productdao.delete("pro");

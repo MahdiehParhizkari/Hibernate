@@ -21,6 +21,7 @@ import java.io.IOException;
 public class Dashboard extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         Userdao userdao = new Userdao();
         String crud = req.getParameter("crud");
         if (crud.equals("logout")){
@@ -28,13 +29,17 @@ public class Dashboard extends HttpServlet {
             req.getRequestDispatcher("/Login.jsp").forward(req, resp);
         }
         if (crud.equals("into")){
-            //String un = req.getParameter("username");
+            String pwd = req.getParameter("password");
             User user = userdao.login(req.getParameter("username"));
             HttpSession session = req.getSession(true);
-            if (req.getParameter("password").equals(user.getPassword())) {
+            if (user==null || !pwd.equals(user.getPassword())) {
+                session.setAttribute("message", "User or Password is incorrect");
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
+            } else {
                 session.setAttribute("sessionUser", user);
-                req.getRequestDispatcher("/index.jsp").forward(req, resp);
-            }else {req.getRequestDispatcher("/Error.jsp").forward(req, resp);}
+                session.setAttribute("message", "Login successful!");
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
+            }
         }
     }
 }

@@ -3,7 +3,6 @@ package com.helman.Controller;
 import com.helman.Dao.Userdao;
 import com.helman.Entity.User;
 import com.helman.General.Logback;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +16,7 @@ import java.util.List;
 public class UserCon extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         Userdao userdao = new Userdao();
         List<User> userList = new ArrayList<>();
         String crud = req.getParameter("crud");
@@ -60,6 +60,7 @@ public class UserCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         Userdao userdao = new Userdao();
         String crud = req.getParameter("crud");
 

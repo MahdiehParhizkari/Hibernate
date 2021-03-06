@@ -21,6 +21,7 @@ public class CustomerCon extends HttpServlet {
     Customerdao customerdao = new Customerdao();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         String crud = req.getParameter("crud");
 
         try {
@@ -82,6 +83,7 @@ public class CustomerCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         String crud = req.getParameter("crud");
 
         try{

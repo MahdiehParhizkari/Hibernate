@@ -80,9 +80,9 @@ public class PaymentWsTest {
         try {
             Client client = ClientBuilder.newClient();
             HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
-            client.register(feature);
+            //client.register(feature);
 
-            WebTarget webTarget = client.target(restServicePath).path("insert");
+            WebTarget webTarget = client.register(feature).target(restServicePath).path("insert");
             Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
             Payment p = new Payment();
             p.setCustomerNumber(103);
@@ -91,6 +91,7 @@ public class PaymentWsTest {
             p.setAmount(new BigDecimal(7));
             FilterProvider filters = new SimpleFilterProvider().addFilter("Paymentfilter",
                     SimpleBeanPropertyFilter.filterOutAllExcept("customerNumber", "checkNumber", "paymentDate", "amount"));
+            //Map obj to json
             String paymentJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(p);
             Response response = invocationBuilder.post(Entity.json(paymentJson));
             System.out.println(response);

@@ -7,9 +7,6 @@ import com.helman.Entity.PaymentPK;
 import com.helman.General.GregorianDate;
 import com.helman.General.Logback;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperReport;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +26,7 @@ public class PaymentCon extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         PaymentPK paymentPK = new PaymentPK();
         List<Payment> paymentList = new ArrayList<>();
 
@@ -92,6 +90,7 @@ public class PaymentCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         String crud = req.getParameter("crud");
         String custnum= req.getParameter("custnum");
         String checknum = req.getParameter("checknum");

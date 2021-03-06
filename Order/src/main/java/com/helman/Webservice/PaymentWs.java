@@ -18,6 +18,8 @@ import com.helman.Entity.PaymentPK;
 import com.helman.General.Logback;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -31,11 +33,13 @@ public class PaymentWs {
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findall(){
-        List<Payment> paymentList = paymentdao.findAll();
+    public Response findall(@Context HttpHeaders headers){
+        String UsrPwdEncoded=headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).replaceFirst("Basic "," ");
+
         try{
             FilterProvider filters = new SimpleFilterProvider().addFilter("Paymentfilter",
                     SimpleBeanPropertyFilter.filterOutAllExcept("customerNumber", "checkNumber", "paymentDate", "amount"));
+            List<Payment> paymentList = paymentdao.findAll();
             String paymentJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(paymentList);
             Logback.logger.info("{}.{}|Try: All records send to RESTful", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return Response.status(Response.Status.OK).entity(paymentJson).build();

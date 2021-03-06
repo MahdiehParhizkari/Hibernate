@@ -5,7 +5,6 @@ import com.helman.Dao.JRsqlFunction;
 import com.helman.Entity.Employee;
 import com.helman.General.Logback;
 import net.sf.jasperreports.engine.JRException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +25,7 @@ public class EmployeeCon extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         employeeList.clear();
         String action = req.getParameter("crud");
 
@@ -85,6 +85,7 @@ public class EmployeeCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         employeeList.clear();
         String action = req.getParameter("crud");
 

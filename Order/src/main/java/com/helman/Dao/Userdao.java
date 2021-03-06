@@ -4,6 +4,7 @@ import com.helman.Entity.User;
 import com.helman.General.Logback;
 import com.helman.General.Myentitymanager;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -46,10 +47,23 @@ public class Userdao {
         }
     }
     public User login(String username){
+        try {
             CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
             Root<User> u = criteriaQuery.from(User.class);
             criteriaQuery.select(u).where(criteriaBuilder.equal(u.get("username"), username));
-            return (User) entityManager.createQuery(criteriaQuery).getResultList().get(0);
+            Query q = entityManager.createQuery(criteriaQuery);
+            List<User> users = q.getResultList();
+            if (users == null || users.size() == 0) return null;
+            else {
+                User user = users.get(0);
+                Logback.logger.info("{}.{}|Try: record is Fetched", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+                return user;
+            }
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
     public List<?> someColumn(){
         try {

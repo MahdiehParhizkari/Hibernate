@@ -1,15 +1,8 @@
 package com.helman.Controller;
 
-import com.helman.Dao.JRsqlFunction;
-import com.helman.Dao.Orderdao;
 import com.helman.Dao.Productlinedao;
-import com.helman.Entity.Order;
 import com.helman.Entity.Productline;
-import com.helman.General.GregorianDate;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperReport;
 import org.apache.commons.io.IOUtils;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -18,11 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet(name = "ProductlineAct", urlPatterns = {"/ProductlineAct"})
 @MultipartConfig
@@ -31,6 +21,7 @@ public class ProductlinesCon extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         List<Productline> productlineList = new ArrayList<>();
         String productline = req.getParameter("proline");
         String crud = req.getParameter("crud");
@@ -71,8 +62,9 @@ public class ProductlinesCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         String crud = req.getParameter("crud");
-        Productline productline = new Productline();
+
         if (crud.equals("delete")){
             productlinedao.delete(productlinedao.findById(req.getParameter("proline")));
             req.setAttribute("message", "Office is deleted.");

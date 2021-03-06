@@ -8,7 +8,6 @@ import com.helman.Entity.Orderdetail;
 import com.helman.Entity.OrderdetailPK;
 import com.helman.General.GregorianDate;
 import com.helman.General.Logback;
-import com.ibm.icu.impl.number.MacroProps;
 import net.sf.jasperreports.engine.JRException;
 
 import javax.servlet.ServletException;
@@ -29,6 +28,7 @@ public class OrderdetailCon extends HttpServlet {
     Orderdetaildao orderdetaildao = new Orderdetaildao();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         List<Orderdetail> orderdetailList = new ArrayList<>();
         String ordernumber = req.getParameter("ordnum");
         String productcode = req.getParameter("procode");
@@ -79,6 +79,7 @@ public class OrderdetailCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
         String crud = req.getParameter("crud");
         String ordernumber = req.getParameter("onum");
         String productcode = req.getParameter("pcode");
