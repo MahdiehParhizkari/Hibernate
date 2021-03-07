@@ -16,6 +16,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -69,7 +71,7 @@ public class PaymentWsTest {
     }
 
     @Test
-    public void insert() throws JsonProcessingException {
+    public void insert() throws JsonProcessingException, ParseException {
         Client client = ClientBuilder.newClient();
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
         //client.register(feature);
@@ -79,7 +81,7 @@ public class PaymentWsTest {
         Payment p = new Payment();
         p.setCustomerNumber(103);
         p.setCheckNumber("HQ77777");
-        p.setPaymentDate(new Date());
+        p.setPaymentDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-11-20T23:00:00.330Z"));
         p.setAmount(new BigDecimal(7));
         FilterProvider filters = new SimpleFilterProvider().addFilter("Paymentfilter",
                 SimpleBeanPropertyFilter.filterOutAllExcept("customerNumber", "checkNumber", "paymentDate", "amount"));
@@ -90,8 +92,7 @@ public class PaymentWsTest {
     }
 
     @Test
-    public void update() {
-        try {
+    public void update() throws JsonProcessingException, ParseException {
             Client client = ClientBuilder.newClient();
             HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
             client.register(feature);
@@ -101,17 +102,13 @@ public class PaymentWsTest {
             Payment p = new Payment();
             p.setCustomerNumber(103);
             p.setCheckNumber("HQ77777");
-            p.setPaymentDate(new Date());
+            p.setPaymentDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-11-24T23:28:56.330Z"));
             p.setAmount(new BigDecimal(7));
             FilterProvider filters = new SimpleFilterProvider().addFilter("Paymentfilter",
                     SimpleBeanPropertyFilter.filterOutAllExcept("customerNumber", "checkNumber", "paymentDate", "amount"));
             String paymentJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(p);
             Response response = invocationBuilder.put(Entity.json(paymentJson));
             System.out.println(response);
-        } catch (JsonProcessingException e) {
-            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
-            e.printStackTrace();
-        }
     }
 
     @Test

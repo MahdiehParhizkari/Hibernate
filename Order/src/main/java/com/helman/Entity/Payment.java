@@ -1,6 +1,7 @@
 package com.helman.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -25,7 +26,6 @@ public class Payment {
     public Integer getCustomerNumber() {
         return customerNumber;
     }
-
     public void setCustomerNumber(Integer customerNumber) {
         this.customerNumber = customerNumber;
     }
@@ -35,16 +35,15 @@ public class Payment {
     public String getCheckNumber() {
         return checkNumber;
     }
-
     public void setCheckNumber(String checkNumber) {
         this.checkNumber = checkNumber;
     }
 
     @Column(name = "paymentDate")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     public Date getPaymentDate() {
         return paymentDate;
     }
-
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
     }
@@ -53,7 +52,6 @@ public class Payment {
     public BigDecimal getAmount() {
         return amount;
     }
-
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
@@ -63,7 +61,6 @@ public class Payment {
     public Customer getCustomer() {
         return customer;
     }
-
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }

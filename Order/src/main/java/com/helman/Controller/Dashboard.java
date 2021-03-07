@@ -21,14 +21,13 @@ import java.io.IOException;
 public class Dashboard extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
-        Userdao userdao = new Userdao();
         String crud = req.getParameter("crud");
         if (crud.equals("logout")){
             req.getSession(true).invalidate();
             req.getRequestDispatcher("/Login.jsp").forward(req, resp);
         }
         if (crud.equals("into")){
+            Userdao userdao = new Userdao();
             String pwd = req.getParameter("password");
             User user = userdao.login(req.getParameter("username"));
             HttpSession session = req.getSession(true);

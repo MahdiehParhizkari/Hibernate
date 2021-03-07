@@ -2,6 +2,7 @@ package com.helman.Entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.helman.General.GregorianDate;
 
 import javax.persistence.*;
@@ -16,8 +17,7 @@ import java.util.List;
 })
 @JsonFilter("Orderfilter")
 public class Order {
-    public Order(){
-    }
+    public Order(){}
 
     private Integer orderNumber;
     private Date orderDate;
@@ -36,34 +36,33 @@ public class Order {
     public Integer getOrderNumber() {
         return orderNumber;
     }
-
     public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
     }
 
     @Column(name = "orderDate")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     public Date getOrderDate() {
         return orderDate;
     }
-
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
 
     @Column(name = "requiredDate")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     public Date getRequiredDate() {
         return requiredDate;
     }
-
     public void setRequiredDate(Date requiredDate) {
         this.requiredDate = requiredDate;
     }
 
     @Column(name = "shippedDate")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     public Date getShippedDate() {
         return shippedDate;
     }
-
     public void setShippedDate(Date shippedDate) {
         this.shippedDate = shippedDate;
     }
@@ -72,7 +71,6 @@ public class Order {
     public String getStatus() {
         return status;
     }
-
     public void setStatus(String status) {
         this.status = status;
     }
@@ -81,7 +79,6 @@ public class Order {
     public String getComments() {
         return comments;
     }
-
     public void setComments(String comments) {
         this.comments = comments;
     }
@@ -90,17 +87,14 @@ public class Order {
     public Integer getCustomerNumber() {
         return customerNumber;
     }
-
     public void setCustomerNumber(Integer customerNumber) {
         this.customerNumber = customerNumber;
     }
-
 
     @OneToMany(mappedBy = "order")
     public List<Orderdetail> getOrderdetails() {
         return orderdetails;
     }
-
     public void setOrderdetails(List<Orderdetail> orderdetails) {
         this.orderdetails = orderdetails;
     }
@@ -110,7 +104,6 @@ public class Order {
     public Customer getCustomer() {
         return customer;
     }
-
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }

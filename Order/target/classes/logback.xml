@@ -2,7 +2,7 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="true">
     <!-- Logging Properties -->
     <Property name="APP_LOG_ROOT" value="/var/log/afshin" />
-    <Property name="LOG_PATTERN" value="B%d{yyyy-MM-dd' 'HH:mm:ss.SSSZ} [%thread] %-5level %logger{36}%msg%n" />
+    <Property name="LOG_PATTERN" value="%d{yyyy-MM-dd' 'HH:mm:ss.SSSZ} [%thread] %-5level %logger{36}%msg%n" />
     <!--___________________________ APPENDER__________________________________-->
     <appender name="consoleStudio" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -28,11 +28,11 @@
         <file>${APP_LOG_ROOT}/order_logback-tmp.log</file>
         <append>false</append>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%${LOG_PATTERN}</pattern>
+            <pattern>%d{yyyy-MM-dd' 'HH:mm:ss.SSSZ} [%thread] %-5level %logger{36}%msg%n</pattern>
         </encoder>
     </appender>
     <!--___________________________Set APPENDER__________________________________-->
-    <root level="TRACE">  <!--ALL(TRACE(DEBUG(INFO(WARN(ERROR(FATAL(OFF)))))))  -->
+    <root level="INFO">  <!--ALL(TRACE(DEBUG(INFO(WARN(ERROR(FATAL(OFF)))))))  -->
         <appender-ref ref="consoleStudio" />
         <appender-ref ref="fileRolling" />
         <appender-ref ref="fileDisposable" />

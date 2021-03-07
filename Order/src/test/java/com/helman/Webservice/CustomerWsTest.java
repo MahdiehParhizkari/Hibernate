@@ -90,7 +90,7 @@ public class CustomerWsTest {
                 SimpleBeanPropertyFilter.filterOutAllExcept("customerNumber", "customerName", "contactLastName", "contactFirstName", "phone", "addressLine1", "city", "country"));
         String customerJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(cus);
         Response response = invocationBuilder.post(Entity.json(customerJson));
-        System.out.println(response.getStatus());
+        System.out.println(response.getStatus() +"->"+ response.getStatusInfo());
         System.out.println(response.readEntity(String.class));
 
     }
@@ -121,7 +121,7 @@ public class CustomerWsTest {
                 SimpleBeanPropertyFilter.filterOutAllExcept("customerNumber", "customerName", "contactLastName", "contactFirstName", "phone", "addressLine1", "city", "country"));
         String customerJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(cus);
         Response response = invocationBuilder.put(Entity.json(customerJson));
-        System.out.println(response.getStatus());
+        System.out.println(response.getStatus()+"->"+ response.getStatusInfo());
         System.out.println(response.readEntity(String.class));
 
     }
@@ -135,7 +135,7 @@ public class CustomerWsTest {
         WebTarget webTarget = client.target(restServicePath).path("102");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.delete();
-        System.out.println(response.getStatus());
+        System.out.println(response.getStatus() +"->"+ response.getStatusInfo());
         System.out.println(response.readEntity(String.class));
     }
 }

@@ -7,33 +7,48 @@ package com.helman.Webservice;
 //        Created by Intellije IDEA
 //        Description:JPA-Criteria
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.helman.Dao.Productdao;
 import com.helman.Entity.Product;
 import com.helman.General.Logback;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Path("/product")
 public class ProductWs {
     private Productdao productdao = new Productdao();
+    Set<String> hash_Set = new HashSet<String>();
     //http://localhost:8080/order/rest/product/all
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findall(){
+        hash_Set.add("productCode");
+        hash_Set.add("productName");
+        hash_Set.add("productLine");
+        hash_Set.add("productScale");
+        hash_Set.add("productVendor");
+        hash_Set.add("productDescription");
+        hash_Set.add("quantityInStock");
+        hash_Set.add("buyPrice");
+        hash_Set.add("MSRP");
         List<Product> productList = productdao.findall();
         try{
-            FilterProvider filters = new SimpleFilterProvider().addFilter("Productfilter",
-                    SimpleBeanPropertyFilter.filterOutAllExcept("productCode", "productName", "productDescription", "quantityInStock"));
-            String productJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(productList);
+
+            FilterProvider filters = new SimpleFilterProvider().addFilter("Productfilter",SimpleBeanPropertyFilter.filterOutAllExcept(hash_Set));
+            String productJson = (new ObjectMapper()).setFilterProvider(filters).setSerializationInclusion(JsonInclude.Include.ALWAYS)
+                    .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, true)
+                    .writeValueAsString(productList);
             Logback.logger.info("{}.{}|Try: Send all records to RESTful", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return Response.status(Response.Status.OK).entity(productJson).build();
         } catch (JsonProcessingException e) {
@@ -80,37 +95,45 @@ public class ProductWs {
     @Path("/insert")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String insert(Product product){
-        String status = productdao.insert(product);
-        Logback.logger.info("{}.{}|Try:Inserted!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-        return status;
+    public Response insert(Product product){
+        try {
+            String status = productdao.insert(product);
+            Logback.logger.info("{}.{}|Try:Inserted!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+            Logback.logger.info("{}.{}|Exception : {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.EXPECTATION_FAILED).entity("0").build();
+        }
     }
 
     //http:localhost:8080/order/rest/product/update
     @PUT
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
-    public String update(Product product){
-        Product updatedProduct = productdao.findById(product.getProductCode());
-        updatedProduct.setProductCode(product.getProductCode());
-        updatedProduct.setProductName(product.getProductName());
-        updatedProduct.setProductLine(product.getProductLine());
-        updatedProduct.setProductScale(product.getProductScale());
-        updatedProduct.setProductVendor(product.getProductVendor());
-        updatedProduct.setProductDescription(product.getProductDescription());
-        updatedProduct.setQuantityInStock(product.getQuantityInStock());
-        updatedProduct.setBuyPrice(product.getBuyPrice());
-        updatedProduct.setMSRP(product.getMSRP());
-        String status = productdao.update(updatedProduct);
-        return status;
+    public Response update(Product product) {
+        try {
+            String status = productdao.update(product);
+            Logback.logger.info("{}.{}|try : record is updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(status).build();
+        } catch (Exception e) {
+            Logback.logger.info("{}.{}|Exception : {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.EXPECTATION_FAILED).entity("0").build();
+        }
     }
     //http:localhost:8080/order/rest/product/S10_1601
     @DELETE
     @Path("/{productCode}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Integer delete(@PathParam("productCode") String procode){
-        Integer status = productdao.delete(procode);
-        return status;
+    public Response delete(@PathParam("productCode") String procode){
+        try{
+            Integer status = productdao.delete(procode);
+            return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+            Logback.logger.info("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.EXPECTATION_FAILED).entity("0").build();
+        }
     }
-
 }

@@ -2,6 +2,7 @@ package com.helman.Entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -22,6 +23,7 @@ public class Product {
     private String productDescription;
     private Integer  quantityInStock;
     private BigDecimal buyPrice;
+    @JsonView
     private BigDecimal MSRP;
 
     private Productline productline;
@@ -32,7 +34,6 @@ public class Product {
     public String getProductCode() {
         return productCode;
     }
-
     public void setProductCode(String productCode) {
         this.productCode = productCode;
     }
@@ -41,7 +42,6 @@ public class Product {
     public String getProductName() {
         return productName;
     }
-
     public void setProductName(String productName) {
         this.productName = productName;
     }
@@ -51,7 +51,6 @@ public class Product {
     public String getProductLine() {
         return productLine;
     }
-
     public void setProductLine(String productLine) {
         this.productLine = productLine;
     }
@@ -60,50 +59,42 @@ public class Product {
     public String getProductScale() {
         return productScale;
     }
-
     public void setProductScale(String productScale) {
         this.productScale = productScale;
     }
-
+    @Column(name = "productVendor")
     public String getProductVendor() {
         return productVendor;
     }
-
     public void setProductVendor(String productVendor) {
         this.productVendor = productVendor;
     }
-
+    @Column(name = "productDescription")
     public String getProductDescription() {
         return productDescription;
     }
-
     public void setProductDescription(String productDescription) {
         this.productDescription = productDescription;
     }
-
+    @Column(name = "quantityInStock")
     public Integer getQuantityInStock() {
         return quantityInStock;
     }
-
     public void setQuantityInStock(Integer quantityInStock) {
         this.quantityInStock = quantityInStock;
     }
-
+    @Column(name = "buyPrice")
     public BigDecimal getBuyPrice() {
         return buyPrice;
     }
-
     public void setBuyPrice(BigDecimal buyPrice) {
         this.buyPrice = buyPrice;
     }
-
+    @Column(name = "MSRP")
     public BigDecimal getMSRP() {
         return MSRP;
     }
-
-    public void setMSRP(BigDecimal MSRP) {
-        this.MSRP = MSRP;
-    }
+    public void setMSRP(BigDecimal MSRP) {this.MSRP = MSRP;}
 
     @ManyToOne
     @JoinColumn(name = "productLine",referencedColumnName = "productLine",insertable = false,updatable = false)

@@ -1,12 +1,10 @@
 package com.helman.Dao;
 
-
 import com.helman.Entity.Product;
 import com.helman.General.Log4j;
 import com.helman.General.Mysession;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import java.util.List;
 
 public class Productdao {

@@ -16,6 +16,7 @@ import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -69,7 +70,7 @@ public class OrderWsTest {
     }
 
     @Test
-    public void insert() throws JsonProcessingException {
+    public void insert() throws JsonProcessingException, ParseException {
         Client client = ClientBuilder.newClient();
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
         client.register(feature);
@@ -78,9 +79,9 @@ public class OrderWsTest {
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Order o = new Order();
         o.setOrderNumber(10098);
-        o.setOrderDate(new Date());
-        o.setRequiredDate(new Date());
-        o.setShippedDate(new Date());
+        o.setOrderDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-02-15T23:00:00.330Z"));
+        o.setRequiredDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-04-10T23:00:00.330Z"));
+        o.setShippedDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-06-05T23:00:00.330Z"));
         o.setStatus("Shipped");
         o.setComments("uhu");
         o.setCustomerNumber(363);
@@ -93,7 +94,7 @@ public class OrderWsTest {
     }
 
     @Test
-    public void update() throws JsonProcessingException {
+    public void update() throws JsonProcessingException, ParseException {
         Client client = ClientBuilder.newClient();
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
         client.register(feature);
@@ -102,9 +103,9 @@ public class OrderWsTest {
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Order o = new Order();
         o.setOrderNumber(10098);
-        o.setOrderDate(new Date());
-        o.setRequiredDate(new Date());
-        o.setShippedDate(new Date());
+        o.setOrderDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-10-24T23:00:00.330Z"));
+        o.setRequiredDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-11-24T23:00:00.330Z"));
+        o.setShippedDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-12-24T23:00:00.330Z"));
         o.setStatus("Shipped");
         o.setComments("uhu");
         o.setCustomerNumber(363);
