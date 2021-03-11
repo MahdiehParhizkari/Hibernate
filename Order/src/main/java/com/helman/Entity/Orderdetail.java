@@ -3,6 +3,8 @@ package com.helman.Entity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "orderdetails")
@@ -89,5 +91,15 @@ public class Orderdetail {
                 ", priceEach=" + priceEach +
                 ", orderLineNumber=" + orderLineNumber +
                 '}';
+    }
+
+    public Set<String> getfilters(){
+        Set<String> hash_set = new HashSet<String>();
+        hash_set.add("orderNumber");
+        hash_set.add("productCode");
+        hash_set.add("quantityOrdered");
+        hash_set.add("priceEach");
+        hash_set.add("orderLineNumber");
+        return hash_set;
     }
 }
