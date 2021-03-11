@@ -12,13 +12,11 @@ public class PaymentPK implements Serializable {
 
     public PaymentPK(Integer customerNumber, String checkNumber) {
         this.customerNumber = customerNumber;
-        this.checkNumber = checkNumber;
-    }
+        this.checkNumber = checkNumber;}
 
     public Integer getCustomerNumber() {
         return customerNumber;
     }
-
     public void setCustomerNumber(Integer customerNumber) {
         this.customerNumber = customerNumber;
     }
@@ -26,7 +24,6 @@ public class PaymentPK implements Serializable {
     public String getCheckNumber() {
         return checkNumber;
     }
-
     public void setCheckNumber(String checkNumber) {
         this.checkNumber = checkNumber;
     }

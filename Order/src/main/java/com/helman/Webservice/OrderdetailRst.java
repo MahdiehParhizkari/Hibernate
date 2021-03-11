@@ -16,14 +16,13 @@ import com.helman.Dao.Orderdetaildao;
 import com.helman.Entity.Orderdetail;
 import com.helman.Entity.OrderdetailPK;
 import com.helman.General.Logback;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/orderdetail")
-public class OrderdetailWs {
+public class OrderdetailRst {
     private Orderdetaildao orderdetaildao = new Orderdetaildao();
     //http:localhost:8080/order/rest/orderdetail/all
     @GET
@@ -80,8 +79,14 @@ public class OrderdetailWs {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response insert(Orderdetail od){
-        OrderdetailPK sta = orderdetaildao.insert(od);
-        return Response.status(Response.Status.OK).entity(sta).build();
+        try {
+            OrderdetailPK sta = orderdetaildao.insert(od);
+            return Response.status(Response.Status.OK).entity(sta).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
     }
 
     //http:localhost:8080/order/rest/orderdetail/update
@@ -90,25 +95,37 @@ public class OrderdetailWs {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(Orderdetail od){
-        OrderdetailPK odPK = new OrderdetailPK(od.getOrderNumber(), od.getProductCode());
-        Orderdetail updatedod = orderdetaildao.findById(odPK);
-        updatedod.setOrderNumber(od.getOrderNumber());
-        updatedod.setProductCode(od.getProductCode());
-        updatedod.setQuantityOrdered(od.getQuantityOrdered());
-        updatedod.setPriceEach(od.getPriceEach());
-        updatedod.setOrderLineNumber(od.getOrderLineNumber());
-        OrderdetailPK status = orderdetaildao.update(updatedod);
-        return Response.status(Response.Status.OK).entity(status).build();
+        try {
+            OrderdetailPK odPK = new OrderdetailPK(od.getOrderNumber(), od.getProductCode());
+            Orderdetail updatedod = orderdetaildao.findById(odPK);
+            updatedod.setOrderNumber(od.getOrderNumber());
+            updatedod.setProductCode(od.getProductCode());
+            updatedod.setQuantityOrdered(od.getQuantityOrdered());
+            updatedod.setPriceEach(od.getPriceEach());
+            updatedod.setOrderLineNumber(od.getOrderLineNumber());
+            OrderdetailPK stat = orderdetaildao.update(updatedod);
+            return Response.status(Response.Status.OK).entity(stat).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
+    }
 
     //http://localhost:8080/order/rest/orderdetail/10100/S18_1749
     @DELETE
     @Path("/{orderNumber}/{productCode}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam ("orderNumber") Integer ordnum, @PathParam("productCode") String procode){
-        OrderdetailPK orderdetailPK = new OrderdetailPK(ordnum, procode);
-        Orderdetail od = orderdetaildao.findById(orderdetailPK);
-        Integer status = orderdetaildao.delete(od);
-        return Response.status(Response.Status.OK).entity(status).build();
+        try{
+            OrderdetailPK orderdetailPK = new OrderdetailPK(ordnum, procode);
+            Orderdetail od = orderdetaildao.findById(orderdetailPK);
+            Integer status = orderdetaildao.delete(od);
+            return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
     }
 }

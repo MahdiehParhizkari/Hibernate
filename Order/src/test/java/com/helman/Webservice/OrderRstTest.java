@@ -6,30 +6,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.helman.Entity.Orderdetail;
+import com.helman.Entity.Order;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Test;
-
 import java.io.IOException;
-import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
-import static org.junit.Assert.*;
 /*
   @project order
   @Author Mahdieh Parhizkari
-  @Date 3/4/21
-  @Time 3:46 AM
+  @Date 3/5/21
+  @Time 2:45 AM
   Created by Intellije IDEA
   Description: JPA - Criteria
 */
 
-public class OrderdetailWsTest {
-    final String restServicePath = "http://localhost:8080/order/rest/orderdetail";
-
+public class OrderRstTest {
+    final String restServicePath = "Http://localhost:8080/order/rest/order";
     @Test
     public void findall() throws IOException {
         Client client = ClientBuilder.newClient();
@@ -42,73 +40,74 @@ public class OrderdetailWsTest {
         System.out.println(response.getStatus() + "->" + response.getStatusInfo());
         if (response.getStatus() == 200) {
             ObjectMapper mapper = new ObjectMapper();
-            List<Orderdetail> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Orderdetail>>() {
+            List<Order> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Order>>() {
             });
             System.out.println(list);
-
         }
     }
 
-    @Test
+        @Test
     public void findbyid() throws IOException {
         Client client = ClientBuilder.newClient();
-        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("Admin", "123");
+        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
         client.register(feature);
 
-        WebTarget webTarget = client.target(restServicePath).path("find").path("10100").path("S10_1600");
+        WebTarget webTarget = client.target(restServicePath).path("find").path("10098");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.get();
         System.out.println(response.getStatus() + "->" + response.getStatusInfo());
         if (response.getStatus() == 200) {
             ObjectMapper mapper = new ObjectMapper();
-            Orderdetail obj = mapper.readValue(response.readEntity(String.class), new TypeReference<Orderdetail>() {
+            Order object = mapper.readValue(response.readEntity(String.class), new TypeReference<Order>() {
             });
-            System.out.println(obj);
-
+            System.out.println(object);
         }
     }
 
     @Test
-    public void insert() throws JsonProcessingException {
+    public void insert() throws JsonProcessingException, ParseException {
         Client client = ClientBuilder.newClient();
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
         client.register(feature);
 
         WebTarget webTarget = client.target(restServicePath).path("insert");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Orderdetail od = new Orderdetail();
-        od.setOrderNumber(10100);
-        od.setProductCode("S10_1600");
-        od.setQuantityOrdered(6);
-        od.setPriceEach(new BigDecimal(166.66));
-        od.setOrderLineNumber(1);
-        FilterProvider filters = new SimpleFilterProvider().addFilter("Orderdetailfilter",
-                SimpleBeanPropertyFilter.filterOutAllExcept("orderNumber", "productCode", "quantityOrdered", "priceEach", "orderLineNumber"));
-        String orderdetailJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(od);
-        Response response = invocationBuilder.post(Entity.json(orderdetailJson));
+        Order o = new Order();
+        o.setOrderNumber(10098);
+        o.setOrderDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-02-15T23:00:00.330Z"));
+        o.setRequiredDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-04-10T23:00:00.330Z"));
+        o.setShippedDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-06-05T23:00:00.330Z"));
+        o.setStatus("Shipped");
+        o.setComments("uhu");
+        o.setCustomerNumber(363);
+        FilterProvider filters = new SimpleFilterProvider().addFilter("Orderfilter",
+                SimpleBeanPropertyFilter.filterOutAllExcept("orderNumber", "orderDate", "requiredDate", "shippedDate", "status", "comments", "customerNumber"));
+        String orderJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(o);
+        Response response = invocationBuilder.post(Entity.json(orderJson));
         System.out.println(response.getStatus() + "->" + response.getStatusInfo());
         System.out.println(response.readEntity(String.class));
-
     }
 
     @Test
-    public void update() throws JsonProcessingException {
+    public void update() throws JsonProcessingException, ParseException {
         Client client = ClientBuilder.newClient();
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
         client.register(feature);
 
         WebTarget webTarget = client.target(restServicePath).path("update");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Orderdetail od = new Orderdetail();
-        od.setOrderNumber(10100);
-        od.setProductCode("S10_1600");
-        od.setQuantityOrdered(7);
-        od.setPriceEach(new BigDecimal(17.7));
-        od.setOrderLineNumber(1);
-        FilterProvider filters = new SimpleFilterProvider().addFilter("Orderdetailfilter",
-                SimpleBeanPropertyFilter.filterOutAllExcept("orderNumber", "productCode", "quantityOrdered", "priceEach", "orderLineNumber"));
-        String orderdetailJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(od);
-        Response response = invocationBuilder.put(Entity.json(orderdetailJson));
+        Order o = new Order();
+        o.setOrderNumber(10098);
+        o.setOrderDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-10-24T23:00:00.330Z"));
+        o.setRequiredDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-11-24T23:00:00.330Z"));
+        o.setShippedDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-12-24T23:00:00.330Z"));
+        o.setStatus("Shipped");
+        o.setComments("uhu");
+        o.setCustomerNumber(363);
+        FilterProvider filters = new SimpleFilterProvider().addFilter("Orderfilter",
+                SimpleBeanPropertyFilter.filterOutAllExcept("orderNumber", "orderDate", "requiredDate", "shippedDate", "status", "comments", "customerNumber"));
+        String orderJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(o);
+        Response response = invocationBuilder.put(Entity.json(orderJson));
         System.out.println(response.getStatus() + "->" + response.getStatusInfo());
         System.out.println(response.readEntity(String.class));
     }
@@ -119,11 +118,10 @@ public class OrderdetailWsTest {
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
         client.register(feature);
 
-        WebTarget webTarget = client.target(restServicePath).path("10100").path("S10_1600");
+        WebTarget webTarget = client.target(restServicePath).path("10098");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.delete();
         System.out.println(response.getStatus() + "->" + response.getStatusInfo());
         System.out.println(response.readEntity(String.class));
-
     }
 }

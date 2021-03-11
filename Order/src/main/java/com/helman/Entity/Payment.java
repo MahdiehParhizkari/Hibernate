@@ -2,18 +2,18 @@ package com.helman.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "payments")
 @IdClass(PaymentPK.class)
 @JsonFilter("Paymentfilter")
 public class Payment {
-    public Payment(){
-    }
+    public Payment(){}
 
     private Integer customerNumber;
     private String checkNumber;
@@ -74,5 +74,14 @@ public class Payment {
                 ", amount=" + amount +
                 ", customer=" + customer +
                 '}';
+    }
+
+    public Set<String> getfilters(){
+        Set<String> hash_set = new HashSet<String>();
+        hash_set.add("customerNumber");
+        hash_set.add("checkNumber");
+        hash_set.add("paymentDate");
+        hash_set.add("amount");
+        return hash_set;
     }
 }

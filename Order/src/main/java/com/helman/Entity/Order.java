@@ -1,10 +1,8 @@
 package com.helman.Entity;
 
-
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.helman.General.GregorianDate;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +27,6 @@ public class Order {
 
     private List<Orderdetail> orderdetails;
     private Customer customer;
-
 
     @Id
     @Column(name = "orderNumber")

@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/productline")
-public class ProductlineWs {
+public class ProductlineRst {
     private Productlinedao productlinedao = new Productlinedao();
 
     //http://localhost:8080/order/rest/productline/all
@@ -73,10 +73,16 @@ public class ProductlineWs {
     @Path("/insert")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String insert(Productline productline) {
-        String status = productlinedao.insert(productline);
-        Logback.logger.info("{}.{}|Try: Inserted!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-        return status;
+    public Response insert(Productline productline) {
+        try{
+            String status = productlinedao.insert(productline);
+            Logback.logger.info("{}.{}|Try: Inserted!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
     }
 
     //http://localhost:8080/order/rest/productline/update
@@ -84,24 +90,36 @@ public class ProductlineWs {
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String update(Productline proline){
-        Productline updatedProductline = productlinedao.findById(proline.getProductLine());
-        updatedProductline.setProductLine(proline.getProductLine());
-        updatedProductline.setTextDescription(proline.getTextDescription());
-        updatedProductline.setHtmlDescription(proline.getHtmlDescription());
-        updatedProductline.setImage(proline.getImage());
-        String status = productlinedao.update(updatedProductline);
-        Logback.logger.info("{}.{}|Try:Updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-        return status;
+    public Response update(Productline proline) {
+        try {
+            Productline updatedProductline = productlinedao.findById(proline.getProductLine());
+            updatedProductline.setProductLine(proline.getProductLine());
+            updatedProductline.setTextDescription(proline.getTextDescription());
+            updatedProductline.setHtmlDescription(proline.getHtmlDescription());
+            updatedProductline.setImage(proline.getImage());
+            String status = productlinedao.update(updatedProductline);
+            Logback.logger.info("{}.{}|Try:Updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
     }
     //http://localhost:8080/order/rest/productline/boom1
     @DELETE
     @Path("/{productLine}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Integer delete(@PathParam("productLine") String proline){
-        Integer status = productlinedao.delete(productlinedao.findById(proline));
-        Logback.logger.info("{}.{}|Try:Deleted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-        return status;
+    public Response delete(@PathParam("productLine") String proline){
+        try{
+            Integer status = productlinedao.delete(productlinedao.findById(proline));
+           Logback.logger.info("{}.{}|Try:Deleted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+          return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
     }
 }
 

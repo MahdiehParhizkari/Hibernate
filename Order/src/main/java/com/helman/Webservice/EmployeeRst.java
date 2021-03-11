@@ -13,17 +13,15 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.helman.Dao.Employeedao;
-import com.helman.Entity.Customer;
 import com.helman.Entity.Employee;
 import com.helman.General.Logback;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/employee")
-public class EmployeeWs {
+public class EmployeeRst {
     Employeedao employeedao = new Employeedao();
     //http:localhost:8080/order/rest/employee/all
     @GET
@@ -82,36 +80,54 @@ public class EmployeeWs {
     @Path("/insert")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Long insert (Employee employee){
-        Long status = (employeedao.insert(employee));
-        Logback.logger.info("{}.{}|Try:Inserted!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-        return (status);
+    public Response insert (Employee employee){
+        try{
+            Long stat = (employeedao.insert(employee));
+            Logback.logger.info("{}.{}|Try:Inserted!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(stat).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.EXPECTATION_FAILED).entity(e.getMessage()).build();
+        }
     }
     //http://localhost:8080/order/rest/employee/update
     @PUT
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Long update(Employee employee){
-        Employee updatedEmployee = employeedao.findbyid(employee.getEmployeeNumber());
-        updatedEmployee.setEmployeeNumber(employee.getEmployeeNumber());
-        updatedEmployee.setLastName(employee.getLastName());
-        updatedEmployee.setFirstName(employee.getFirstName());
-        updatedEmployee.setExtension(employee.getExtension());
-        updatedEmployee.setEmail(employee.getEmail());
-        updatedEmployee.setOfficeCode(employee.getOfficeCode());
-        updatedEmployee.setJobTitle(employee.getJobTitle());
-        Long status = employeedao.update(updatedEmployee);
-        Logback.logger.info("{}.{}|Try: Updated!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-        return status;
+    public Response update(Employee employee){
+        try{
+            Employee updatedEmployee = employeedao.findbyid(employee.getEmployeeNumber());
+            updatedEmployee.setEmployeeNumber(employee.getEmployeeNumber());
+            updatedEmployee.setLastName(employee.getLastName());
+            updatedEmployee.setFirstName(employee.getFirstName());
+            updatedEmployee.setExtension(employee.getExtension());
+            updatedEmployee.setEmail(employee.getEmail());
+            updatedEmployee.setOfficeCode(employee.getOfficeCode());
+            updatedEmployee.setJobTitle(employee.getJobTitle());
+            Long stat = employeedao.update(updatedEmployee);
+            Logback.logger.info("{}.{}|Try: Updated!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(stat).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.EXPECTATION_FAILED).entity(e.getMessage()).build();
+        }
     }
     //http://localhost:8080/order/rest/employee/1000
     @DELETE
     @Path("/{employeeNumber}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Integer delete(@PathParam("employeeNumber") Long empnum){
-        Integer status = employeedao.delete(empnum);
-        Logback.logger.info("{}.{}|Try:Deleted!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-        return status;
+    public Response delete(@PathParam("employeeNumber") Long empnum){
+        try {
+            Integer stat = employeedao.delete(empnum);
+            Logback.logger.info("{}.{}|Try:Deleted!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(stat).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.EXPECTATION_FAILED).entity(e.getMessage()).build();
+        }
     }
 }

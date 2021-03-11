@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Path("/login")
-public class LoginWs {
+public class LoginRst {
     Security sec = new Security();
     final long amountToAdd = 10l;
 

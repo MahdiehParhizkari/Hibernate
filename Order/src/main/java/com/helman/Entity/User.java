@@ -1,7 +1,6 @@
 package com.helman.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-
 import javax.persistence.*;
 
 @Entity
@@ -17,13 +16,11 @@ public class User {
 
     private Employee useremployee;
 
-
     @Id
     @Column(name ="Id")
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -32,7 +29,6 @@ public class User {
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -41,7 +37,6 @@ public class User {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -50,7 +45,6 @@ public class User {
     public Integer getEmployeefk() {
         return employeefk;
     }
-
     public void setEmployeefk(Integer employeefk) {
         this.employeefk = employeefk;
     }
@@ -60,7 +54,6 @@ public class User {
     public Employee getEmployee() {
         return useremployee;
     }
-
     public void setEmployee(Employee useremployee) {
         this.useremployee = useremployee;
     }

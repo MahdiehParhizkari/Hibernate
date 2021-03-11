@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Path("/user")
-public class UserWs {
+public class UserRst {
     private Userdao userdao = new Userdao();
     private List<User> userList = new ArrayList<>();
 

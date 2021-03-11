@@ -1,7 +1,6 @@
 package com.helman.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -30,13 +29,11 @@ public class Customer {
     private List<Order> orders;
     private Employee employee;
 
-
     @Id
     @Column(name = "customerNumber")
     public Integer getCustomerNumber() {
         return customerNumber;
     }
-
     public void setCustomerNumber(Integer customerNumber) {
         this.customerNumber = customerNumber;
     }
@@ -45,7 +42,6 @@ public class Customer {
     public String getCustomerName() {
         return customerName;
     }
-
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
@@ -54,7 +50,6 @@ public class Customer {
     public String getContactLastName() {
         return contactLastName;
     }
-
     public void setContactLastName(String contactLastName) {
         this.contactLastName = contactLastName;
     }
@@ -63,7 +58,6 @@ public class Customer {
     public String getContactFirstName() {
         return contactFirstName;
     }
-
     public void setContactFirstName(String contactFirstName) {
         this.contactFirstName = contactFirstName;
     }
@@ -72,7 +66,6 @@ public class Customer {
     public String getPhone() {
         return phone;
     }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -81,7 +74,6 @@ public class Customer {
     public String getAddressLine1() {
         return addressLine1;
     }
-
     public void setAddressLine1(String addressLine1) {
         this.addressLine1 = addressLine1;
     }
@@ -90,7 +82,6 @@ public class Customer {
     public String getAddressLine2() {
         return addressLine2;
     }
-
     public void setAddressLine2(String addressLine2) {
         this.addressLine2 = addressLine2;
     }
@@ -99,7 +90,6 @@ public class Customer {
     public String getCity() {
         return city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
@@ -108,7 +98,6 @@ public class Customer {
     public String getState() {
         return state;
     }
-
     public void setState(String state) {
         this.state = state;
     }
@@ -117,7 +106,6 @@ public class Customer {
     public String getPostalCode() {
         return postalCode;
     }
-
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
@@ -126,7 +114,6 @@ public class Customer {
     public String getCountry() {
         return country;
     }
-
     public void setCountry(String country) {
         this.country = country;
     }
@@ -135,16 +122,13 @@ public class Customer {
     public Integer getSalesRepEmployeeNumber() {
         return salesRepEmployeeNumber;
     }
-
     public void setSalesRepEmployeeNumber(Integer salesRepEmployeeNumber) {
-        this.salesRepEmployeeNumber = salesRepEmployeeNumber;
-    }
+        this.salesRepEmployeeNumber = salesRepEmployeeNumber; }
 
     @Column(name = "creditLimit")
     public BigDecimal getCreditLimit() {
         return creditLimit;
     }
-
     public void setCreditLimit(BigDecimal creditLimit) {
         this.creditLimit = creditLimit;
     }
@@ -153,17 +137,14 @@ public class Customer {
     public List<Payment> getPayments() {
         return payments;
     }
-
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
     }
-
 
     @OneToMany(mappedBy = "customer")
     public List<Order> getOrders() {
         return orders;
     }
-
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
@@ -173,7 +154,6 @@ public class Customer {
     public Employee getEmployee() {
         return employee;
     }
-
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }

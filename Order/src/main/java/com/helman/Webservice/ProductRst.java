@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 @Path("/product")
-public class ProductWs {
+public class ProductRst {
     private Productdao productdao = new Productdao();
     Set<String> hash_Set = new HashSet<String>();
     //http://localhost:8080/order/rest/product/all

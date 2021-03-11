@@ -1,8 +1,6 @@
 package com.helman.Entity;
 
-
 import com.fasterxml.jackson.annotation.JsonFilter;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -11,15 +9,13 @@ import java.math.BigDecimal;
 @IdClass(OrderdetailPK.class)
 @JsonFilter("Orderdetailfilter")
 public class Orderdetail {
-    public Orderdetail(){
-    }
+    public Orderdetail(){ }
 
     private Integer orderNumber;
     private String productCode;
     private Integer quantityOrdered;
     private BigDecimal priceEach;
     private Integer orderLineNumber;
-
     private Order order;
     private Product product;
 
@@ -29,7 +25,6 @@ public class Orderdetail {
     public Integer getOrderNumber() {
         return orderNumber;
     }
-
     public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
     }
@@ -39,7 +34,6 @@ public class Orderdetail {
     public String getProductCode() {
         return productCode;
     }
-
     public void setProductCode(String productCode) {
         this.productCode = productCode;
     }
@@ -48,7 +42,6 @@ public class Orderdetail {
     public Integer getQuantityOrdered() {
         return quantityOrdered;
     }
-
     public void setQuantityOrdered(Integer quantityOrdered) {
         this.quantityOrdered = quantityOrdered;
     }
@@ -57,7 +50,6 @@ public class Orderdetail {
     public BigDecimal getPriceEach() {
         return priceEach;
     }
-
     public void setPriceEach(BigDecimal priceEach) {
         this.priceEach = priceEach;
     }
@@ -66,7 +58,6 @@ public class Orderdetail {
     public Integer getOrderLineNumber() {
         return orderLineNumber;
     }
-
     public void setOrderLineNumber(Integer orderLineNumber) {
         this.orderLineNumber = orderLineNumber;
     }
@@ -76,7 +67,6 @@ public class Orderdetail {
     public Order getOrder() {
         return order;
     }
-
     public void setOrder(Order order) {
         this.order = order;
     }
@@ -86,7 +76,6 @@ public class Orderdetail {
     public Product getProduct() {
         return product;
     }
-
     public void setProduct(Product product) {
         this.product = product;
     }

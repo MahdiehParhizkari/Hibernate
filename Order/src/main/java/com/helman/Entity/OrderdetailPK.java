@@ -17,7 +17,6 @@ public class OrderdetailPK implements Serializable {
     public Integer getOrderNumber() {
         return orderNumber;
     }
-
     public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
     }
@@ -25,7 +24,6 @@ public class OrderdetailPK implements Serializable {
     public String getProductCode() {
         return productCode;
     }
-
     public void setProductCode(String productCode) {
         this.productCode = productCode;
     }

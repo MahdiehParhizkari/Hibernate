@@ -22,7 +22,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/office")
-public class OfficeWs {
+public class OfficeRst {
     Officedao officedao = new Officedao();
 
     //http:localhost:8080/order/rest/office/all
@@ -77,36 +77,54 @@ public class OfficeWs {
     @Path("/insert")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String insert(Office office){
-       String status = officedao.insert(office);
-       Logback.logger.info("{}.{}|Try:Inserted!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-       return status;
+    public Response insert(Office office){
+       try{
+           String status = officedao.insert(office);
+           Logback.logger.info("{}.{}|Try:Inserted!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+           return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+           Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+           e.printStackTrace();
+           return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+       }
     }
     //http://localhost:8080/order/rest/office/update
     @PUT
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String update(Office office){
-        Office updatedOffice = officedao.findById(office.getOfficeCode());
-        updatedOffice.setOfficeCode(office.getOfficeCode());
-        updatedOffice.setCity(office.getCity());
-        updatedOffice.setPhone(office.getPhone());
-        updatedOffice.setAddressLine1(office.getAddressLine1());
-        updatedOffice.setAddressLine2(office.getAddressLine2());
-        updatedOffice.setState(office.getState());
-        updatedOffice.setCountry(office.getCountry());
-        updatedOffice.setPostalCode(office.getPostalCode());
-        updatedOffice.setTerritory(office.getTerritory());
-        String status = officedao.update(updatedOffice);
-        return status;
+    public Response update(Office office){
+        try{
+            Office updatedOffice = officedao.findById(office.getOfficeCode());
+            updatedOffice.setOfficeCode(office.getOfficeCode());
+            updatedOffice.setCity(office.getCity());
+            updatedOffice.setPhone(office.getPhone());
+            updatedOffice.setAddressLine1(office.getAddressLine1());
+            updatedOffice.setAddressLine2(office.getAddressLine2());
+            updatedOffice.setState(office.getState());
+            updatedOffice.setCountry(office.getCountry());
+            updatedOffice.setPostalCode(office.getPostalCode());
+            updatedOffice.setTerritory(office.getTerritory());
+            String status = officedao.update(updatedOffice);
+            return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+                Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+                e.printStackTrace();
+                return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+            }
     }
     //http://localhost:8080/order/rest/office/11
     @DELETE
     @Path("/{officeCode}")
     @PathParam(MediaType.APPLICATION_JSON)
-    public Integer delete(@PathParam("officeCode") String ofcode){
-        Integer status = officedao.delete(officedao.findById(ofcode));
-        return status;
+    public Response delete(@PathParam("officeCode") String ofcode){
+        try{
+            Integer status = officedao.delete(officedao.findById(ofcode));
+            return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
     }
 }

@@ -15,14 +15,13 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.helman.Dao.Orderdao;
 import com.helman.Entity.Order;
 import com.helman.General.Logback;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/order")
-public class OrderWs {
+public class OrderRst {
     private Orderdao orderdao = new Orderdao();
     //http://localhost:8080/ordre/rest/order/all
     @GET
@@ -78,10 +77,16 @@ public class OrderWs {
     @Path("/insert")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Integer insert(Order order){
-        Integer status = orderdao.insert(order);
-        Logback.logger.info("{}.{}|Try:Inserted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-        return status;
+    public Response insert(Order order){
+        try{
+            Integer status = orderdao.insert(order);
+            Logback.logger.info("{}.{}|Try:Inserted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
     }
 
     //http://localhost:8080/order/rest/order/update
@@ -89,26 +94,37 @@ public class OrderWs {
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Integer update(Order order){
-        Order updatedOrder = orderdao.findById(order.getOrderNumber());
-        updatedOrder.setOrderNumber(order.getOrderNumber());
-        updatedOrder.setOrderDate(order.getOrderDate());
-        updatedOrder.setRequiredDate(order.getRequiredDate());
-        updatedOrder.setShippedDate(order.getShippedDate());
-        updatedOrder.setStatus(order.getStatus());
-        updatedOrder.setComments(order.getComments());
-        Integer status = orderdao.update(updatedOrder);
-        return status;
+    public Response update(Order order){
+        try{
+            Order updatedOrder = orderdao.findById(order.getOrderNumber());
+            updatedOrder.setOrderNumber(order.getOrderNumber());
+            updatedOrder.setOrderDate(order.getOrderDate());
+            updatedOrder.setRequiredDate(order.getRequiredDate());
+            updatedOrder.setShippedDate(order.getShippedDate());
+            updatedOrder.setStatus(order.getStatus());
+            updatedOrder.setComments(order.getComments());
+            Integer status = orderdao.update(updatedOrder);
+            return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
     }
 
     //http://localhost:8080/order/rest/order/10098
     @DELETE
     @Path("/{orderNumber}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Integer delete(@PathParam("orderNumber") Integer ordnum){
-        Integer status = orderdao.delete(ordnum);
-        Logback.logger.info("{}.{}|Try:Deleted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-        return status;
+    public Response delete(@PathParam("orderNumber") Integer ordnum){
+        try {
+            Integer status = orderdao.delete(ordnum);
+            Logback.logger.info("{}.{}|Try:Deleted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
     }
-
 }

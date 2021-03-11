@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Path("/customer")
-public class CustomerWs {
+public class CustomerRst {
     private Customerdao customerdao = new Customerdao();
     private List<Customer> customerList = new ArrayList<>();
     //http://localhost:8080/order/rest/customer/findall
@@ -80,36 +80,54 @@ public class CustomerWs {
     @Path("/insert")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Integer insert(Customer customer){
-        Integer status = customerdao.insert(customer);
-        Logback.logger.info("{}.{}|Try: Inserted!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-        return status;
+    public Response insert(Customer customer){
+        try {
+            Integer status = customerdao.insert(customer);
+            Logback.logger.info("{}.{}|Try: Inserted!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.EXPECTATION_FAILED).entity(e.getMessage()).build();
+        }
     }
     //http://localhost:8080/order/rest/customer/update
     @PUT
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Integer update(Customer customer){
-        Customer updatedCustomer = customerdao.findById(customer.getCustomerNumber());
-        updatedCustomer.setCustomerName(customer.getCustomerName());
-        updatedCustomer.setContactLastName(customer.getContactLastName());
-        updatedCustomer.setContactFirstName(customer.getContactFirstName());
-        updatedCustomer.setPhone(customer.getPhone());
-        updatedCustomer.setAddressLine1(customer.getAddressLine1());
-        updatedCustomer.setCity(customer.getCity());
-        updatedCustomer.setCountry(customer.getCountry());
-        Integer status = customerdao.update(updatedCustomer);
-        Logback.logger.info("{}.{}|Try:Updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-        return status;
+    public Response update(Customer customer){
+        try {
+            Customer updatedCustomer = customerdao.findById(customer.getCustomerNumber());
+            updatedCustomer.setCustomerName(customer.getCustomerName());
+            updatedCustomer.setContactLastName(customer.getContactLastName());
+            updatedCustomer.setContactFirstName(customer.getContactFirstName());
+            updatedCustomer.setPhone(customer.getPhone());
+            updatedCustomer.setAddressLine1(customer.getAddressLine1());
+            updatedCustomer.setCity(customer.getCity());
+            updatedCustomer.setCountry(customer.getCountry());
+            Integer status = customerdao.update(updatedCustomer);
+            Logback.logger.info("{}.{}|Try:Updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.EXPECTATION_FAILED).entity(e.getMessage()).build();
+        }
     }
     //http://localhost:8080/order/rest/customer/102
     @DELETE
     @Path("/{customerNumber}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Integer delete(@PathParam("customerNumber") Integer customerNumber){
-        Integer status = customerdao.delete(customerNumber);
-        Logback.logger.info("{}.{}|Try:Deleted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-        return status;
+    public Response delete(@PathParam("customerNumber") Integer customerNumber){
+        try {
+            Integer status = customerdao.delete(customerNumber);
+            Logback.logger.info("{}.{}|Try:Deleted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(status).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.EXPECTATION_FAILED).entity(e.getMessage()).build();
+        }
     }
 }

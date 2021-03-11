@@ -12,7 +12,6 @@ import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.junit.Test;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -25,7 +24,7 @@ import java.util.List;
   Description: JPA - Criteria
 */
 
-public class UserWsTest {
+public class UserRstTest {
     final String restServicePath = "http://localhost:8080/order/rest/user";
     @Test
     public void findAll() throws IOException {
@@ -52,7 +51,6 @@ public class UserWsTest {
         });
         System.out.println(response.getStatusInfo() + "->" + response.getStatus());
         if (response.getStatus() == 200) System.out.println(obj);
-
     }
 
     @Test
@@ -117,6 +115,5 @@ public class UserWsTest {
         Response response = invocationBuilder.delete();
         System.out.println(response.getStatus());
         System.out.println(response.readEntity(String.class));
-
     }
 }

@@ -59,7 +59,6 @@ public class Employee {
     public Long getEmployeeNumber() {
         return employeeNumber;
     }
-
     public void setEmployeeNumber(Long employeeNumber) {
         this.employeeNumber = employeeNumber;
     }
@@ -68,7 +67,6 @@ public class Employee {
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -77,7 +75,6 @@ public class Employee {
     public String getFirstName() {
         return firstName;
     }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -86,7 +83,6 @@ public class Employee {
     public String getExtension() {
         return extension;
     }
-
     public void setExtension(String extension) {
         this.extension = extension;
     }
@@ -95,7 +91,6 @@ public class Employee {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -104,7 +99,6 @@ public class Employee {
     public String getOfficeCode() {
         return officeCode;
     }
-
     public void setOfficeCode(String officeCode) {
         this.officeCode = officeCode;
     }
@@ -113,7 +107,6 @@ public class Employee {
     public Long getReportsTo() {
         return reportsTo;
     }
-
     public void setReportsTo(Long reportsTo) {
         this.reportsTo = reportsTo;
     }
@@ -122,18 +115,15 @@ public class Employee {
     public String getJobTitle() {
         return jobTitle;
     }
-
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
     }
-
 
     @ManyToOne
     @JoinColumn(name = "officeCode",insertable = false,updatable = false)
     public Office getOffice() {
         return office;
     }
-
     public void setOffice(Office office) {
         this.office = office;
     }
@@ -143,7 +133,6 @@ public class Employee {
     public List<Customer> getCustomers() {
         return customers;
     }
-
     public void setCustomers(List<Customer> customers) {
         this.customers = customers;
     }
@@ -153,7 +142,6 @@ public class Employee {
     public Employee getManager() {
         return manager;
     }
-
     public void setManager(Employee manager) {
         this.manager = manager;
     }
@@ -162,19 +150,13 @@ public class Employee {
     public List<Employee> getEmployees() {
         return employees;
     }
-
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 
 /*    @OneToMany(mappedBy = "useremployee")
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }*/
+    public List<User> getUsers() {return users; }
+    public void setUsers(List<User> users) { this.users = users;}*/
 
     @Override
     public String toString() {

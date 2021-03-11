@@ -1,9 +1,7 @@
 package com.helman.Entity;
 
-
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonView;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -62,6 +60,7 @@ public class Product {
     public void setProductScale(String productScale) {
         this.productScale = productScale;
     }
+
     @Column(name = "productVendor")
     public String getProductVendor() {
         return productVendor;
@@ -69,6 +68,7 @@ public class Product {
     public void setProductVendor(String productVendor) {
         this.productVendor = productVendor;
     }
+
     @Column(name = "productDescription")
     public String getProductDescription() {
         return productDescription;
@@ -76,6 +76,7 @@ public class Product {
     public void setProductDescription(String productDescription) {
         this.productDescription = productDescription;
     }
+
     @Column(name = "quantityInStock")
     public Integer getQuantityInStock() {
         return quantityInStock;
@@ -83,6 +84,7 @@ public class Product {
     public void setQuantityInStock(Integer quantityInStock) {
         this.quantityInStock = quantityInStock;
     }
+
     @Column(name = "buyPrice")
     public BigDecimal getBuyPrice() {
         return buyPrice;
@@ -90,6 +92,7 @@ public class Product {
     public void setBuyPrice(BigDecimal buyPrice) {
         this.buyPrice = buyPrice;
     }
+
     @Column(name = "MSRP")
     public BigDecimal getMSRP() {
         return MSRP;
@@ -109,7 +112,6 @@ public class Product {
     public List<Orderdetail> getOrderdetails() {
         return orderdetails;
     }
-
     public void setOrderdetails(List<Orderdetail> orderdetails) {
         this.orderdetails = orderdetails;
     }

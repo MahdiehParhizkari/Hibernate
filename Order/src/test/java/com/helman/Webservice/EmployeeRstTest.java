@@ -6,96 +6,86 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.helman.Entity.Office;
+import com.helman.Entity.Employee;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Test;
-
 import java.io.IOException;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /*
   @project order
   @Author Mahdieh Parhizkari
-  @Date 3/3/21
-  @Time 3:58 AM
+  @Date 3/4/21
+  @Time 3:47 AM
   Created by Intellije IDEA
   Description: JPA - Criteria
 */
 
-public class OfficeWsTest {
-    final String restServicePath = "http://localhost:8080/order/rest/office";
+public class EmployeeRstTest {
+    final String restServicePath = "http://localhost:8080/order/rest/employee";
+
     @Test
     public void findall() throws IOException {
         Client client = ClientBuilder.newClient();
-        //Basic Authentication :
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
         client.register(feature);
 
         WebTarget webTarget = client.target(restServicePath).path("all");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.get();
-        System.out.println(response.getStatusInfo() + "->" + response.getStatus());
+        System.out.println(response.getStatus() + "->" + response.getStatusInfo());
         if (response.getStatus() == 200) {
-            //MAP JSON ti List of User
             ObjectMapper mapper = new ObjectMapper();
-            List<Office> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Office>>() {
+            List<Employee> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Employee>>() {
             });
             System.out.println(list);
         }
     }
 
     @Test
-    public void findbyid() throws IOException {
+    public void findById() throws IOException {
         Client client = ClientBuilder.newClient();
-        //Basic Authentication :
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
         client.register(feature);
 
-        WebTarget webTarget = client.target(restServicePath).path("find").path("10");
+        WebTarget webTarget = client.target(restServicePath).path("find").path("1001");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.get();
-        System.out.println(response.getStatusInfo() + "->" + response.getStatus());
+        System.out.println(response.getStatus());
         if (response.getStatus() == 200) {
             ObjectMapper mapper = new ObjectMapper();
-            Office obj = mapper.readValue(response.readEntity(String.class), new TypeReference<Office>() {
+            Employee obj = mapper.readValue(response.readEntity(String.class), new TypeReference<Employee>() {
             });
             System.out.println(obj);
         }
     }
 
     @Test
-    public void insert() throws JsonProcessingException {
+    public void insert() throws IOException {
         Client client = ClientBuilder.newClient();
-        //Basic Authentication :
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
         client.register(feature);
 
         WebTarget webTarget = client.target(restServicePath).path("insert");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Office o = new Office();
-        o.setOfficeCode("11");
-        o.setCity("Tehran");
-        o.setPhone("+9888089");
-        o.setAddressLine1("Street 66");
-        o.setAddressLine2("Street 666");
-        o.setState("Teh");
-        o.setCountry("Iran");
-        o.setPostalCode("198666666");
-        o.setTerritory("west");
-        //filter attribute to create JSON
-        FilterProvider filters = new SimpleFilterProvider().addFilter("Officefilter", SimpleBeanPropertyFilter.filterOutAllExcept(
-                "officeCode", "city", "phone", "addressLine1", "addressLine2", "state", "country", "postalCode", "territory"));
-        // Map Object -> String
-        String officeJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(o);
-        Response response = invocationBuilder.post(Entity.json(officeJson));
+        Employee emp = new Employee();
+        emp.setEmployeeNumber(Long.valueOf(1000));
+        emp.setLastName("Parhizkari");
+        emp.setFirstName("Helman");
+        emp.setExtension("x5800");
+        emp.setEmail("helman@gmail.com");
+        emp.setOfficeCode("1");
+        emp.setReportsTo(Long.valueOf(1002));
+        emp.setJobTitle("IT");
+        FilterProvider filters = new SimpleFilterProvider().addFilter("Employeefilter",
+                SimpleBeanPropertyFilter.filterOutAllExcept("employeeNumber", "lastName", "firstName", "extension", "email", "officeCode", "reportsTo", "jobTitle"));
+        String employeeJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(emp);
+        Response response = invocationBuilder.post(Entity.json(employeeJson));
         System.out.println(response.getStatus());
         System.out.println(response.readEntity(String.class));
-
     }
 
     @Test
@@ -106,24 +96,21 @@ public class OfficeWsTest {
 
         WebTarget webTarget = client.target(restServicePath).path("update");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Office o = new Office();
-        o.setOfficeCode("11");
-        o.setCity("qazvin");
-        o.setPhone("+982188089");
-        o.setAddressLine1("Street 1");
-        o.setAddressLine2("Street 2");
-        o.setState("Qaz");
-        o.setCountry("IR");
-        o.setPostalCode("66666666");
-        o.setTerritory("East");
-
-        FilterProvider filters = new SimpleFilterProvider().addFilter("Officefilter",
-                SimpleBeanPropertyFilter.filterOutAllExcept("officeCode", "city", "phone", "addressLine1", "addressLine2", "state", "country", "postalCode", "territory"));
-        String officeJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(o);
-        Response response = invocationBuilder.put(Entity.json(officeJson));
+        Employee emp = new Employee();
+        emp.setEmployeeNumber(Long.valueOf(1000));
+        emp.setLastName("Parhi");
+        emp.setFirstName("Hely");
+        emp.setExtension("x5800");
+        emp.setEmail("hely@gmail.com");
+        emp.setOfficeCode("1");
+        emp.setReportsTo(Long.valueOf(1002));
+        emp.setJobTitle("ITman");
+        FilterProvider filters = new SimpleFilterProvider().addFilter("Employeefilter",
+                SimpleBeanPropertyFilter.filterOutAllExcept("employeeNumber", "lastName", "firstName", "extension", "email", "officeCode", "reportsTo", "jobTitle"));
+        String employeeJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(emp);
+        Response response = invocationBuilder.put(Entity.json(employeeJson));
         System.out.println(response.getStatus());
         System.out.println(response.readEntity(String.class));
-
     }
 
     @Test
@@ -132,7 +119,7 @@ public class OfficeWsTest {
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
         client.register(feature);
 
-        WebTarget webTarget = client.target(restServicePath).path("11");
+        WebTarget webTarget = client.target(restServicePath).path("1000");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.delete();
         System.out.println(response.getStatus() + "->" + response.getStatusInfo());

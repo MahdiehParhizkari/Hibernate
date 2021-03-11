@@ -6,28 +6,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.helman.Entity.Productline;
+import com.helman.Entity.Orderdetail;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Test;
-
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
 /*
   @project order
   @Author Mahdieh Parhizkari
-  @Date 3/6/21
-  @Time 6:12 AM
+  @Date 3/4/21
+  @Time 3:46 AM
   Created by Intellije IDEA
   Description: JPA - Criteria
 */
 
-public class ProductlineWsTest {
-    String restServicePath = "http://localhost:8080/order/rest/productline";
+public class OrderdetailRstTest {
+    final String restServicePath = "http://localhost:8080/order/rest/orderdetail";
 
     @Test
     public void findall() throws IOException {
@@ -41,7 +41,7 @@ public class ProductlineWsTest {
         System.out.println(response.getStatus() + "->" + response.getStatusInfo());
         if (response.getStatus() == 200) {
             ObjectMapper mapper = new ObjectMapper();
-            List<Productline> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Productline>>() {
+            List<Orderdetail> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Orderdetail>>() {
             });
             System.out.println(list);
         }
@@ -50,18 +50,18 @@ public class ProductlineWsTest {
     @Test
     public void findbyid() throws IOException {
         Client client = ClientBuilder.newClient();
-        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
+        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("Admin", "123");
         client.register(feature);
 
-        WebTarget webTarget = client.target(restServicePath).path("find").path("boom1");
+        WebTarget webTarget = client.target(restServicePath).path("find").path("10100").path("S10_1600");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.get();
         System.out.println(response.getStatus() + "->" + response.getStatusInfo());
         if (response.getStatus() == 200) {
             ObjectMapper mapper = new ObjectMapper();
-            Productline productline = mapper.readValue(response.readEntity(String.class), new TypeReference<Productline>() {
+            Orderdetail obj = mapper.readValue(response.readEntity(String.class), new TypeReference<Orderdetail>() {
             });
-            System.out.println(productline);
+            System.out.println(obj);
         }
     }
 
@@ -73,15 +73,17 @@ public class ProductlineWsTest {
 
         WebTarget webTarget = client.target(restServicePath).path("insert");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Productline pl = new Productline();
-        pl.setProductLine("boom2");
-        pl.setTextDescription("uhu");
-        pl.setHtmlDescription("http://local");
-        FilterProvider filters = new SimpleFilterProvider().addFilter("Productlinefilter",
-                SimpleBeanPropertyFilter.filterOutAllExcept("productLine", "textDescription", "htmlDescription", "image"));
-        String productlineJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(pl);
-        Response response = invocationBuilder.post(Entity.json(productlineJson));
-        System.out.println(response.getStatus());
+        Orderdetail od = new Orderdetail();
+        od.setOrderNumber(10100);
+        od.setProductCode("S10_1600");
+        od.setQuantityOrdered(6);
+        od.setPriceEach(new BigDecimal(166.66));
+        od.setOrderLineNumber(1);
+        FilterProvider filters = new SimpleFilterProvider().addFilter("Orderdetailfilter",
+                SimpleBeanPropertyFilter.filterOutAllExcept("orderNumber", "productCode", "quantityOrdered", "priceEach", "orderLineNumber"));
+        String orderdetailJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(od);
+        Response response = invocationBuilder.post(Entity.json(orderdetailJson));
+        System.out.println(response.getStatus() + "->" + response.getStatusInfo());
         System.out.println(response.readEntity(String.class));
     }
 
@@ -93,15 +95,17 @@ public class ProductlineWsTest {
 
         WebTarget webTarget = client.target(restServicePath).path("update");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Productline pl = new Productline();
-        pl.setProductLine("boom2");
-        pl.setTextDescription("uhuuuuuuuu");
-        pl.setHtmlDescription("http://local1");
-        FilterProvider filters = new SimpleFilterProvider().addFilter("Productlinefilter",
-                SimpleBeanPropertyFilter.filterOutAllExcept("productLine", "textDescription", "htmlDescription", "image"));
-        String productlineJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(pl);
-        Response response = invocationBuilder.put(Entity.json(productlineJson));
-        System.out.println(response.getStatus());
+        Orderdetail od = new Orderdetail();
+        od.setOrderNumber(10100);
+        od.setProductCode("S10_1600");
+        od.setQuantityOrdered(7);
+        od.setPriceEach(new BigDecimal(17.7));
+        od.setOrderLineNumber(1);
+        FilterProvider filters = new SimpleFilterProvider().addFilter("Orderdetailfilter",
+                SimpleBeanPropertyFilter.filterOutAllExcept("orderNumber", "productCode", "quantityOrdered", "priceEach", "orderLineNumber"));
+        String orderdetailJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(od);
+        Response response = invocationBuilder.put(Entity.json(orderdetailJson));
+        System.out.println(response.getStatus() + "->" + response.getStatusInfo());
         System.out.println(response.readEntity(String.class));
     }
 
@@ -111,10 +115,10 @@ public class ProductlineWsTest {
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
         client.register(feature);
 
-        WebTarget webTarget = client.target(restServicePath).path("boom2");
+        WebTarget webTarget = client.target(restServicePath).path("10100").path("S10_1600");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.delete();
-        System.out.println(response.getStatus());
+        System.out.println(response.getStatus() + "->" + response.getStatusInfo());
         System.out.println(response.readEntity(String.class));
     }
 }

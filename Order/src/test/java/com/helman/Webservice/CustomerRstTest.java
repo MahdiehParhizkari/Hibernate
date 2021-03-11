@@ -25,7 +25,7 @@ import java.util.List;
   Description: JPA - Criteria
  */
 
-public class CustomerWsTest {
+public class CustomerRstTest {
     final String restServicePath = "http://localhost:8080/order/rest/customer";
     @Test
     public void findall() throws IOException {
@@ -42,7 +42,6 @@ public class CustomerWsTest {
             List<Customer> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Customer>>() {
             });
             System.out.println(list);
-
         }
     }
 
@@ -92,7 +91,6 @@ public class CustomerWsTest {
         Response response = invocationBuilder.post(Entity.json(customerJson));
         System.out.println(response.getStatus() +"->"+ response.getStatusInfo());
         System.out.println(response.readEntity(String.class));
-
     }
 
     @Test
@@ -123,7 +121,6 @@ public class CustomerWsTest {
         Response response = invocationBuilder.put(Entity.json(customerJson));
         System.out.println(response.getStatus()+"->"+ response.getStatusInfo());
         System.out.println(response.readEntity(String.class));
-
     }
 
     @Test
