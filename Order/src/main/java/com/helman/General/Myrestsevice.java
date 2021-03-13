@@ -20,6 +20,6 @@ public class Myrestsevice extends Application {
     public Set<Class<?>> Myrestservice(){
         return new HashSet<Class<?>>(Arrays.asList(
                 UserRst.class, CustomerRst.class, EmployeeRst.class, OfficeRst.class, OrderRst.class,
-                OrderdetailRst.class, ProductRst.class, ProductlineRst.class, PaymentRst.class));
+                OrderdetailRst.class, ProductRst.class, ProductlineRst.class, PaymentRst.class,LoginRst.class));
     }
 }

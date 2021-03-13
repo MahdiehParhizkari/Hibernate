@@ -3,7 +3,9 @@ package com.helman.Entity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "customers")
@@ -176,5 +178,16 @@ public class Customer {
                 ", creditLimit=" + creditLimit +
                 //", payments=" + payments +
                 '}';
+    }
+
+    @Transient
+    public Set<String> getfilters(){
+        Set<String> hash_set = new HashSet<String>();
+        hash_set.add("customerNumber");
+        hash_set.add("customerName");
+        hash_set.add("contactLastName");
+        hash_set.add("contactFirstName");
+        hash_set.add("phone");
+        return hash_set;
     }
 }

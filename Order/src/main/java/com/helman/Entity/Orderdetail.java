@@ -21,7 +21,6 @@ public class Orderdetail {
     private Order order;
     private Product product;
 
-
     @Id
     @Column(name = "orderNumber")
     public Integer getOrderNumber() {
@@ -92,7 +91,7 @@ public class Orderdetail {
                 ", orderLineNumber=" + orderLineNumber +
                 '}';
     }
-
+@Transient
     public Set<String> getfilters(){
         Set<String> hash_set = new HashSet<String>();
         hash_set.add("orderNumber");

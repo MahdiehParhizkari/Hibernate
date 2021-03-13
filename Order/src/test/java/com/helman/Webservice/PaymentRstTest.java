@@ -11,7 +11,6 @@ import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Test;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -25,7 +24,7 @@ import java.util.List;
   @Date 3/5/21
   @Time 7:23 PM
   Created by Intellije IDEA
-  Description: JPA - Criteria
+  Description: With Token Authentication
 */
 
 public class PaymentRstTest {

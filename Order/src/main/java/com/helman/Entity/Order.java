@@ -5,13 +5,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.helman.General.GregorianDate;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
 @NamedQueries({
-        @NamedQuery(name = "findallcity", query = "select o  " +
-                "from Order o where o.status = 'cancelled'")
+        @NamedQuery(name = "findallcity", query = "SELECT o FROM Order o where o.status = 'cancelled'")
 })
 @JsonFilter("Orderfilter")
 public class Order {
@@ -116,5 +117,17 @@ public class Order {
                 ", comments='" + comments + '\'' +
                 ", customerNumber=" + customerNumber +
                 '}';
+    }
+    @Transient
+    public Set<String> getfilters(){
+        Set<String> hash_set = new HashSet<String>();
+        hash_set.add("orderNumber");
+        hash_set.add("orderDate");
+        hash_set.add("requiredDate");
+        hash_set.add("shippedDate");
+        hash_set.add("status");
+        hash_set.add("comments");
+        hash_set.add("customerNumber");
+        return hash_set;
     }
 }

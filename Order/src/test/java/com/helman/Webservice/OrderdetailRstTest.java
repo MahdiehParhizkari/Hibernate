@@ -22,7 +22,7 @@ import java.util.List;
   @Date 3/4/21
   @Time 3:46 AM
   Created by Intellije IDEA
-  Description: JPA - Criteria
+  Description: With Token Authentication
 */
 
 public class OrderdetailRstTest {
@@ -110,7 +110,7 @@ public class OrderdetailRstTest {
         String token = SecurityTest.getToken(client, "admin", "123");
         if (token.equals("0")) return;
 
-        WebTarget webTarget = client.target(restServicePath).path("10100").path("S10_1601");
+        WebTarget webTarget = client.target(restServicePath).path("10100").path("S10_1600");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.header(HttpHeaders.AUTHORIZATION, token).delete();
         System.out.println(response.getStatus() + "->" + response.getStatusInfo());

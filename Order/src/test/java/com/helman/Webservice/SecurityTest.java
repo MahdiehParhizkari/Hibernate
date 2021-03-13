@@ -13,6 +13,7 @@ import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class SecurityTest {
 
     protected static String getToken(Client client, String usr, String pass){
         try{
-            String token = Files.readString(Paths.get(System.getProperty("user.dir"), "src/main/webapp/static/", "token.tkn"));
+            String token = Files.readString(Paths.get(System.getProperty("user.dir"), "src/main/webapp/statics/", "token.tkn"));
             if (token == null || token.isEmpty()) return "0";
             WebTarget webTarget = client.target(restServicePath).path("check");
             Invocation.Builder invocationBuilder = webTarget.request();
@@ -34,7 +35,7 @@ public class SecurityTest {
             else {
                 HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(usr, pass);
                 webTarget = client.register(feature).target(restServicePath).path("token");
-                invocationBuilder = webTarget.request();
+                invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
                 response = invocationBuilder.get();
                 token = response.getHeaderString(HttpHeaders.AUTHORIZATION);
                 Files.writeString(Paths.get(System.getProperty("user.dir"),"/src/main/webapp/statics/", "token.tkn"), token);

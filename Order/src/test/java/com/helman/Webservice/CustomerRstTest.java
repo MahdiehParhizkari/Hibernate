@@ -22,7 +22,7 @@ import java.util.List;
   @Date 3/2/21
   @Time 9:17 PM
   Created by Intellije IDEA
-  Description: JPA - Criteria
+  Description: With Basic Authentication
  */
 
 public class CustomerRstTest {

@@ -8,9 +8,9 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.helman.Entity.Order;
 import jakarta.ws.rs.client.*;
+import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Test;
 import java.io.IOException;
 import java.text.ParseException;
@@ -23,7 +23,7 @@ import java.util.List;
   @Date 3/5/21
   @Time 2:45 AM
   Created by Intellije IDEA
-  Description: JPA - Criteria
+  Description: With Token Authentication
 */
 
 public class OrderRstTest {
@@ -31,30 +31,28 @@ public class OrderRstTest {
     @Test
     public void findall() throws IOException {
         Client client = ClientBuilder.newClient();
-        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
-        client.register(feature);
+        String token = SecurityTest.getToken(client, "admin", "123");
+        if (token.equals("0")) return;
 
         WebTarget webTarget = client.target(restServicePath).path("all");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Response response = invocationBuilder.get();
+        Response response = invocationBuilder.header(HttpHeaders.AUTHORIZATION, token).get();
+        ObjectMapper mapper = new ObjectMapper();
+        List<Order> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Order>>() {
+        });
         System.out.println(response.getStatus() + "->" + response.getStatusInfo());
-        if (response.getStatus() == 200) {
-            ObjectMapper mapper = new ObjectMapper();
-            List<Order> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Order>>() {
-            });
-            System.out.println(list);
-        }
+        if (response.getStatus() == 200) for (Order temp : list) System.out.println(temp);
     }
 
         @Test
     public void findbyid() throws IOException {
         Client client = ClientBuilder.newClient();
-        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
-        client.register(feature);
+        String token = SecurityTest.getToken(client, "admin", "123");
+        if (token.equals("0")) return;
 
         WebTarget webTarget = client.target(restServicePath).path("find").path("10098");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Response response = invocationBuilder.get();
+        Response response = invocationBuilder.header(HttpHeaders.AUTHORIZATION, token).get();
         System.out.println(response.getStatus() + "->" + response.getStatusInfo());
         if (response.getStatus() == 200) {
             ObjectMapper mapper = new ObjectMapper();
@@ -67,8 +65,8 @@ public class OrderRstTest {
     @Test
     public void insert() throws JsonProcessingException, ParseException {
         Client client = ClientBuilder.newClient();
-        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
-        client.register(feature);
+        String token = SecurityTest.getToken(client, "admin", "123");
+        if (token.equals("0")) return;
 
         WebTarget webTarget = client.target(restServicePath).path("insert");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
@@ -81,18 +79,18 @@ public class OrderRstTest {
         o.setComments("uhu");
         o.setCustomerNumber(363);
         FilterProvider filters = new SimpleFilterProvider().addFilter("Orderfilter",
-                SimpleBeanPropertyFilter.filterOutAllExcept("orderNumber", "orderDate", "requiredDate", "shippedDate", "status", "comments", "customerNumber"));
+                SimpleBeanPropertyFilter.filterOutAllExcept(o.getfilters()));
         String orderJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(o);
-        Response response = invocationBuilder.post(Entity.json(orderJson));
+        Response response = invocationBuilder.header(HttpHeaders.AUTHORIZATION, token).post(Entity.json(orderJson));
         System.out.println(response.getStatus() + "->" + response.getStatusInfo());
-        System.out.println(response.readEntity(String.class));
+        if (response.getStatus()==200) System.out.println(response.readEntity(String.class));
     }
 
     @Test
     public void update() throws JsonProcessingException, ParseException {
         Client client = ClientBuilder.newClient();
-        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
-        client.register(feature);
+        String token = SecurityTest.getToken(client,"admin", "123");
+        if (token.equals("0")) return;
 
         WebTarget webTarget = client.target(restServicePath).path("update");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
@@ -105,22 +103,22 @@ public class OrderRstTest {
         o.setComments("uhu");
         o.setCustomerNumber(363);
         FilterProvider filters = new SimpleFilterProvider().addFilter("Orderfilter",
-                SimpleBeanPropertyFilter.filterOutAllExcept("orderNumber", "orderDate", "requiredDate", "shippedDate", "status", "comments", "customerNumber"));
+                SimpleBeanPropertyFilter.filterOutAllExcept(o.getfilters()));
         String orderJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(o);
-        Response response = invocationBuilder.put(Entity.json(orderJson));
+        Response response = invocationBuilder.header(HttpHeaders.AUTHORIZATION, token).put(Entity.json(orderJson));
         System.out.println(response.getStatus() + "->" + response.getStatusInfo());
-        System.out.println(response.readEntity(String.class));
+        if (response.getStatus()==200) System.out.println(response.readEntity(String.class));
     }
 
     @Test
     public void delete() {
         Client client = ClientBuilder.newClient();
-        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
-        client.register(feature);
+        String token = SecurityTest.getToken(client, "admin", "123");
+        if (token.equals("0")) return;
 
         WebTarget webTarget = client.target(restServicePath).path("10098");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Response response = invocationBuilder.delete();
+        Response response = invocationBuilder.header(HttpHeaders.AUTHORIZATION, token).delete();
         System.out.println(response.getStatus() + "->" + response.getStatusInfo());
         System.out.println(response.readEntity(String.class));
     }

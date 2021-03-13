@@ -2,7 +2,9 @@ package com.helman.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "offices")
@@ -116,5 +118,19 @@ public class Office{
                 ", territory='" + territory + '\'' +
                 //", employees=" + employees +
                 '}';
+    }
+    @Transient
+    public Set<String> getfilters(){
+        Set<String> hash_set = new HashSet<String>();
+        hash_set.add("officeCode");
+        hash_set.add("city");
+        hash_set.add("phone");
+        hash_set.add("addressLine1");
+        hash_set.add("addressLine2");
+        hash_set.add("state");
+        hash_set.add("country");
+        hash_set.add("postalCode");
+        hash_set.add("territory");
+        return hash_set;
     }
 }

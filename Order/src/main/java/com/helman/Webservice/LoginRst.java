@@ -1,23 +1,21 @@
 package com.helman.Webservice;
-
-/*
-  @project order
-  @Author Mahdieh Parhizkari
-  @Date 3/5/21
-  @Time 11:31 PM
-  Created by Intellije IDEA
-  Description: JPA - Criteria
-*/
-
+/**
+ * @Project order
+ * @Author Afshin Parhizkari
+ * @Date 3/3/21
+ * @Time 1:39 AM
+ * Created by   IntelliJ IDEA
+ * Email:       Afshin.Parhizkari@gmail.com
+ * Description:
+ */
 import com.helman.General.Logback;
-import com.lowagie.text.pdf.codec.Base64;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.HttpHeaders;
-import jakarta.ws.rs.core.Response;
-import javax.ws.rs.Path;
+import org.bouncycastle.util.encoders.Base64;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Response;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -25,29 +23,29 @@ import java.util.UUID;
 
 @Path("/login")
 public class LoginRst {
-    Security sec = new Security();
-    final long amountToAdd = 10l;
+    Security sec=new Security();
+    final long amountToAdd=10l;
 
-    //http:localhost:8080/order/rest/login/check
+    //  http://localhost:8080/order/rest/login/check
     @GET
     @Path("/check")
-    public Response echo(@Context HttpHeaders headers){
-        String token = headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer".length()).trim();
-        if (sec.tokenAuthCheck(token))
+    public Response echo(@Context HttpHeaders headers) {
+        String token=headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if(sec.tokenAuthCheck(token))
             return Response.status(Response.Status.OK).entity("token is valid").build();
         else
-            return Response.status(Response.Status.UNAUTHORIZED).entity("token is expired").build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity("token is Expired").build();
     }
 
-    //http://localhost:8080/order/rest/login/token
+    //  http://localhost:8080/order/rest/login/token
     @GET
     @Path("/token")
     public Response getToken(@Context HttpHeaders headers){
         //Get encoded username and password
-        String encodUsrPwd = headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).replaceFirst("Basic", "");
-        if (!sec.basicAuthCheck(encodUsrPwd))
+        String encodUsrPwd=headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).replaceFirst("Basic ", "");
+        if(!sec.basicAuthCheck(encodUsrPwd))
             return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
-        try{
+        try {
             String credential = new String(Base64.decode(encodUsrPwd));
             String login = credential.substring(0,credential.indexOf(":"));
 

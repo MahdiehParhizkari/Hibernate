@@ -30,9 +30,9 @@ public class OrderdetailRst {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findall(){
         List<Orderdetail> orderdetailList = orderdetaildao.findAll();
+        Orderdetail od=new Orderdetail();
         try{
-            FilterProvider filters = new SimpleFilterProvider().addFilter("Orderdetailfilter",
-                    SimpleBeanPropertyFilter.filterOutAllExcept("orderNumber", "productCode", "quantityOrdered", "priceEach", "orderLineNumber"));
+            FilterProvider filters = new SimpleFilterProvider().addFilter("Orderdetailfilter",SimpleBeanPropertyFilter.filterOutAllExcept(od.getfilters()));
             String orderdetailJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(orderdetailList);
             Logback.logger.info("{}.{}|Try:All records send to RESTful", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return Response.status(Response.Status.OK).entity(orderdetailJson).build();
@@ -53,8 +53,7 @@ public class OrderdetailRst {
         Orderdetail orderdetail = orderdetaildao.findById(orderdetailPK);
         try{
             FilterProvider filters = new SimpleFilterProvider().addFilter("Orderdetailfilter",
-                    SimpleBeanPropertyFilter.filterOutAllExcept(
-                            "orderNumber", "productCode", "quantityOrdered", "priceEach", "orderLineNumber"));
+                    SimpleBeanPropertyFilter.filterOutAllExcept(orderdetail.getfilters()));
             String productlineJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(orderdetail);
             Logback.logger.info("{}.{}|Try:All records send to RESTful", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return Response.status(Response.Status.OK).entity(productlineJson).build();
