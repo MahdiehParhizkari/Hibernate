@@ -3,7 +3,9 @@ package com.helman.Entity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees")
@@ -174,5 +176,15 @@ public class Employee {
                  "\n, manager=" + manager +
                 // "\n, employees=" + employees +
                 '}';
+    }
+
+    @Transient
+    public Set<String> getfilters(){
+        Set<String> hash_set = new HashSet<String>();
+        hash_set.add("employeeNumber");
+        hash_set.add("lastName");
+        hash_set.add("firstName");
+        hash_set.add("email");
+        return hash_set;
     }
 }

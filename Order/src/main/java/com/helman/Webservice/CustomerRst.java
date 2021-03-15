@@ -5,7 +5,7 @@ package com.helman.Webservice;
 //@Date 2/27/21
 //@Time 5:07AM
 //        Created by Intellije IDEA
-//        Description:JPA-Criteria
+//        Description: With Basic Authentication
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
