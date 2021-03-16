@@ -5,7 +5,7 @@ package com.helman.Webservice;
 //@Date 3/1/21
 //@Time 1:50AM
 //        Created by Intellije IDEA
-//        Description:JPA-Criteria
+//        Description: Authorization with token
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +16,8 @@ import com.helman.Dao.Orderdao;
 import com.helman.Entity.Order;
 import com.helman.General.Logback;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -23,15 +25,21 @@ import java.util.List;
 @Path("/order")
 public class OrderRst {
     private Orderdao orderdao = new Orderdao();
-    //http://localhost:8080/ordre/rest/order/all
+    Security sec = new Security();
+    //http://localhost:8080/order/rest/order/all
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findall(){
+    public Response findall(@Context HttpHeaders headers){
         List<Order> orderList = orderdao.findall();
+        String token = headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if (!sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
+
         try{
+            Order order = new Order();
             FilterProvider filters = new SimpleFilterProvider().addFilter("Orderfilter",
-                    SimpleBeanPropertyFilter.filterOutAllExcept("orderNumber", "orderDate", "requiredDate", "shippedDate", "comments"));
+                    SimpleBeanPropertyFilter.filterOutAllExcept(order.getfilters()));
             String orderJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(orderList);
             Logback.logger.info("{}.{}|Try:Send all records to RESTful", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return Response.status(Response.Status.OK).entity(orderJson).build();
@@ -46,11 +54,14 @@ public class OrderRst {
     @GET
     @Path("/find/{orderNumber}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findbyid(@PathParam("orderNumber") Integer orderNum){
+    public Response findbyid(@PathParam("orderNumber") Integer orderNum, @Context HttpHeaders headers){
         Order order = orderdao.findById(orderNum);
+        String token = headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if (!sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
         try{
             FilterProvider filters = new SimpleFilterProvider().addFilter("Orderfilter" ,
-                    SimpleBeanPropertyFilter.filterOutAllExcept("orderNumber", "orderDate", "requiredDate", "shippedDate", "status", "comments"));
+                    SimpleBeanPropertyFilter.filterOutAllExcept(order.getfilters()));
             String orderJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(order);
             Logback.logger.info("{}.{}|Try: Record send to RESTful", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return Response.status(Response.Status.OK).entity(orderJson).build();
@@ -77,7 +88,10 @@ public class OrderRst {
     @Path("/insert")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response insert(Order order){
+    public Response insert(Order order, @Context HttpHeaders headers){
+        String token = headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if (!sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
         try{
             Integer status = orderdao.insert(order);
             Logback.logger.info("{}.{}|Try:Inserted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -94,7 +108,10 @@ public class OrderRst {
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(Order order){
+    public Response update(Order order, @Context HttpHeaders headers){
+        String token = headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if (!sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
         try{
             Order updatedOrder = orderdao.findById(order.getOrderNumber());
             updatedOrder.setOrderNumber(order.getOrderNumber());
@@ -116,7 +133,10 @@ public class OrderRst {
     @DELETE
     @Path("/{orderNumber}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("orderNumber") Integer ordnum){
+    public Response delete(@PathParam("orderNumber") Integer ordnum, @Context HttpHeaders headers){
+        String token = headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if (!sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
         try {
             Integer status = orderdao.delete(ordnum);
             Logback.logger.info("{}.{}|Try:Deleted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());

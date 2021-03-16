@@ -5,9 +5,8 @@ package com.helman.Webservice;
 //@Date 2/28/21
 //@Time 10:30PM
 //        Created by Intellije IDEA
-//        Description:JPA-Criteria
+//        Description: Authorization with token
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
@@ -15,7 +14,6 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.helman.Dao.Officedao;
 import com.helman.Entity.Office;
 import com.helman.General.Logback;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
@@ -28,13 +26,14 @@ public class OfficeRst {
     Officedao officedao = new Officedao();
     Security sec = new Security();
 
-    //http:localhost:8080/order/rest/office/all
+    //http://localhost:8080/order/rest/office/all
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findall(@Context HttpHeaders headers){
-        String encodUsrPwd = headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic ","");
-        if (!sec.basicAuthCheck(encodUsrPwd)) return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
+        String token = headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if (!sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
 
         try{
             List<Office> officeList = officedao.findAll();
@@ -50,13 +49,14 @@ public class OfficeRst {
             return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
         }
     }
-    //http:localhost:8080/order/rest/office/find/10
+    //http://localhost:8080/order/rest/office/find/10
     @GET
     @Path("/find/{officeCode}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findbyid(@PathParam("officeCode") String ofcode, @Context HttpHeaders headers){
-        String encodUsrPwd = headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic ", "");
-        if (!sec.tokenAuthCheck(encodUsrPwd)) return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
+        String token = headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if (!sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
 
         try{
             Office office = officedao.findById(ofcode);
@@ -72,8 +72,7 @@ public class OfficeRst {
         }
     }
     /*http://localhost:8080/order/rest/office/insert
-    body:
-    {
+    body:{
     "officeCode": "11",
     "city": "Tehran",
     "phone": "88089",
@@ -88,13 +87,14 @@ public class OfficeRst {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response insert(Office office, @Context HttpHeaders headers){
-        String encodUsrPwd = headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic ", "");
-        if (!sec.tokenAuthCheck(encodUsrPwd)) return Response.status(Response.Status.UNAUTHORIZED).entity("User or passsword is wrong").build();
+        String token = headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if (!sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
 
        try{
-           String status = officedao.insert(office);
+           String returnstatus = officedao.insert(office);
            Logback.logger.info("{}.{}|Try:Inserted!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-           return Response.status(Response.Status.OK).entity(status).build();
+           return Response.status(Response.Status.OK).entity(returnstatus).build();
         }catch (Exception e){
            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
            e.printStackTrace();
@@ -107,12 +107,13 @@ public class OfficeRst {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(Office office, @Context HttpHeaders headers){
-        String encodUsrPwd = headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic ", "");
-        if (!sec.tokenAuthCheck(encodUsrPwd)) return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
+        String token = headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if (!sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
 
         try{
-            String status = officedao.update(officedao.findById(office.getOfficeCode()));
-            return Response.status(Response.Status.OK).entity(status).build();
+            String returnstatus = officedao.update(officedao.findById(office.getOfficeCode()));
+            return Response.status(Response.Status.OK).entity(returnstatus).build();
         }catch (Exception e){
                 Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
                 e.printStackTrace();
@@ -124,12 +125,13 @@ public class OfficeRst {
     @Path("/{officeCode}")
     @PathParam(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("officeCode") String ofcode, @Context HttpHeaders headers){
-        String encodUsrPwd = headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic ", "");
-        if (!sec.tokenAuthCheck(encodUsrPwd)) return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
+        String token = headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if (!sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
 
         try{
-            Integer status = officedao.delete(officedao.findById(ofcode));
-            return Response.status(Response.Status.OK).entity(status).build();
+            Integer returnstatus = officedao.delete(officedao.findById(ofcode));
+            return Response.status(Response.Status.OK).entity(returnstatus).build();
         }catch (Exception e){
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();

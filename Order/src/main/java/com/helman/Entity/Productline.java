@@ -3,7 +3,9 @@ package com.helman.Entity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import javax.persistence.*;
 import javax.xml.bind.DatatypeConverter;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "productlines")
@@ -74,5 +76,15 @@ public class Productline {
                 ", htmlDescription='" + htmlDescription + '\'' +
                 //", products=" + products +
                 '}';
+    }
+
+    @Transient
+    public Set<String> getfilters(){
+        Set<String> hash_set = new HashSet<String>();
+        hash_set.add("productLine");
+        hash_set.add("textDescription");
+        hash_set.add("htmlDescription");
+        hash_set.add("image");
+        return hash_set;
     }
 }
