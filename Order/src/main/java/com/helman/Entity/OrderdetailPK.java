@@ -1,8 +1,13 @@
 package com.helman.Entity;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Objects;
 
+@XmlRootElement(name = "OrderdetailPKXML")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class OrderdetailPK implements Serializable {
     public OrderdetailPK(){}
 
@@ -11,8 +16,7 @@ public class OrderdetailPK implements Serializable {
 
     public OrderdetailPK(Integer orderNumber, String productCode) {
         this.orderNumber = orderNumber;
-        this.productCode = productCode;
-    }
+        this.productCode = productCode; }
 
     public Integer getOrderNumber() {
         return orderNumber;

@@ -2,6 +2,10 @@ package com.helman.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +14,8 @@ import java.util.Set;
 @Entity
 @Table(name = "customers")
 @JsonFilter("Customerfilter")
+@XmlRootElement(name = "CustomerXML")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Customer {
     public Customer(){}
 
@@ -27,8 +33,11 @@ public class Customer {
     private Integer salesRepEmployeeNumber;
     private BigDecimal creditLimit;
 
+    @XmlTransient
     private List<Payment> payments;
+    @XmlTransient
     private List<Order> orders;
+    @XmlTransient
     private Employee employee;
 
     @Id

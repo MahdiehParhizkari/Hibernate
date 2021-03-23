@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
+    <endpoint name="Test" implementation="com.helman.Webservice.TestSop" url-pattern="/soap/test"/>
+    <endpoint name="Customer" implementation="com.helman.Webservice.CustomerSop" url-pattern="/soap/customer"/>
+    <endpoint name="Orderdetail" implementation="com.helman.Webservice.OrderdetailSop" url-pattern="/soap/orderdetail"/>
+</endpoints>
