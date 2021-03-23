@@ -84,7 +84,8 @@ public class CustomerRst {
     "phone": "+982188089",
     "addressLine1":"Teh",
     "city": "Tehran",
-    "country": "Iran"
+    "country": "Iran",
+    "salesRepEmployeeNumber":"1166"
     }*/
     @POST
     @Path("/insert")
