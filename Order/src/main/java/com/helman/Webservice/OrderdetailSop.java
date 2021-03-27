@@ -142,10 +142,6 @@ public class OrderdetailSop {
             return null;
         }
     }
-
-
-
-
     /*
     <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
         <Body>

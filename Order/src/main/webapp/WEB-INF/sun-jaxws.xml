@@ -4,4 +4,5 @@
     <endpoint name="Customer" implementation="com.helman.Webservice.CustomerSop" url-pattern="/soap/customer"/>
     <endpoint name="Orderdetail" implementation="com.helman.Webservice.OrderdetailSop" url-pattern="/soap/orderdetail"/>
     <endpoint name="Employee" implementation="com.helman.Webservice.EmployeeSop" url-pattern="/soap/employee"/>
+    <endpoint name="Order" implementation="com.helman.Webservice.OrderSop" url-pattern="/soap/order" />
 </endpoints>

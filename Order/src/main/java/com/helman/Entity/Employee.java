@@ -3,6 +3,10 @@ package com.helman.Entity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,6 +14,8 @@ import java.util.Set;
 @Entity
 @Table(name = "employees")
 @JsonFilter("Employeefilter")
+@XmlRootElement(name = "EmployeeXML")
+@XmlAccessorType(XmlAccessType.FIELD)
 @NamedQueries({
         @NamedQuery(name = "managerEmp", query = "select e.lastName, e.firstName from Employee e " +
                 "where e.jobTitle=:jtit"),
@@ -50,9 +56,13 @@ public class Employee {
     private Long reportsTo;
     private String jobTitle;
 
+    @XmlTransient
     private Office office;
+    @XmlTransient
     private List<Customer> customers;
+    @XmlTransient
     private Employee manager;
+    @XmlTransient
     private List<Employee> employees;
     //private List<User> users;
 

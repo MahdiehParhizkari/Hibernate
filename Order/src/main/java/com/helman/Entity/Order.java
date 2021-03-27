@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.helman.General.GregorianDate;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +19,8 @@ import java.util.Set;
         @NamedQuery(name = "findallcity", query = "SELECT o FROM Order o where o.status = 'cancelled'")
 })
 @JsonFilter("Orderfilter")
+@XmlRootElement(name = "OrderXML")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Order {
     public Order(){}
 
@@ -26,7 +32,9 @@ public class Order {
     private String comments;
     private Integer customerNumber = null;
 
+    @XmlTransient
     private List<Orderdetail> orderdetails;
+    @XmlTransient
     private Customer customer;
 
     @Id
