@@ -2,6 +2,10 @@ package com.helman.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,6 +13,8 @@ import java.util.Set;
 @Entity
 @Table(name = "offices")
 @JsonFilter("Officefilter")
+@XmlRootElement(name = "OfficeXML")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Office{
     public Office(){ }
 
@@ -21,6 +27,8 @@ public class Office{
     private String country;
     private String postalCode;
     private String territory;
+
+    @XmlTransient
     private List<Employee> employees;
 
     @Id

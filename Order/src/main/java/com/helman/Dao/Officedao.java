@@ -91,18 +91,19 @@ public class Officedao {
     }
     public String update(Office office){
         try{
+            Office officeUpdated = findById(office.getOfficeCode());
             entityManager.getTransaction().begin();
-            office.setCity(office.getCity());
-            office.setPhone(office.getPhone());
-            office.setAddressLine1(office.getAddressLine1());
-            office.setAddressLine2(office.getAddressLine2());
-            office.setState(office.getState());
-            office.setCountry(office.getCountry());
-            office.setPostalCode(office.getPostalCode());
-            office.setTerritory(office.getTerritory());
+            officeUpdated.setCity(office.getCity());
+            officeUpdated.setPhone(office.getPhone());
+            officeUpdated.setAddressLine1(office.getAddressLine1());
+            officeUpdated.setAddressLine2(office.getAddressLine2());
+            officeUpdated.setState(office.getState());
+            officeUpdated.setCountry(office.getCountry());
+            officeUpdated.setPostalCode(office.getPostalCode());
+            officeUpdated.setTerritory(office.getTerritory());
             entityManager.getTransaction().commit();
             Logback.logger.info("{}.{}|Try:Updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-            return office.getOfficeCode();
+            return officeUpdated.getOfficeCode();
         }catch (Exception e){
             Logback.logger.error("{}.{}|Exception{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
