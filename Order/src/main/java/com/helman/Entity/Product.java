@@ -3,15 +3,20 @@ package com.helman.Entity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonView;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "products")
 @JsonFilter("Productfilter")
+@XmlRootElement(name = "PaymentXML")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Product {
-    public Product(){
-    }
+    public Product(){}
 
     private String productCode;
     private String productName;
@@ -24,7 +29,9 @@ public class Product {
     @JsonView
     private BigDecimal MSRP;
 
+    @XmlTransient
     private Productline productline;
+    @XmlTransient
     private List<Orderdetail> orderdetails;
 
     @Id

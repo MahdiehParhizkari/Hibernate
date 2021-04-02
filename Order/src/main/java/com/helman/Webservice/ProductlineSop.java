@@ -1,14 +1,16 @@
-package com.helman.Webservice;/*
+package com.helman.Webservice;
+
+/*
   @project order
   @Author Mahdieh Parhizkari
-  @Date 3/28/21
-  @Time 2:07 AM
+  @Date 3/31/21
+  @Time 3:26 AM
   Created by Intellije IDEA
-  Description: Authorization with token
+  Description: JPA - Criteria
 */
 
-import com.helman.Dao.Officedao;
-import com.helman.Entity.Office;
+import com.helman.Dao.Productlinedao;
+import com.helman.Entity.Productline;
 import com.helman.General.Log4j;
 
 import javax.annotation.Resource;
@@ -22,29 +24,29 @@ import javax.xml.ws.handler.MessageContext;
 import java.util.List;
 import java.util.Map;
 
-@WebService(name = "OfficeInt", serviceName = "OfficeSrv")
+@WebService(name = "ProductlineInt", serviceName = "ProductlineSrv")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
-public class OfficeSop {
-    Officedao officedao = new Officedao();
+public class ProductlineSop {
+    Productlinedao productlinedao = new Productlinedao();
     Security security = new Security();
 
     @Resource
     WebServiceContext wsctx;
 
     @WebMethod
-    @WebResult(name = "Offices")
-    public Office[] findall(){
+    @WebResult(name = "productlines")
+    public Productline[] findall(){
         try{
             Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
             String token = http_headers.get("Authorization").toString().replaceFirst("Bearer ", "")
-                    .replaceFirst("\\[", "").replace("]", "");
+                    .replaceFirst("\\[", "").replaceFirst("]", "");
             if (!security.tokenAuthCheck(token)) return null;
 
-            List<Office> offices= officedao.findAll();
-            Office[] itemsArray = new Office[offices.size()];
-            Log4j.logger.info("{}.{}|Try: Send recordes to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-            return offices.toArray(itemsArray);
-        }catch (Exception e){
+            List<Productline> productlines = productlinedao.findall();
+            Productline[] itemsArray = new Productline[productlines.size()];
+            Log4j.logger.info("{}.{}|Try: Send records to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return productlines.toArray(itemsArray);
+        }catch(Exception e){
             Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
             return null;
@@ -52,18 +54,16 @@ public class OfficeSop {
     }
 
     @WebMethod
-    @WebResult(name = "Office")
-    public Office findbyid(@WebParam(name = "officeCode") String ofcode){
+    @WebResult(name = "productline")
+    public Productline findbyid(@WebParam(name = "productLine") String proline){
         try{
             Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
             String token = http_headers.get("Authorization").toString().replaceFirst("Bearer ", "")
                     .replaceFirst("\\[", "").replace("]", "");
             if (!security.tokenAuthCheck(token)) return null;
+            return productlinedao.findById(proline);
 
-            Office office = officedao.findById(ofcode);
-            Log4j.logger.info("{}.{}|Try: Send record to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-            return office;
-        } catch (Exception e) {
+        }catch(Exception e){
             Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
             return null;
@@ -72,86 +72,79 @@ public class OfficeSop {
     /*<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
     <Body>
         <insert xmlns="http://Webservice.helman.com/">
-            <Office xmlns="">
-    			<officeCode xmlns="">11</officeCode>
-    			<city xmlns="">Tehran</city>
-    			<phone xmlns="">88089</phone>
-    			<addressLine1 xmlns="">shahrak</addressLine1>
-    			<country xmlns="">Iran</country>
-    			<postalCode xmlns="">1982347809</postalCode>
-    			<territory xmlns="">Teh</territory>
-    		</Office>
+            <productline xmlns="">
+                <productLine xmlns="">boom123</productLine>
+                <textDescription xmlns="">boombing666</textDescription>
+                <htmlDescription xmlns="">http://boom.ir</htmlDescription>
+                <image xmlns=""></image>
+            </productline>
         </insert>
     </Body>
 </Envelope>*/
     @WebMethod
     @WebResult(name = "returnStatus")
-    public String insert (@WebParam(name = "Office") Office office){
+    public String insert (@WebParam(name = "productline") Productline proline){
         try{
-            Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
-            String token = http_headers.get("Authorization").toString().replaceFirst("Bearer ","")
-                    .replaceFirst("\\[","").replace("]","");
-            if(!security.tokenAuthCheck(token)) return null;
-
-            String returnStatus = officedao.insert(office);
-            Log4j.logger.info("{}.{}|Try: record is inserted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-            return returnStatus.toString();
-        } catch (Exception e) {
-            String UUID = java.util.UUID.randomUUID().toString();
-            Log4j.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
-            e.printStackTrace();
-            return "Your Trace number is" + UUID + e.toString();
-        }
-    }
-
-    /*<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
-        <Body>
-            <update xmlns="http://Webservice.helman.com/">
-                <Office xmlns="">
-    			    <officeCode xmlns="">11</officeCode>
-    			    <city xmlns="">Tehran</city>
-    			    <phone xmlns="">66666</phone>
-    			    <addressLine1 xmlns="">shahrak1</addressLine1>
-    			    <country xmlns="">Iran1</country>
-    			    <postalCode xmlns="">1986666666</postalCode>
-    			    <territory xmlns="">Teh1</territory>
-    		    </Office>
-            </update>
-        </Body>
-    </Envelope>*/
-    @WebMethod
-    @WebResult(name = "returnStatus")
-    public String update(@WebParam(name = "Office") Office office){
-        try{
-            Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
-            String token=http_headers.get("Authorization").toString().replaceFirst("Bearer ","")
-                    .replaceFirst("\\[","").replace("]","");
-            if(!security.tokenAuthCheck(token)) return null;
-
-            String returnStatus = officedao.update(office);
-            Log4j.logger.info("{}.{}|Try: record is updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-            return returnStatus.toString();
-        } catch (Exception e) {
-            String UUID = java.util.UUID.randomUUID().toString();
-            Log4j.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), UUID, e.getMessage());
-            e.printStackTrace();
-            return "Your Trace number is" + UUID + e.toString();
-        }
-    }
-
-    @WebMethod
-    @WebResult(name = "returnStatus")
-    public String delete (@WebParam(name = "officeCode") String ofcode) {
-        try {
             Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
             String token = http_headers.get("Authorization").toString().replaceFirst("Bearer ", "")
                     .replaceFirst("\\[", "").replace("]", "");
             if (!security.tokenAuthCheck(token)) return null;
 
-            Integer returnStatus = officedao.delete(officedao.findById(ofcode));
-            Log4j.logger.info("{}.{}|Try:Deleted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            String returnStatus = productlinedao.insert(proline);
+            Log4j.logger.info("{}.{}|Try: record is inserted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return returnStatus.toString();
-        } catch (Exception e) {
+        }catch(Exception e){
+            Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /*<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+    <Body>
+        <update xmlns="http://Webservice.helman.com/">
+            <productline xmlns="">
+                <productLine xmlns="">boom123</productLine>
+                <textDescription xmlns="">boombing777</textDescription>
+                <htmlDescription xmlns="">http://boom777.ir</htmlDescription>
+                <image xmlns=""></image>
+            </productline>
+        </update>
+    </Body>
+</Envelope>*/
+    @WebMethod
+    @WebResult(name = "returnStatus")
+    public String update (@WebParam(name = "productline") Productline proline){
+        try{
+            Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+            String token = http_headers.get("Authorization").toString().replaceFirst("Bearer ", "")
+                    .replaceFirst("\\[", "").replace("]", "");
+            if (!security.tokenAuthCheck(token)) return null;
+
+            String returnStatus = productlinedao.update(proline);
+            Log4j.logger.info("{}.{}|Try: record is updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return returnStatus.toString();
+        }catch(Exception e){
+            String UUID = java.util.UUID.randomUUID().toString();
+            Log4j.logger.error("{}.{}|UUID:{} - Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), UUID, e.getMessage());
+            e.printStackTrace();
+            return "Your Trace number is" + UUID + e.toString();
+        }
+    }
+
+    @WebMethod
+    @WebResult(name = "returnStatus")
+    public String delete (@WebParam(name = "productLine") String productLine){
+        try{
+            Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+            String token = http_headers.get("Authorization").toString().replaceFirst("Bearer ", "")
+                    .replaceFirst("\\[", "").replace("]", "");
+            if (!security.tokenAuthCheck(token)) return null;
+
+            Integer returnStatus = productlinedao.delete(productlinedao.findById(productLine));
+            Log4j.logger.info("{}.{}|Try: record is deleted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return returnStatus.toString();
+        }catch(Exception e){
             String UUID = java.util.UUID.randomUUID().toString();
             Log4j.logger.error("{}.{}|UUID:{} - Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), UUID, e.getMessage());
             e.printStackTrace();

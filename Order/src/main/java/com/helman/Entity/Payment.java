@@ -3,6 +3,10 @@ package com.helman.Entity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
@@ -12,6 +16,8 @@ import java.util.Set;
 @Table(name = "payments")
 @IdClass(PaymentPK.class)
 @JsonFilter("Paymentfilter")
+@XmlRootElement(name = "PaymentXML")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Payment {
     public Payment(){}
 
@@ -19,6 +25,8 @@ public class Payment {
     private String checkNumber;
     private Date paymentDate;
     private BigDecimal amount;
+
+    @XmlTransient
     private Customer customer;
 
     @Id

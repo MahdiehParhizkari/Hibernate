@@ -6,4 +6,7 @@
     <endpoint name="Employee" implementation="com.helman.Webservice.EmployeeSop" url-pattern="/soap/employee"/>
     <endpoint name="Order" implementation="com.helman.Webservice.OrderSop" url-pattern="/soap/order"/>
     <endpoint name="Office" implementation="com.helman.Webservice.OfficeSop" url-pattern="/soap/office"/>
+    <endpoint name="Payment" implementation="com.helman.Webservice.PaymentSop" url-pattern="/soap/payment"/>
+    <endpoint name="Productline" implementation="com.helman.Webservice.ProductlineSop" url-pattern="/soap/productline"/>
+    <endpoint name="Product" implementation="com.helman.Webservice.ProductSop" url-pattern="/soap/product"/>
 </endpoints>

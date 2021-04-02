@@ -1,16 +1,14 @@
-package com.helman.Webservice;
-
-/*
+package com.helman.Webservice;/*
   @project order
   @Author Mahdieh Parhizkari
-  @Date 3/27/21
-  @Time 11:49 PM
+  @Date 3/31/21
+  @Time 4:16 AM
   Created by Intellije IDEA
-  Description: Authorization with token
+  Description: JPA - Criteria
 */
 
-import com.helman.Dao.Orderdao;
-import com.helman.Entity.Order;
+import com.helman.Dao.Productdao;
+import com.helman.Entity.Product;
 import com.helman.General.Log4j;
 
 import javax.annotation.Resource;
@@ -24,110 +22,121 @@ import javax.xml.ws.handler.MessageContext;
 import java.util.List;
 import java.util.Map;
 
-@WebService(name = "OrderInt", serviceName = "OrderSrv")
+@WebService(name = "ProductInt", serviceName = "ProductSrv")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
-public class OrderSop {
-    Orderdao orderdao = new Orderdao();
+public class ProductSop {
+    Productdao productdao = new Productdao();
     Security security = new Security();
 
     @Resource
     WebServiceContext wsctx;
 
     @WebMethod
-    @WebResult(name = "orders")
-    public Order[] findall(){
-        try {
-            Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
-            String token = http_headers.get("Authorization").toString().replaceFirst("Bearer ", "")
-                    .replaceFirst("\\[", "").replaceFirst("]", "");
-            if (!security.tokenAuthCheck(token)) return null;
-
-            List<Order> orders = orderdao.findall();
-            Order[] itemsArray = new Order[orders.size()];
-            Log4j.logger.info("{}.{}|Try: Send records to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-            return orders.toArray(itemsArray);
-        }catch(Exception e){
-            Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /*<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
-        <Body>
-            <findbyid xmlns="http://Webservice.helman.com/">
-                <orderNumber xmlns="">10099</orderNumber>
-            </findbyid>
-        </Body>
-    </Envelope>*/
-    @WebMethod
-    @WebResult(name = "order")
-    public Order findbyid(@WebParam(name = "orderNumber") Integer ordnum){
+    @WebResult(name = "products")
+    public Product[] findall(){
         try{
             Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
             String token = http_headers.get("Authorization").toString().replaceFirst("Bearer ", "")
                     .replaceFirst("\\[", "").replace("]", "");
             if (!security.tokenAuthCheck(token)) return null;
 
-            Order order = orderdao.findById(ordnum);
-            Log4j.logger.info("{}.{}|Try: Send record to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-            return order;
-        } catch (Exception e) {
+            List<Product> products = productdao.findall();
+            Product[] itemsArray = new Product[products.size()];
+            Log4j.logger.info("{}.{}|Try: Send records to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return products.toArray(itemsArray);
+        }catch (Exception e) {
             Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
             return null;
         }
     }
 
-/*<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+    @WebMethod
+    @WebResult(name = "product")
+    public Product findbyid(@WebParam(name = "productCode") String procode){
+        try{
+            Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+            String token = http_headers.get("Authorization").toString().replaceFirst("Bearer ", "")
+                    .replaceFirst("\\[", "").replace("]", "");
+            if (!security.tokenAuthCheck(token)) return null;
+
+            Product product = productdao.findById(procode);
+            Log4j.logger.info("{}.{}|Try: Send record to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return product;
+        }catch (Exception e) {
+            Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /*
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
     <Body>
         <insert xmlns="http://Webservice.helman.com/">
-            <Order xmlns="">
-	            <orderNumber xmlns="">10099</orderNumber>
-	            <orderDate xmlns="">2020-10-15T23:28:56.782Z</orderDate>
-	            <requiredDate xmlns="">2021-11-16T23:28:56.782Z</requiredDate>
-	            <shippedDate xmlns="">2022-12-17T23:28:56.782Z</shippedDate>
-	            <status xmlns="">Cancelled</status>
-	            <comments xmlns="">We must pay it soon</comments>
-	            <customerNumber xmlns="">481</customerNumber>
-            </Order>
+            <Product xmlns="">
+            	<productCode xmlns="">S10_1602</productCode>
+            	<productName xmlns="">1999</productName>
+            	<productLine xmlns="">Motorcycles</productLine>
+            	<productScale xmlns="">1:10</productScale>
+            	<productVendor xmlns="">Max</productVendor>
+            	<productDescription xmlns="">uhu</productDescription>
+            	<quantityInStock xmlns="">777</quantityInStock>
+            	<buyPrice xmlns="">777.77</buyPrice>
+            	<MSRP xmlns="">77.70</MSRP>
+            </Product>
         </insert>
     </Body>
-</Envelope>*/
-
+</Envelope>
+    */
     @WebMethod
     @WebResult(name = "returnStatus")
-    public String insert(@WebParam(name = "Order") Order order){
+    public String insert(@WebParam(name = "Product") Product product){
         try{
             Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
             String token = http_headers.get("Authorization").toString().replaceFirst("Bearer ", "")
                     .replaceFirst("\\[", "").replace("]", "");
             if (!security.tokenAuthCheck(token)) return null;
 
-            Integer returnStatus = orderdao.insert(order);
+            String returnStatus = productdao.insert(product);
             Log4j.logger.info("{}.{}|Try: record is inserted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return returnStatus.toString();
         }catch (Exception e){
-            String UUID = java.util.UUID.randomUUID().toString();
-            Log4j.logger.error("{}.{}| UUID:{} - Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), UUID, e.getMessage());
+            Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
-            return "Your Trace number is" +UUID + e.toString();
+            return null;
         }
     }
-
+    /*<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+    <Body>
+        <update xmlns="http://Webservice.helman.com/">
+            <Product xmlns="">
+            	<productCode xmlns="">S10_1602</productCode>
+            	<productName xmlns="">1999</productName>
+            	<productLine xmlns="">Motorcycles</productLine>
+            	<productScale xmlns="">1:10</productScale>
+            	<productVendor xmlns="">Maxxxxxxxxx</productVendor>
+            	<productDescription xmlns="">uhu</productDescription>
+            	<quantityInStock xmlns="">6666</quantityInStock>
+            	<buyPrice xmlns="">888.88</buyPrice>
+            	<MSRP xmlns="">88.80</MSRP>
+            </Product>
+        </update>
+    </Body>
+</Envelope>*/
     @WebMethod
     @WebResult(name = "returnStatus")
-    public String update (@WebParam(name = "Order") Order order){
-        try {
+    public String update (@WebParam(name = "Product") Product product){
+        try{
             Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
             String token = http_headers.get("Authorization").toString().replaceFirst("Bearer ", "")
-                    .replaceFirst("\\[", "").replace("]","");
+                    .replaceFirst("\\[", "").replace("]", "");
             if (!security.tokenAuthCheck(token)) return null;
 
-            Integer returnStatus = orderdao.update(order);
+            String returnStatus = productdao.update(product);
             Log4j.logger.info("{}.{}|Try: record is updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return returnStatus.toString();
-    } catch(Exception e){
+        } catch(Exception e){
             String UUID = java.util.UUID.randomUUID().toString();
             Log4j.logger.error("{}.{}|UUID:{} - Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), UUID, e.getMessage());
             e.printStackTrace();
@@ -135,16 +144,23 @@ public class OrderSop {
         }
     }
 
+    /*<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+    <Body>
+        <delete xmlns="http://Webservice.helman.com/">
+            <productCode xmlns="">S10_1602</productCode>
+        </delete>
+    </Body>
+</Envelope>*/
     @WebMethod
     @WebResult(name = "returnStatus")
-    public String delete(@WebParam(name = "orderNumber") Integer ordnum){
+    public String delete(@WebParam(name = "productCode") String procode){
         try{
             Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
             String token = http_headers.get("Authorization").toString().replaceFirst("Bearer ", "")
                     .replaceFirst("\\[", "").replace("]","");
             if (!security.tokenAuthCheck(token)) return null;
 
-            Integer returnStatus = orderdao.delete(ordnum);
+            Integer returnStatus = productdao.delete(procode);
             Log4j.logger.info("{}.{}|Try: record is deleted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return returnStatus.toString();
         } catch (Exception e) {

@@ -1,12 +1,10 @@
 package com.helman.Dao;
 
 import com.helman.Entity.Customer;
-import com.helman.Entity.Orderdetail;
 import com.helman.Entity.Payment;
 import com.helman.Entity.PaymentPK;
 import com.helman.General.Logback;
 import com.helman.General.Myentitymanager;
-import com.helman.General.Mysession;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
@@ -96,9 +94,10 @@ public class Paymentdao {
     }
     public PaymentPK update(Payment p){
         try{
+            Payment payment = findById(new PaymentPK(p.getCustomerNumber(), p.getCheckNumber()));
             entityManager.getTransaction().begin();
-            p.setPaymentDate(p.getPaymentDate());
-            p.setAmount(p.getAmount());
+            payment.setPaymentDate(p.getPaymentDate());
+            payment.setAmount(p.getAmount());
             entityManager.getTransaction().commit();
             Logback.logger.info("{}.{}|Try:Inserted",this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return new PaymentPK(p.getCustomerNumber(), p.getCheckNumber());

@@ -14,7 +14,6 @@ import com.helman.Entity.Orderdetail;
 import com.helman.Entity.OrderdetailPK;
 import com.helman.General.Log4j;
 import com.helman.General.Logback;
-
 import javax.annotation.Resource;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -34,7 +33,6 @@ public class OrderdetailSop {
 
     @Resource
     WebServiceContext wsctx;
-
     /*
     <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
         <Body>
@@ -61,7 +59,6 @@ public class OrderdetailSop {
             return null;
         }
     }
-
     /*
     <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
         <Body>
@@ -91,21 +88,7 @@ public class OrderdetailSop {
             return null;
         }
     }
-    /*
-    <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
-        <Body>
-            <insert xmlns="http://Webservice.helman.com/">
-                <Orderdetail  xmlns="">
-	                <orderNumber xmlns="">10100</orderNumber>
-	                <productCode xmlns="">S10_1600</productCode>
-	                <quantityOrdered xmlns="">2</quantityOrdered>
-	                <priceEach xmlns="">166.06</priceEach>
-	                <orderLineNumber xmlns="">3</orderLineNumber>
-                </Orderdetail>
-            </insert>
-        </Body>
-    </Envelope>
-    */
+
     @WebMethod
     @WebResult(name = "OrderdetailPK")
     public OrderdetailPK insert(@WebParam(name = "Orderdetail") Orderdetail orderdetail){
@@ -124,6 +107,7 @@ public class OrderdetailSop {
             return null;
         }
     }
+
     @WebMethod
     @WebResult(name = "OrderdetailPK")
     public OrderdetailPK update(@WebParam(name = "Orderdetail") Orderdetail orderdetail){
@@ -172,6 +156,4 @@ public class OrderdetailSop {
             return null;
         }
     }
-
-
 }

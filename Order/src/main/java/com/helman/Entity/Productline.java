@@ -3,6 +3,10 @@ package com.helman.Entity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import javax.persistence.*;
 import javax.xml.bind.DatatypeConverter;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,6 +14,8 @@ import java.util.Set;
 @Entity
 @Table(name = "productlines")
 @JsonFilter("Productlinefilter")
+@XmlRootElement(name = "ProductlineXML")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Productline {
     public Productline(){
     }
@@ -20,6 +26,7 @@ public class Productline {
     private byte[] image;
     private String photo;
 
+    @XmlTransient
     private List<Product> products=null;
 
     @Id
