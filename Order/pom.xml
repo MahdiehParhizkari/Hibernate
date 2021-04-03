@@ -227,31 +227,6 @@
       <plugins>
         <!-- ________________ Generating Stub for Soap services _____________________ -->
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>jaxws-maven-plugin</artifactId>
-          <version>2.6</version>
-          <executions>
-            <execution>
-              <id>Customer_wsdl</id>
-              <goals><goal>wsimport</goal></goals>
-              <configuration>
-                <wsdlUrls><wsdlUrl>http://localhost:8080/order/soap/customer?wsdl</wsdlUrl></wsdlUrls>
-                <keep>true</keep>
-                <packageName>com.afshin.Webservice.stub.customer</packageName>
-                <sourceDestDir>${basedir}/src/test/java</sourceDestDir>
-              </configuration>
-            </execution>
-          </executions>
-          <dependencies>
-            <dependency>
-              <groupId>org.codehaus.mojo</groupId>
-              <artifactId>jaxws-maven-plugin</artifactId>
-              <version>2.6</version>
-            </dependency>
-          </dependencies>
-          <!-- WSgen (WSDL generator) & WS import (Create client object from WSDL) See Plugin section -->
-        </plugin>
-        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>

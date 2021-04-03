@@ -80,6 +80,21 @@ public class Employeedao {
             return -1;
         }
     }
+
+    public long update(Employee employee){
+        try {
+            Transaction tx = neshast.beginTransaction();
+            //neshast.evict(employee);
+            neshast.merge(employee);
+            tx.commit();
+            Logback.logger.info("{}.{}|Try:Updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return employee.getEmployeeNumber();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return -1;
+        }
+    }
     public Integer delete(Long id){
         try{
             Employee e=findbyid(id);
@@ -92,20 +107,6 @@ public class Employeedao {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
             return -1;
-        }
-    }
-    public Long update(Employee employee){
-        try {
-            Transaction tx = neshast.beginTransaction();
-            //neshast.evict(employee);
-            neshast.merge(employee);
-            tx.commit();
-            Logback.logger.info("{}.{}|Try:Updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-            return employee.getEmployeeNumber();
-        }catch (Exception e){
-            Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
-            e.printStackTrace();
-            return null;
         }
     }
 }
