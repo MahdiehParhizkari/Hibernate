@@ -90,13 +90,13 @@ public class EmployeeSoaptest {
         req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
 
         Employee employee = EInt.findbyid(1001l);
-/*        employee.setLastName("Maraghiiii");
+        employee.setLastName("Maraghiiii");
         employee.setFirstName("Mohammad");
         employee.setExtension("x5800");
         employee.setEmail("MoA@gmail");
         employee.setOfficeCode("1");
         employee.setReportsTo(Long.valueOf(1002));
-        employee.setJobTitle("nurse1");*/
+        employee.setJobTitle("nurse1");
         Long returnStatus = EInt.update(employee);
         System.out.println(returnStatus);
     }
