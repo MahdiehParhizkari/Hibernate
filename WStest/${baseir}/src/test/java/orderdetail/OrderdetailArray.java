@@ -1,5 +1,5 @@
 
-package office;
+package orderdetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +10,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for officeArray complex type.
+ * <p>Java class for orderdetailArray complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="officeArray"&gt;
+ * &lt;complexType name="orderdetailArray"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="item" type="{http://Webservice.helman.com/}office" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="item" type="{http://Webservice.helman.com/}orderdetail" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -29,13 +29,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "officeArray", propOrder = {
+@XmlType(name = "orderdetailArray", propOrder = {
     "item"
 })
-public class OfficeArray {
+public class OrderdetailArray {
 
     @XmlElement(nillable = true)
-    protected List<Office> item;
+    protected List<Orderdetail> item;
 
     /**
      * Gets the value of the item property.
@@ -55,13 +55,13 @@ public class OfficeArray {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Office }
+     * {@link Orderdetail }
      * 
      * 
      */
-    public List<Office> getItem() {
+    public List<Orderdetail> getItem() {
         if (item == null) {
-            item = new ArrayList<Office>();
+            item = new ArrayList<Orderdetail>();
         }
         return this.item;
     }

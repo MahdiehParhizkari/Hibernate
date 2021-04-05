@@ -52,7 +52,7 @@ public class CustomerSoaptest {
     }
 
     @Test
-    public void findbyidTest() throws MalformedURLException{
+    public void findbyidTest(){
         Map<String, Object> req_ctx = ((BindingProvider)CInt).getRequestContext();
         Map<String, List<String>> headers = new HashMap<>();
         String credential = "Basic " + new String(Base64.encode("admin:123".getBytes()));

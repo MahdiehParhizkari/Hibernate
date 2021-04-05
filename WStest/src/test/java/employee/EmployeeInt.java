@@ -26,6 +26,16 @@ public interface EmployeeInt {
 
     /**
      * 
+     * @return
+     *     returns employee.EmployeeArray
+     */
+    @WebMethod
+    @WebResult(name = "Employees", partName = "Employees")
+    @Action(input = "http://Webservice.helman.com/EmployeeInt/findallRequest", output = "http://Webservice.helman.com/EmployeeInt/findallResponse")
+    public EmployeeArray findall();
+
+    /**
+     * 
      * @param employeeNumber
      * @return
      *     returns employee.Employee
@@ -36,16 +46,6 @@ public interface EmployeeInt {
     public Employee findbyid(
         @WebParam(name = "employeeNumber", partName = "employeeNumber")
         long employeeNumber);
-
-    /**
-     * 
-     * @return
-     *     returns employee.EmployeeArray
-     */
-    @WebMethod
-    @WebResult(name = "Employees", partName = "Employees")
-    @Action(input = "http://Webservice.helman.com/EmployeeInt/findallRequest", output = "http://Webservice.helman.com/EmployeeInt/findallResponse")
-    public EmployeeArray findall();
 
     /**
      * 
